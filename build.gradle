@@ -1,0 +1,43 @@
+import io.gitlab.arturbosch.detekt.Detekt
+
+plugins {
+    alias libs.plugins.org.jetbrains.kotlin.multiplatform apply false
+    alias libs.plugins.com.vanniktech.maven.publish apply false
+    alias libs.plugins.io.gitlab.arturbosch.detekt
+    alias libs.plugins.nl.littlerobots.version.catalog.update
+}
+
+apply from: rootProject.layout.projectDirectory.file("gradle/resolve-all-dependencies.gradle")
+
+detekt {
+    parallel = true
+    autoCorrect = project.providers.gradleProperty("autoCorrect").present
+    config.from = rootProject.layout.projectDirectory.file(".lint/detekt.yml")
+    source.from = rootProject.layout.projectDirectory.asFileTree.matching {
+        include("**/*.kt", "**/*.kts")
+        exclude("**/build/")
+    }
+    baseline = rootProject.layout.projectDirectory.file(".lint/baseline.xml").asFile
+}
+
+tasks.withType(Detekt).configureEach {
+    jvmTarget = libs.versions.jdk.get()
+}
+
+dependencies {
+    detektPlugins(libs.io.gitlab.arturbosch.detekt.formatting)
+}
+
+allprojects {
+    group = "io.github.ryunen344.mutton"
+    version = providers.fileContents(rootProject.layout.projectDirectory.file("version.txt")).asText.getOrElse("snapshot").trim()
+}
+
+versionCatalogUpdate {
+    sortByKey = true
+    keep {
+        keepUnusedVersions = true
+        keepUnusedLibraries = true
+        keepUnusedPlugins = true
+    }
+}

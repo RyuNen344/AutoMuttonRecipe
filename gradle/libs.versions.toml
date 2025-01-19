@@ -1,0 +1,38 @@
+[versions]
+assertk = "0.28.1"
+atomicfu = "0.27.0"
+binary-compatibility-validator = "0.17.0"
+coroutines = "1.10.1"
+detekt = "1.23.7"
+jdk = "11"
+kotlin = "2.1.0"
+kover = "0.9.1"
+maven-publish = "0.30.0"
+okio = "3.10.2"
+serialization = "1.8.0"
+turbine = "1.2.0"
+version-catalog-update = "0.8.5"
+
+[libraries]
+app-cash-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+com-squareup-okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
+com-willowtreeapps-assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
+io-gitlab-arturbosch-detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+org-jetbrains-kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+org-jetbrains-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+org-jetbrains-kotlinx-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu" }
+org-jetbrains-kotlinx-coroutine-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+org-jetbrains-kotlinx-coroutine-debug = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-debug", version.ref = "coroutines" }
+org-jetbrains-kotlinx-coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+org-jetbrains-kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
+
+[plugins]
+com-vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
+io-gitlab-arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+nl-littlerobots-version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "version-catalog-update" }
+org-jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+org-jetbrains-kotlin-plugin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+org-jetbrains-kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+org-jetbrains-kotlinx-atomicfu = { id = "org.jetbrains.kotlinx.atomicfu", version.ref = "atomicfu" }
+org-jetbrains-kotlinx-binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-compatibility-validator" }
+org-jetbrains-kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }

@@ -1,0 +1,54 @@
+pluginManager.apply("com.vanniktech.maven.publish")
+
+def localProperty = new Properties()
+def localPropertyFile = rootProject.layout.projectDirectory.file("local.properties").asFile
+if (localPropertyFile.exists()) {
+    localProperty.load(localPropertyFile.newDataInputStream())
+}
+
+afterEvaluate {
+    mavenPublishing {
+        pom {
+            url.set("https://github.com/RyuNen344/AutoMuttonRecipe")
+            licenses {
+                license {
+                    name = "Apache-2.0"
+                    url = "https://github.com/RyuNen344/AutoMuttonRecipe/blob/main/LICENSE.md"
+                    distribution = "repo"
+                }
+            }
+            developers {
+                developer {
+                    id = "RyuNen344"
+                    name = "RyuNen344"
+                    email = "s1100633@outlook.com"
+                }
+            }
+            scm {
+                url = "https://github.com/RyuNen344/AutoMuttonRecipe"
+                connection = "scm:git://github.com/RyuNen344/AutoMuttonRecipe.git"
+                developerConnection = "scm:git:ssh://github.com/RyuNen344/AutoMuttonRecipe.git"
+            }
+        }
+    }
+
+    publishing {
+        repositories {
+            maven {
+                name = "Local"
+                setUrl(rootProject.layout.projectDirectory.dir("releases/maven"))
+            }
+        }
+    }
+}
+
+//signing {
+//    def enabled = localProperty.getProperty("signing.enabled")?.toBoolean() ?: System.getenv("SIGNING_ENABLED")?.toBoolean() ?: false
+//    if (enabled) {
+//        def keyId = localProperty.getProperty("pgp.key_id") ?: System.getenv("PGP_KEY_ID")
+//        def secretKey = localProperty.getProperty("pgp.signing_key") ?: System.getenv("PGP_SIGNING_KEY")
+//        def password = localProperty.getProperty("pgp.signing_password") ?: System.getenv("PGP_SIGNING_PASSWORD")
+//        useInMemoryPgpKeys(keyId, secretKey, password)
+//        sign(publishing.publications)
+//    }
+//}
