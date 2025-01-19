@@ -49,19 +49,21 @@ public abstract class StateMachine<S, A, E>(
 
     private val mutex by lazy { Mutex() }
 
-    private val _state: MutableStateFlow<S> = MutableStateFlow(initialState)
-    public val state: StateFlow<S> = _state.asStateFlow()
-
-    private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
-        logger.log(name, exception) { "StateMachine caught unhandled exception" }
-        if (fallback != null) {
-            scope.launch {
-                dispatch(fallback(exception))
+    private val exceptionHandler by lazy {
+        CoroutineExceptionHandler { _, exception ->
+            logger.log(name, exception) { "StateMachine caught unhandled exception" }
+            if (fallback != null) {
+                scope.launch {
+                    dispatch(fallback(exception))
+                }
+            } else {
+                throw exception
             }
-        } else {
-            throw exception
         }
     }
+
+    private val _state: MutableStateFlow<S> = MutableStateFlow(initialState)
+    public val state: StateFlow<S> = _state.asStateFlow()
 
     public suspend fun dispatch(action: A) {
         withContext(scope.coroutineContext + exceptionHandler) {
