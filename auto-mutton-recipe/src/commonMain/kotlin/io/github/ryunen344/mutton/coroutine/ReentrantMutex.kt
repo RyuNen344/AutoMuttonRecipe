@@ -37,7 +37,7 @@ import kotlin.coroutines.coroutineContext
 /**
  * A reentrant mutex that allows reentrant locking in the same coroutine context.
  *
- * For original, see [elizarov/ReentrantMutex.kt](https://gist.github.com/elizarov/9a48b9709ffd508909d34fab6786acfe)
+ * For more info, see [elizarov/ReentrantMutex.kt](https://gist.github.com/elizarov/9a48b9709ffd508909d34fab6786acfe)
  */
 internal suspend fun <T> Mutex.withReentrantLock(block: suspend () -> T): T {
     val key = ReentrantMutexContextKey(this)
