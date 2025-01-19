@@ -83,7 +83,7 @@ public abstract class StateMachine<S, A, E>(
         scope.launch(exceptionHandler) {
             mutex.withReentrantLock {
                 logger.log(name) { "effect:[$effect], prev:[$prev], current:[$current]" }
-                effectHandle.invoke(effect, prev, current, ::dispatch)
+                effectHandle(effect, prev, current, ::dispatch)
             }
         }
     }
