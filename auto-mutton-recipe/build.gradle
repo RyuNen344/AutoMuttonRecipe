@@ -1,0 +1,103 @@
+import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
+
+plugins {
+    alias libs.plugins.org.jetbrains.kotlin.multiplatform
+    alias libs.plugins.org.jetbrains.kotlinx.atomicfu
+    alias libs.plugins.org.jetbrains.kotlinx.binary.compatibility.validator
+    alias libs.plugins.org.jetbrains.kotlinx.kover
+}
+
+apply from: rootProject.layout.projectDirectory.file("gradle/publish.gradle")
+
+kotlin {
+    explicitApi()
+
+    // jvm
+    jvm()
+
+    // native
+    androidNativeArm32()
+    androidNativeArm64()
+    androidNativeX86()
+    androidNativeX64()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+    tvosX64()
+    tvosArm64()
+    tvosSimulatorArm64()
+    watchosArm32()
+    watchosArm64()
+    watchosDeviceArm64()
+    watchosX64()
+    watchosSimulatorArm64()
+    linuxX64()
+    linuxArm64()
+    macosX64()
+    macosArm64()
+    mingwX64()
+
+    // js
+    js {
+        compilations.configureEach {
+            kotlinOptions {
+                moduleKind = "umd"
+                sourceMap = true
+            }
+        }
+        nodejs {
+            testTask {
+                useMocha {
+                    timeout = "30s"
+                }
+            }
+        }
+        browser()
+    }
+
+    // wasm
+    wasmJs {
+        nodejs()
+    }
+    wasmWasi {
+        nodejs()
+    }
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation libs.org.jetbrains.kotlinx.atomicfu
+            implementation libs.org.jetbrains.kotlinx.coroutine.core
+        }
+
+        commonTest.dependencies {
+            implementation libs.app.cash.turbine
+//            implementation libs.com.squareup.okio
+            implementation libs.com.willowtreeapps.assertk
+            implementation libs.org.jetbrains.kotlin.test
+            implementation libs.org.jetbrains.kotlin.reflect
+            implementation libs.org.jetbrains.kotlinx.coroutine.test
+        }
+        nonJvmTest {
+            dependsOn(commonTest)
+        }
+    }
+
+    sourceSets.matching { it.name.endsWith("Test") }.configureEach {
+        it.languageSettings {
+            optIn('kotlinx.coroutines.DelicateCoroutinesApi')
+            optIn('kotlinx.coroutines.InternalCoroutinesApi')
+            optIn('kotlinx.coroutines.ExperimentalCoroutinesApi')
+        }
+    }
+
+    targets.each { target ->
+        if (target.platformType == KotlinPlatformType.common) return
+        if (target.platformType != KotlinPlatformType.jvm) {
+            target.compilations.test.defaultSourceSet.dependsOn(sourceSets.nonJvmTest)
+        }
+    }
+}
+
+apiValidation {
+    klib.enabled = true
+}
