@@ -22,9 +22,11 @@ package io.github.ryunen344.mutton
 import io.github.ryunen344.mutton.coroutine.withReentrantLock
 import io.github.ryunen344.mutton.log.Logger
 import io.github.ryunen344.mutton.log.NoopLogger
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -91,5 +93,13 @@ public abstract class StateMachine<S, A, E>(
                 effectHandle(effect, prev, current, ::dispatch)
             }
         }
+    }
+
+    public fun close(message: String, cause: Throwable? = null) {
+        scope.cancel(message, cause)
+    }
+
+    public fun close(cause: CancellationException? = null) {
+        scope.cancel(cause)
     }
 }
