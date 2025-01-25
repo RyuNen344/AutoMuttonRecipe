@@ -21,18 +21,18 @@ package io.github.ryunen344.mutton
 
 import app.cash.turbine.turbineScope
 import io.github.ryunen344.mutton.testing.TestLogger
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
+import kotlin.coroutines.CoroutineContext
 import kotlin.test.Test
 
 class StateMachineTest {
     @Test
     fun testGraph() = runTest {
         println(graph)
-        graph.definitions.forEach { (state, actions) ->
+        graph.edges.forEach { (state, actions) ->
             println("when state is $state")
             actions.forEach { (action, transition) ->
                 println("given action $action")
@@ -42,9 +42,9 @@ class StateMachineTest {
     }
 
     @Test
-    fun testStateMachine() = runTest(UnconfinedTestDispatcher()) {
+    fun testStateMachine() = runTest {
         turbineScope {
-            val stateMachine = SampleStateMachine(this)
+            val stateMachine = SampleStateMachine(UnconfinedTestDispatcher(testScheduler))
             val receiver = stateMachine.state.testIn(this)
             stateMachine.dispatch(SampleAction.Start)
             advanceUntilIdle()
@@ -57,13 +57,13 @@ class StateMachineTest {
     }
 }
 
-class SampleStateMachine(scope: CoroutineScope) : StateMachine<SampleState, SampleAction, SampleEffect>(
+class SampleStateMachine(context: CoroutineContext) : StateMachine<SampleState, SampleAction, SampleEffect>(
     initialState = SampleState.Idle(0),
     graph = graph,
     effectHandle = effectHandle,
     fallback = fallback,
     logger = TestLogger,
-    scope = scope,
+    context = context,
 )
 
 sealed class SampleState : State() {

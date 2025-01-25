@@ -31,7 +31,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -42,12 +41,13 @@ public abstract class StateMachine<S, A, E>(
     public val fallback: (suspend (Throwable) -> A)? = null,
     public val logger: Logger = NoopLogger,
     public val context: CoroutineContext = EmptyCoroutineContext,
-    public val scope: CoroutineScope = CoroutineScope(SupervisorJob() + context),
 ) where S : State, A : Action, E : Effect {
 
-    private val name by lazy { this::class.simpleName.orEmpty() }
+    private val name: String by lazy { this::class.simpleName.orEmpty() }
 
-    private val mutex by lazy { Mutex() }
+    private val mutex: Mutex by lazy { Mutex() }
+
+    public val scope: CoroutineScope by lazy { CoroutineScope(SupervisorJob() + context) }
 
     private val exceptionHandler by lazy {
         CoroutineExceptionHandler { _, exception ->
@@ -65,11 +65,11 @@ public abstract class StateMachine<S, A, E>(
     private val _state: MutableStateFlow<S> = MutableStateFlow(initialState)
     public val state: StateFlow<S> = _state.asStateFlow()
 
-    public suspend fun dispatch(action: A) {
-        withContext(scope.coroutineContext + exceptionHandler) {
+    public fun dispatch(action: A) {
+        scope.launch(exceptionHandler) {
             mutex.withReentrantLock {
                 val current = _state.value
-                val transition = graph.definitions[current::class]?.get(action::class)?.invoke(current, action)
+                val transition = graph.edges[current::class]?.get(action::class)?.invoke(current, action)
                 if (transition != null) {
                     logger.log(name) { "dispatch:[$action], current state:[$current], transition:[$transition]" }
                     _state.update { transition.next }

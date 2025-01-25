@@ -17,18 +17,7 @@
  * License-Filename: LICENSE.md
  */
 
-package io.github.ryunen344.mutton
+package io.github.ryunen344.mutton.annotation
 
-import kotlin.reflect.KClass
-
-public class Graph<S, A, E>(
-    public val edges: Map<KClass<S>, Map<KClass<A>, (prev: S, action: A) -> Transition<S, E>>>,
-) where S : State, A : Action, E : Effect {
-    public companion object {
-        public operator fun <S, A, E> invoke(
-            builder: GraphBuilder<S, A, E>.() -> Unit,
-        ): Graph<S, A, E> where S : State, A : Action, E : Effect {
-            return GraphBuilder<S, A, E>().apply(builder).build()
-        }
-    }
-}
+@DslMarker
+public annotation class StateMachineDslMarker
