@@ -28,7 +28,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlin.coroutines.CoroutineContext
@@ -71,9 +70,13 @@ public abstract class StateMachine<S, A, E>(
                 val current = _state.value
                 val transition = graph.edges[current::class]?.get(action::class)?.invoke(current, action)
                 if (transition != null) {
-                    logger.log(name) { "dispatch:[$action], current state:[$current], transition:[$transition]" }
-                    _state.update { transition.next }
-                    transition.effect?.let { effect(it, current, transition.next) }
+                    val updated = _state.compareAndSet(current, transition.next)
+                    if (updated) {
+                        logger.log(name) { "dispatch:[$action], current state:[$current], transition:[$transition]" }
+                        transition.effect?.let { effect(it, current, transition.next) }
+                    } else {
+                        logger.log(name) { "un-dispatched action:[$action], current state:[$current], transition:[$transition]" }
+                    }
                 } else {
                     logger.log(name) { "unhandled action:[$action], current state:[$current], transition:[null]" }
                 }

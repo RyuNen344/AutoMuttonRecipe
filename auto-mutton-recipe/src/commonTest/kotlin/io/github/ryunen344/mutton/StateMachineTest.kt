@@ -21,6 +21,7 @@ package io.github.ryunen344.mutton
 
 import app.cash.turbine.turbineScope
 import io.github.ryunen344.mutton.testing.TestLogger
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -46,7 +47,8 @@ class StateMachineTest {
         turbineScope {
             val stateMachine = SampleStateMachine(UnconfinedTestDispatcher(testScheduler))
             val receiver = stateMachine.state.testIn(this)
-            stateMachine.dispatch(SampleAction.Start)
+            async { stateMachine.dispatch(SampleAction.Start) }
+            async { stateMachine.dispatch(SampleAction.Start) }
             advanceUntilIdle()
             stateMachine.dispatch(SampleAction.Start)
             advanceUntilIdle()
