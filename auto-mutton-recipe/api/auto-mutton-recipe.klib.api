@@ -1,18 +1,23 @@
 // Klib ABI Dump
 // Targets: [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, wasmWasi, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
 // Alias: native => [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Alias: apple => [iosArm64, iosSimulatorArm64, iosX64, macosArm64, macosX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
 // Rendering settings:
 // - Signature version: 2
 // - Show manifest properties: true
 // - Show declarations: true
 
 // Library unique name: <io.github.ryunen344.mutton:auto-mutton-recipe>
+open annotation class io.github.ryunen344.mutton.annotation/StateMachineDslMarker : kotlin/Annotation { // io.github.ryunen344.mutton.annotation/StateMachineDslMarker|null[0]
+    constructor <init>() // io.github.ryunen344.mutton.annotation/StateMachineDslMarker.<init>|<init>(){}[0]
+}
+
 abstract fun interface <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutton/Action, #C: io.github.ryunen344.mutton/Effect> io.github.ryunen344.mutton/EffectHandle { // io.github.ryunen344.mutton/EffectHandle|null[0]
     abstract suspend fun invoke(#C, #A, #A, kotlin.coroutines/SuspendFunction1<#B, kotlin/Unit>) // io.github.ryunen344.mutton/EffectHandle.invoke|invoke(1:2;1:0;1:0;kotlin.coroutines.SuspendFunction1<1:1,kotlin.Unit>){}[0]
 }
 
 abstract class <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutton/Action, #C: io.github.ryunen344.mutton/Effect> io.github.ryunen344.mutton/StateMachine { // io.github.ryunen344.mutton/StateMachine|null[0]
-    constructor <init>(#A, io.github.ryunen344.mutton/Graph<#A, #B, #C>, io.github.ryunen344.mutton/EffectHandle<#A, #B, #C>, kotlin.coroutines/SuspendFunction1<kotlin/Throwable, #B>? = ..., io.github.ryunen344.mutton.log/Logger = ..., kotlin.coroutines/CoroutineContext = ..., kotlinx.coroutines/CoroutineScope = ...) // io.github.ryunen344.mutton/StateMachine.<init>|<init>(1:0;io.github.ryunen344.mutton.Graph<1:0,1:1,1:2>;io.github.ryunen344.mutton.EffectHandle<1:0,1:1,1:2>;kotlin.coroutines.SuspendFunction1<kotlin.Throwable,1:1>?;io.github.ryunen344.mutton.log.Logger;kotlin.coroutines.CoroutineContext;kotlinx.coroutines.CoroutineScope){}[0]
+    constructor <init>(#A, io.github.ryunen344.mutton/Graph<#A, #B, #C>, io.github.ryunen344.mutton/EffectHandle<#A, #B, #C>, kotlin.coroutines/SuspendFunction1<kotlin/Throwable, #B>? = ..., io.github.ryunen344.mutton.log/Logger = ..., kotlin.coroutines/CoroutineContext = ...) // io.github.ryunen344.mutton/StateMachine.<init>|<init>(1:0;io.github.ryunen344.mutton.Graph<1:0,1:1,1:2>;io.github.ryunen344.mutton.EffectHandle<1:0,1:1,1:2>;kotlin.coroutines.SuspendFunction1<kotlin.Throwable,1:1>?;io.github.ryunen344.mutton.log.Logger;kotlin.coroutines.CoroutineContext){}[0]
 
     final val context // io.github.ryunen344.mutton/StateMachine.context|{}context[0]
         final fun <get-context>(): kotlin.coroutines/CoroutineContext // io.github.ryunen344.mutton/StateMachine.context.<get-context>|<get-context>(){}[0]
@@ -29,7 +34,9 @@ abstract class <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mu
     final val state // io.github.ryunen344.mutton/StateMachine.state|{}state[0]
         final fun <get-state>(): kotlinx.coroutines.flow/StateFlow<#A> // io.github.ryunen344.mutton/StateMachine.state.<get-state>|<get-state>(){}[0]
 
-    final suspend fun dispatch(#B) // io.github.ryunen344.mutton/StateMachine.dispatch|dispatch(1:1){}[0]
+    final fun close(kotlin.coroutines.cancellation/CancellationException? = ...) // io.github.ryunen344.mutton/StateMachine.close|close(kotlin.coroutines.cancellation.CancellationException?){}[0]
+    final fun close(kotlin/String, kotlin/Throwable? = ...) // io.github.ryunen344.mutton/StateMachine.close|close(kotlin.String;kotlin.Throwable?){}[0]
+    final fun dispatch(#B) // io.github.ryunen344.mutton/StateMachine.dispatch|dispatch(1:1){}[0]
 }
 
 abstract class io.github.ryunen344.mutton.log/Logger { // io.github.ryunen344.mutton.log/Logger|null[0]
@@ -54,44 +61,55 @@ abstract class io.github.ryunen344.mutton/State { // io.github.ryunen344.mutton/
 }
 
 final class <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutton/Action, #C: io.github.ryunen344.mutton/Effect> io.github.ryunen344.mutton/Graph { // io.github.ryunen344.mutton/Graph|null[0]
-    constructor <init>(kotlin.collections/Map<kotlin.reflect/KClass<#A>, kotlin.collections/Map<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>?>>>) // io.github.ryunen344.mutton/Graph.<init>|<init>(kotlin.collections.Map<kotlin.reflect.KClass<1:0>,kotlin.collections.Map<kotlin.reflect.KClass<1:1>,kotlin.Function2<1:0,1:1,io.github.ryunen344.mutton.Transition<1:0,1:2>?>>>){}[0]
+    constructor <init>(kotlin.collections/Map<kotlin.reflect/KClass<#A>, kotlin.collections/Map<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>>>>) // io.github.ryunen344.mutton/Graph.<init>|<init>(kotlin.collections.Map<kotlin.reflect.KClass<1:0>,kotlin.collections.Map<kotlin.reflect.KClass<1:1>,kotlin.Function2<1:0,1:1,io.github.ryunen344.mutton.Transition<1:0,1:2>>>>){}[0]
 
-    final val definitions // io.github.ryunen344.mutton/Graph.definitions|{}definitions[0]
-        final fun <get-definitions>(): kotlin.collections/Map<kotlin.reflect/KClass<#A>, kotlin.collections/Map<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>?>>> // io.github.ryunen344.mutton/Graph.definitions.<get-definitions>|<get-definitions>(){}[0]
+    final val edges // io.github.ryunen344.mutton/Graph.edges|{}edges[0]
+        final fun <get-edges>(): kotlin.collections/Map<kotlin.reflect/KClass<#A>, kotlin.collections/Map<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>>>> // io.github.ryunen344.mutton/Graph.edges.<get-edges>|<get-edges>(){}[0]
+
+    final object Companion { // io.github.ryunen344.mutton/Graph.Companion|null[0]
+        final fun <#A2: io.github.ryunen344.mutton/State, #B2: io.github.ryunen344.mutton/Action, #C2: io.github.ryunen344.mutton/Effect> invoke(kotlin/Function1<io.github.ryunen344.mutton/GraphBuilder<#A2, #B2, #C2>, kotlin/Unit>): io.github.ryunen344.mutton/Graph<#A2, #B2, #C2> // io.github.ryunen344.mutton/Graph.Companion.invoke|invoke(kotlin.Function1<io.github.ryunen344.mutton.GraphBuilder<0:0,0:1,0:2>,kotlin.Unit>){0§<io.github.ryunen344.mutton.State>;1§<io.github.ryunen344.mutton.Action>;2§<io.github.ryunen344.mutton.Effect>}[0]
+    }
 }
 
 final class <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutton/Action, #C: io.github.ryunen344.mutton/Effect> io.github.ryunen344.mutton/GraphBuilder { // io.github.ryunen344.mutton/GraphBuilder|null[0]
     constructor <init>() // io.github.ryunen344.mutton/GraphBuilder.<init>|<init>(){}[0]
 
-    final val actions // io.github.ryunen344.mutton/GraphBuilder.actions|{}actions[0]
+    final val edges // io.github.ryunen344.mutton/GraphBuilder.edges|{}edges[0]
         // Targets: [native, wasmJs, wasmWasi]
-        final fun <get-actions>(): kotlin.collections/HashMap<kotlin.reflect/KClass<#A>, kotlin.collections/HashMap<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>?>>> // io.github.ryunen344.mutton/GraphBuilder.actions.<get-actions>|<get-actions>(){}[0]
+        final fun <get-edges>(): kotlin.collections/HashMap<kotlin.reflect/KClass<#A>, kotlin.collections/HashMap<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>>>> // io.github.ryunen344.mutton/GraphBuilder.edges.<get-edges>|<get-edges>(){}[0]
 
         // Targets: [js]
-        final fun <get-actions>(): kotlin.collections/LinkedHashMap<kotlin.reflect/KClass<#A>, kotlin.collections/LinkedHashMap<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>?>>> // io.github.ryunen344.mutton/GraphBuilder.actions.<get-actions>|<get-actions>(){}[0]
+        final fun <get-edges>(): kotlin.collections/LinkedHashMap<kotlin.reflect/KClass<#A>, kotlin.collections/LinkedHashMap<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>>>> // io.github.ryunen344.mutton/GraphBuilder.edges.<get-edges>|<get-edges>(){}[0]
 
     final fun build(): io.github.ryunen344.mutton/Graph<#A, #B, #C> // io.github.ryunen344.mutton/GraphBuilder.build|build(){}[0]
-    final inline fun <#A1: reified #A> state(noinline kotlin/Function1<io.github.ryunen344.mutton/GraphBuilder.ActionBuilder<#A1, #A, #B, #C>, kotlin/Unit>) // io.github.ryunen344.mutton/GraphBuilder.state|state(kotlin.Function1<io.github.ryunen344.mutton.GraphBuilder.ActionBuilder<0:0,1:0,1:1,1:2>,kotlin.Unit>){0§<1:0>}[0]
+    final inline fun <#A1: reified #A> state(kotlin/Function1<io.github.ryunen344.mutton/GraphBuilder.ActionBuilder<#A1, #A, #B, #C>, kotlin/Unit>) // io.github.ryunen344.mutton/GraphBuilder.state|state(kotlin.Function1<io.github.ryunen344.mutton.GraphBuilder.ActionBuilder<0:0,1:0,1:1,1:2>,kotlin.Unit>){0§<1:0>}[0]
 
     final inner class <#A1: #A> ActionBuilder { // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder|null[0]
         constructor <init>() // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.<init>|<init>(){}[0]
 
-        final val transitions // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.transitions|{}transitions[0]
+        final val actions // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.actions|{}actions[0]
             // Targets: [native, wasmJs, wasmWasi]
-            final fun <get-transitions>(): kotlin.collections/HashMap<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>?>> // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.transitions.<get-transitions>|<get-transitions>(){}[0]
+            final fun <get-actions>(): kotlin.collections/HashMap<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>>> // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.actions.<get-actions>|<get-actions>(){}[0]
 
             // Targets: [js]
-            final fun <get-transitions>(): kotlin.collections/LinkedHashMap<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>?>> // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.transitions.<get-transitions>|<get-transitions>(){}[0]
+            final fun <get-actions>(): kotlin.collections/LinkedHashMap<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>>> // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.actions.<get-actions>|<get-actions>(){}[0]
 
-        final inline fun <#A2: reified #B> action(noinline kotlin/Function3<io.github.ryunen344.mutton/GraphBuilder.TransitionBuilder<#A, #A, #B, #C>, #A1, #A2, io.github.ryunen344.mutton/Transition<#A, #C>>) // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.action|action(kotlin.Function3<io.github.ryunen344.mutton.GraphBuilder.TransitionBuilder<2:0,2:0,2:1,2:2>,1:0,0:0,io.github.ryunen344.mutton.Transition<2:0,2:2>>){0§<2:1>}[0]
+        final inline fun <#A2: reified #B> action(noinline kotlin/Function3<io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.TransitionBuilder<#A1, #A1, #A, #B, #C>, #A1, #A2, io.github.ryunen344.mutton/Transition<#A, #C>>) // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.action|action(kotlin.Function3<io.github.ryunen344.mutton.GraphBuilder.ActionBuilder.TransitionBuilder<1:0,1:0,2:0,2:1,2:2>,1:0,0:0,io.github.ryunen344.mutton.Transition<2:0,2:2>>){0§<2:1>}[0]
+
+        final inner class <#A2: #A> TransitionBuilder { // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.TransitionBuilder|null[0]
+            constructor <init>() // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.TransitionBuilder.<init>|<init>(){}[0]
+
+            final fun transition(#A, #C? = ...): io.github.ryunen344.mutton/Transition<#A, #C> // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.TransitionBuilder.transition|transition(3:0;3:2?){}[0]
+        }
+
+        // Targets: [apple]
+        final val transitions // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.transitions|{}transitions[0]
+            final fun <get-transitions>(): kotlin.collections/HashMap<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>?>> // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.transitions.<get-transitions>|<get-transitions>(){}[0]
     }
 
-    final inner class <#A1: #A> TransitionBuilder { // io.github.ryunen344.mutton/GraphBuilder.TransitionBuilder|null[0]
-        constructor <init>() // io.github.ryunen344.mutton/GraphBuilder.TransitionBuilder.<init>|<init>(){}[0]
-
-        final fun build(): io.github.ryunen344.mutton/Transition<#A, #C>? // io.github.ryunen344.mutton/GraphBuilder.TransitionBuilder.build|build(){}[0]
-        final fun transition(#A, #C? = ...): io.github.ryunen344.mutton/Transition<#A, #C> // io.github.ryunen344.mutton/GraphBuilder.TransitionBuilder.transition|transition(2:0;2:2?){}[0]
-    }
+    // Targets: [apple]
+    final val actions // io.github.ryunen344.mutton/GraphBuilder.actions|{}actions[0]
+        final fun <get-actions>(): kotlin.collections/HashMap<kotlin.reflect/KClass<#A>, kotlin.collections/HashMap<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>?>>> // io.github.ryunen344.mutton/GraphBuilder.actions.<get-actions>|<get-actions>(){}[0]
 }
 
 final class <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutton/Effect> io.github.ryunen344.mutton/Transition { // io.github.ryunen344.mutton/Transition|null[0]
@@ -112,5 +130,3 @@ final class <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutto
 
 final val io.github.ryunen344.mutton.log/NoopLogger // io.github.ryunen344.mutton.log/NoopLogger|{}NoopLogger[0]
     final fun <get-NoopLogger>(): io.github.ryunen344.mutton.log/Logger // io.github.ryunen344.mutton.log/NoopLogger.<get-NoopLogger>|<get-NoopLogger>(){}[0]
-
-final fun <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutton/Action, #C: io.github.ryunen344.mutton/Effect> io.github.ryunen344.mutton/Graph(kotlin/Function1<io.github.ryunen344.mutton/GraphBuilder<#A, #B, #C>, kotlin/Unit>): io.github.ryunen344.mutton/Graph<#A, #B, #C> // io.github.ryunen344.mutton/Graph|Graph(kotlin.Function1<io.github.ryunen344.mutton.GraphBuilder<0:0,0:1,0:2>,kotlin.Unit>){0§<io.github.ryunen344.mutton.State>;1§<io.github.ryunen344.mutton.Action>;2§<io.github.ryunen344.mutton.Effect>}[0]
