@@ -25,6 +25,9 @@ import io.github.ryunen344.mutton.coroutine.ExceptionCapturedState
 import io.github.ryunen344.mutton.coroutine.withReentrantLock
 import io.github.ryunen344.mutton.log.Logger
 import io.github.ryunen344.mutton.log.NoopLogger
+import io.github.ryunen344.mutton.log.error
+import io.github.ryunen344.mutton.log.info
+import io.github.ryunen344.mutton.log.warn
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineName
@@ -69,7 +72,7 @@ public abstract class StateMachine<S, A, E>(
             @Suppress("UNCHECKED_CAST")
             val capturedEffect = context[ExceptionCapturedEffect]?.effect as? E
 
-            logger.log(name, exception) {
+            logger.error(name, exception) {
                 "StateMachine caught unhandled exception at state:[$capturedState], action:[$capturedAction], effect:[$capturedEffect]"
             }
 
@@ -95,13 +98,13 @@ public abstract class StateMachine<S, A, E>(
                         if (transition != null) {
                             val updated = _state.compareAndSet(current, transition.next)
                             if (updated) {
-                                logger.log(name) { "dispatch:[$action], current state:[$current], transition:[$transition]" }
+                                logger.info(name) { "dispatch:[$action], current state:[$current], transition:[$transition]" }
                                 transition.effect?.let { effect(it, current, transition.next) }
                             } else {
-                                logger.log(name) { "un-dispatched action:[$action], current state:[$current], transition:[$transition]" }
+                                logger.warn(name) { "un-dispatched action:[$action], current state:[$current], transition:[$transition]" }
                             }
                         } else {
-                            logger.log(name) { "unhandled action:[$action], current state:[$current], transition:[null]" }
+                            logger.warn(name) { "unhandled action:[$action], current state:[$current], transition:[null]" }
                         }
                     } catch (e: CancellationException) {
                         throw e
@@ -117,7 +120,7 @@ public abstract class StateMachine<S, A, E>(
     private fun effect(effect: E, prev: S, current: S) {
         scope.launch(CoroutineName("$name:effect") + ExceptionCapturedState(current) + ExceptionCapturedEffect(effect)) {
             mutex.withReentrantLock {
-                logger.log(name) { "effect:[$effect], prev:[$prev], current:[$current]" }
+                logger.info(name) { "effect:[$effect], prev:[$prev], current:[$current]" }
                 effectHandle(effect, prev, current, ::dispatch)
             }
         }

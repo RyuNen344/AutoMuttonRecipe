@@ -20,11 +20,39 @@
 package io.github.ryunen344.mutton.log
 
 public abstract class Logger {
-    public abstract fun log(tag: String, throwable: Throwable? = null, message: (() -> String)? = null)
+    public abstract fun log(tag: String, level: Level, throwable: Throwable? = null, message: (() -> String)? = null)
+
+    public enum class Level {
+        VERBOSE,
+        DEBUG,
+        INFO,
+        WARN,
+        ERROR,
+    }
+}
+
+public fun Logger.verbose(tag: String, throwable: Throwable? = null, message: (() -> String)? = null) {
+    log(tag, Logger.Level.VERBOSE, throwable, message)
+}
+
+public fun Logger.debug(tag: String, throwable: Throwable? = null, message: (() -> String)? = null) {
+    log(tag, Logger.Level.DEBUG, throwable, message)
+}
+
+public fun Logger.info(tag: String, throwable: Throwable? = null, message: (() -> String)? = null) {
+    log(tag, Logger.Level.INFO, throwable, message)
+}
+
+public fun Logger.warn(tag: String, throwable: Throwable? = null, message: (() -> String)? = null) {
+    log(tag, Logger.Level.WARN, throwable, message)
+}
+
+public fun Logger.error(tag: String, throwable: Throwable? = null, message: (() -> String)? = null) {
+    log(tag, Logger.Level.ERROR, throwable, message)
 }
 
 public val NoopLogger: Logger = object : Logger() {
-    override fun log(tag: String, throwable: Throwable?, message: (() -> String)?) {
+    override fun log(tag: String, level: Level, throwable: Throwable?, message: (() -> String)?) {
         // noop
     }
 }

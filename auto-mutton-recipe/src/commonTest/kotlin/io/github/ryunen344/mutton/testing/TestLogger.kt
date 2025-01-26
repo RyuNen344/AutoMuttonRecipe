@@ -22,9 +22,9 @@ package io.github.ryunen344.mutton.testing
 import io.github.ryunen344.mutton.log.Logger
 
 object TestLogger : Logger() {
-    override fun log(tag: String, throwable: Throwable?, message: (() -> String)?) {
+    override fun log(tag: String, level: Level, throwable: Throwable?, message: (() -> String)?) {
         message?.invoke()?.let {
-            println("$tag: $it")
+            println("$tag ${level.name} : $it")
         }
         throwable?.printStackTrace()
     }
