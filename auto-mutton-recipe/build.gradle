@@ -78,7 +78,6 @@ kotlin {
 
         commonTest.dependencies {
             implementation libs.app.cash.turbine
-//            implementation libs.com.squareup.okio
             implementation libs.com.willowtreeapps.assertk
             implementation libs.org.jetbrains.kotlin.test
             implementation libs.org.jetbrains.kotlin.reflect
