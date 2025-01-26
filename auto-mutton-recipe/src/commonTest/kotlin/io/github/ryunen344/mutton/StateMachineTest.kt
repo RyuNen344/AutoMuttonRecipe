@@ -21,6 +21,7 @@ package io.github.ryunen344.mutton
 
 import app.cash.turbine.turbineScope
 import io.github.ryunen344.mutton.testing.TestLogger
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -63,7 +64,7 @@ class SampleStateMachine(context: CoroutineContext) : StateMachine<SampleState, 
     initialState = SampleState.Idle(0),
     graph = graph,
     effectHandle = effectHandle,
-    fallback = fallback,
+    fallbackHandle = null,
     logger = TestLogger,
     context = context,
 )
@@ -102,6 +103,8 @@ sealed class NextEffect : Effect() {
 val graph = Graph<SampleState, SampleAction, SampleEffect> {
     state<SampleState.Idle> {
         action<SampleAction.Start> { prev, action ->
+//            error("sample error")
+            throw CancellationException("sample cancellation")
             transition(SampleState.Running(prev.launchedCount + 1), SampleEffect.Started)
         }
     }
@@ -120,6 +123,7 @@ val graph = Graph<SampleState, SampleAction, SampleEffect> {
 val effectHandle = EffectHandle<SampleState, SampleAction, SampleEffect> { effect, prev, next, dispatch ->
     when (effect) {
         SampleEffect.Started -> {
+            error("hogehoge")
             delay(3000L)
             dispatch(SampleAction.Stop)
         }
@@ -131,6 +135,6 @@ val effectHandle = EffectHandle<SampleState, SampleAction, SampleEffect> { effec
     }
 }
 
-val fallback: suspend (Throwable) -> SampleAction = { throwable ->
+val fallbackHandle = FallbackHandle<SampleState, SampleAction, SampleEffect> { state, action, effect, throwable ->
     SampleAction.Clean
 }

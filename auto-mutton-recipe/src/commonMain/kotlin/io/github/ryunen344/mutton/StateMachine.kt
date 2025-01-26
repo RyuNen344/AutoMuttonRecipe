@@ -19,19 +19,27 @@
 
 package io.github.ryunen344.mutton
 
+import io.github.ryunen344.mutton.coroutine.ExceptionCapturedAction
+import io.github.ryunen344.mutton.coroutine.ExceptionCapturedEffect
+import io.github.ryunen344.mutton.coroutine.ExceptionCapturedState
 import io.github.ryunen344.mutton.coroutine.withReentrantLock
 import io.github.ryunen344.mutton.log.Logger
 import io.github.ryunen344.mutton.log.NoopLogger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.handleCoroutineException
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -39,7 +47,7 @@ public abstract class StateMachine<S, A, E>(
     initialState: S,
     public val graph: Graph<S, A, E>,
     public val effectHandle: EffectHandle<S, A, E>,
-    public val fallback: (suspend (Throwable) -> A)? = null,
+    public val fallbackHandle: FallbackHandle<S, A, E>? = null,
     public val logger: Logger = NoopLogger,
     public val context: CoroutineContext = EmptyCoroutineContext,
 ) where S : State, A : Action, E : Effect {
@@ -48,15 +56,26 @@ public abstract class StateMachine<S, A, E>(
 
     private val mutex: Mutex by lazy { Mutex() }
 
-    public val scope: CoroutineScope by lazy { CoroutineScope(SupervisorJob() + context) }
+    public val scope: CoroutineScope by lazy { CoroutineScope(CoroutineName(name) + SupervisorJob() + context + exceptionHandler) }
 
     private val exceptionHandler by lazy {
-        CoroutineExceptionHandler { _, exception ->
-            logger.log(name, exception) { "StateMachine caught unhandled exception" }
-            if (fallback != null) {
-                scope.launch {
-                    dispatch(fallback(exception))
-                }
+        CoroutineExceptionHandler { context, exception ->
+            @Suppress("UNCHECKED_CAST")
+            val capturedState = context[ExceptionCapturedState]?.state as? S
+
+            @Suppress("UNCHECKED_CAST")
+            val capturedAction = context[ExceptionCapturedAction]?.action as? A
+
+            @Suppress("UNCHECKED_CAST")
+            val capturedEffect = context[ExceptionCapturedEffect]?.effect as? E
+
+            logger.log(name, exception) {
+                "StateMachine caught unhandled exception at state:[$capturedState], action:[$capturedAction], effect:[$capturedEffect]"
+            }
+
+            if (fallbackHandle != null) {
+                val action = fallbackHandle(capturedState, capturedAction, capturedEffect, exception)
+                dispatch(action)
             } else {
                 throw exception
             }
@@ -67,27 +86,36 @@ public abstract class StateMachine<S, A, E>(
     public val state: StateFlow<S> = _state.asStateFlow()
 
     public fun dispatch(action: A) {
-        scope.launch(exceptionHandler) {
+        scope.launch(CoroutineName("$name:dispatch") + ExceptionCapturedAction(action)) {
             mutex.withReentrantLock {
                 val current = _state.value
-                val transition = graph.edges[current::class]?.get(action::class)?.invoke(current, action)
-                if (transition != null) {
-                    val updated = _state.compareAndSet(current, transition.next)
-                    if (updated) {
-                        logger.log(name) { "dispatch:[$action], current state:[$current], transition:[$transition]" }
-                        transition.effect?.let { effect(it, current, transition.next) }
-                    } else {
-                        logger.log(name) { "un-dispatched action:[$action], current state:[$current], transition:[$transition]" }
+                withContext(coroutineContext + ExceptionCapturedState(current)) {
+                    try {
+                        val transition = graph.edges[current::class]?.get(action::class)?.invoke(current, action)
+                        if (transition != null) {
+                            val updated = _state.compareAndSet(current, transition.next)
+                            if (updated) {
+                                logger.log(name) { "dispatch:[$action], current state:[$current], transition:[$transition]" }
+                                transition.effect?.let { effect(it, current, transition.next) }
+                            } else {
+                                logger.log(name) { "un-dispatched action:[$action], current state:[$current], transition:[$transition]" }
+                            }
+                        } else {
+                            logger.log(name) { "unhandled action:[$action], current state:[$current], transition:[null]" }
+                        }
+                    } catch (e: CancellationException) {
+                        throw e
+                    } catch (@Suppress("TooGenericExceptionCaught") e: Throwable) {
+                        @OptIn(InternalCoroutinesApi::class)
+                        handleCoroutineException(currentCoroutineContext(), e)
                     }
-                } else {
-                    logger.log(name) { "unhandled action:[$action], current state:[$current], transition:[null]" }
                 }
             }
         }
     }
 
     private fun effect(effect: E, prev: S, current: S) {
-        scope.launch(exceptionHandler) {
+        scope.launch(CoroutineName("$name:effect") + ExceptionCapturedState(current) + ExceptionCapturedEffect(effect)) {
             mutex.withReentrantLock {
                 logger.log(name) { "effect:[$effect], prev:[$prev], current:[$current]" }
                 effectHandle(effect, prev, current, ::dispatch)
