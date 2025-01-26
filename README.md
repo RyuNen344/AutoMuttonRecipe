@@ -1,7 +1,20 @@
 AutoMuttonRecipe
 ====
 
-AutoMuttonRecipe is A TypeSafe Pure Kotlin Finite State Machine (FSM) implementation, inspired by [Tinder/StateMachine](https://github.com/Tinder/StateMachine).
+AutoMuttonRecipe is A TypeSafe DSL & Pure Kotlin Finite State Machine (FSM) implementation, inspired by [Tinder/StateMachine](https://github.com/Tinder/StateMachine).
+
+## Features
+### TypeSafe DSL
+TODO: write this section
+AutoMuttonRecipe provides a type-safe DSL for defining state transitions and effects.
+
+### Coroutine Friendly
+TODO: write this section
+AutoMuttonRecipe is designed to work with Kotlin Coroutines. You can handle side effects with `EffectHandle` and `CoroutineScope`.
+
+### Lightweight and Supports Multiplatform
+TODO: write this section
+AutoMuttonRecipe is a lightweight library and supports multiplatform projects.
 
 ## Installation
 ### Maven
