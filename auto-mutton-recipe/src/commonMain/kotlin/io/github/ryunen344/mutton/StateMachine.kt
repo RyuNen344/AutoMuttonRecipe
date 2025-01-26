@@ -34,7 +34,6 @@ import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -124,13 +123,5 @@ public abstract class StateMachine<S, A, E>(
                 effectHandle(effect, prev, current, ::dispatch)
             }
         }
-    }
-
-    public fun close(message: String, cause: Throwable? = null) {
-        scope.cancel(message, cause)
-    }
-
-    public fun close(cause: CancellationException? = null) {
-        scope.cancel(cause)
     }
 }
