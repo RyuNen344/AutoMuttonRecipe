@@ -16,15 +16,19 @@ abstract fun interface <#A: io.github.ryunen344.mutton/State, #B: io.github.ryun
     abstract suspend fun invoke(#C, #A, #A, kotlin.coroutines/SuspendFunction1<#B, kotlin/Unit>) // io.github.ryunen344.mutton/EffectHandle.invoke|invoke(1:2;1:0;1:0;kotlin.coroutines.SuspendFunction1<1:1,kotlin.Unit>){}[0]
 }
 
+abstract fun interface <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutton/Action, #C: io.github.ryunen344.mutton/Effect> io.github.ryunen344.mutton/FallbackHandle { // io.github.ryunen344.mutton/FallbackHandle|null[0]
+    abstract fun invoke(#A?, #B?, #C?, kotlin/Throwable): #B // io.github.ryunen344.mutton/FallbackHandle.invoke|invoke(1:0?;1:1?;1:2?;kotlin.Throwable){}[0]
+}
+
 abstract class <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutton/Action, #C: io.github.ryunen344.mutton/Effect> io.github.ryunen344.mutton/StateMachine { // io.github.ryunen344.mutton/StateMachine|null[0]
-    constructor <init>(#A, io.github.ryunen344.mutton/Graph<#A, #B, #C>, io.github.ryunen344.mutton/EffectHandle<#A, #B, #C>, kotlin.coroutines/SuspendFunction1<kotlin/Throwable, #B>? = ..., io.github.ryunen344.mutton.log/Logger = ..., kotlin.coroutines/CoroutineContext = ...) // io.github.ryunen344.mutton/StateMachine.<init>|<init>(1:0;io.github.ryunen344.mutton.Graph<1:0,1:1,1:2>;io.github.ryunen344.mutton.EffectHandle<1:0,1:1,1:2>;kotlin.coroutines.SuspendFunction1<kotlin.Throwable,1:1>?;io.github.ryunen344.mutton.log.Logger;kotlin.coroutines.CoroutineContext){}[0]
+    constructor <init>(#A, io.github.ryunen344.mutton/Graph<#A, #B, #C>, io.github.ryunen344.mutton/EffectHandle<#A, #B, #C>, io.github.ryunen344.mutton/FallbackHandle<#A, #B, #C>? = ..., io.github.ryunen344.mutton.log/Logger = ..., kotlin.coroutines/CoroutineContext = ...) // io.github.ryunen344.mutton/StateMachine.<init>|<init>(1:0;io.github.ryunen344.mutton.Graph<1:0,1:1,1:2>;io.github.ryunen344.mutton.EffectHandle<1:0,1:1,1:2>;io.github.ryunen344.mutton.FallbackHandle<1:0,1:1,1:2>?;io.github.ryunen344.mutton.log.Logger;kotlin.coroutines.CoroutineContext){}[0]
 
     final val context // io.github.ryunen344.mutton/StateMachine.context|{}context[0]
         final fun <get-context>(): kotlin.coroutines/CoroutineContext // io.github.ryunen344.mutton/StateMachine.context.<get-context>|<get-context>(){}[0]
     final val effectHandle // io.github.ryunen344.mutton/StateMachine.effectHandle|{}effectHandle[0]
         final fun <get-effectHandle>(): io.github.ryunen344.mutton/EffectHandle<#A, #B, #C> // io.github.ryunen344.mutton/StateMachine.effectHandle.<get-effectHandle>|<get-effectHandle>(){}[0]
-    final val fallback // io.github.ryunen344.mutton/StateMachine.fallback|{}fallback[0]
-        final fun <get-fallback>(): kotlin.coroutines/SuspendFunction1<kotlin/Throwable, #B>? // io.github.ryunen344.mutton/StateMachine.fallback.<get-fallback>|<get-fallback>(){}[0]
+    final val fallbackHandle // io.github.ryunen344.mutton/StateMachine.fallbackHandle|{}fallbackHandle[0]
+        final fun <get-fallbackHandle>(): io.github.ryunen344.mutton/FallbackHandle<#A, #B, #C>? // io.github.ryunen344.mutton/StateMachine.fallbackHandle.<get-fallbackHandle>|<get-fallbackHandle>(){}[0]
     final val graph // io.github.ryunen344.mutton/StateMachine.graph|{}graph[0]
         final fun <get-graph>(): io.github.ryunen344.mutton/Graph<#A, #B, #C> // io.github.ryunen344.mutton/StateMachine.graph.<get-graph>|<get-graph>(){}[0]
     final val logger // io.github.ryunen344.mutton/StateMachine.logger|{}logger[0]
@@ -34,15 +38,27 @@ abstract class <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mu
     final val state // io.github.ryunen344.mutton/StateMachine.state|{}state[0]
         final fun <get-state>(): kotlinx.coroutines.flow/StateFlow<#A> // io.github.ryunen344.mutton/StateMachine.state.<get-state>|<get-state>(){}[0]
 
-    final fun close(kotlin.coroutines.cancellation/CancellationException? = ...) // io.github.ryunen344.mutton/StateMachine.close|close(kotlin.coroutines.cancellation.CancellationException?){}[0]
-    final fun close(kotlin/String, kotlin/Throwable? = ...) // io.github.ryunen344.mutton/StateMachine.close|close(kotlin.String;kotlin.Throwable?){}[0]
     final fun dispatch(#B) // io.github.ryunen344.mutton/StateMachine.dispatch|dispatch(1:1){}[0]
 }
 
 abstract class io.github.ryunen344.mutton.log/Logger { // io.github.ryunen344.mutton.log/Logger|null[0]
     constructor <init>() // io.github.ryunen344.mutton.log/Logger.<init>|<init>(){}[0]
 
-    abstract fun log(kotlin/String, kotlin/Throwable? = ..., kotlin/Function0<kotlin/String>? = ...) // io.github.ryunen344.mutton.log/Logger.log|log(kotlin.String;kotlin.Throwable?;kotlin.Function0<kotlin.String>?){}[0]
+    abstract fun log(kotlin/String, io.github.ryunen344.mutton.log/Logger.Level, kotlin/Throwable? = ..., kotlin/Function0<kotlin/String>? = ...) // io.github.ryunen344.mutton.log/Logger.log|log(kotlin.String;io.github.ryunen344.mutton.log.Logger.Level;kotlin.Throwable?;kotlin.Function0<kotlin.String>?){}[0]
+
+    final enum class Level : kotlin/Enum<io.github.ryunen344.mutton.log/Logger.Level> { // io.github.ryunen344.mutton.log/Logger.Level|null[0]
+        enum entry DEBUG // io.github.ryunen344.mutton.log/Logger.Level.DEBUG|null[0]
+        enum entry ERROR // io.github.ryunen344.mutton.log/Logger.Level.ERROR|null[0]
+        enum entry INFO // io.github.ryunen344.mutton.log/Logger.Level.INFO|null[0]
+        enum entry VERBOSE // io.github.ryunen344.mutton.log/Logger.Level.VERBOSE|null[0]
+        enum entry WARN // io.github.ryunen344.mutton.log/Logger.Level.WARN|null[0]
+
+        final val entries // io.github.ryunen344.mutton.log/Logger.Level.entries|#static{}entries[0]
+            final fun <get-entries>(): kotlin.enums/EnumEntries<io.github.ryunen344.mutton.log/Logger.Level> // io.github.ryunen344.mutton.log/Logger.Level.entries.<get-entries>|<get-entries>#static(){}[0]
+
+        final fun valueOf(kotlin/String): io.github.ryunen344.mutton.log/Logger.Level // io.github.ryunen344.mutton.log/Logger.Level.valueOf|valueOf#static(kotlin.String){}[0]
+        final fun values(): kotlin/Array<io.github.ryunen344.mutton.log/Logger.Level> // io.github.ryunen344.mutton.log/Logger.Level.values|values#static(){}[0]
+    }
 }
 
 abstract class io.github.ryunen344.mutton/Action { // io.github.ryunen344.mutton/Action|null[0]
@@ -113,16 +129,11 @@ final class <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutto
 }
 
 final class <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutton/Effect> io.github.ryunen344.mutton/Transition { // io.github.ryunen344.mutton/Transition|null[0]
-    constructor <init>(#A, #B?) // io.github.ryunen344.mutton/Transition.<init>|<init>(1:0;1:1?){}[0]
-
     final val effect // io.github.ryunen344.mutton/Transition.effect|{}effect[0]
         final fun <get-effect>(): #B? // io.github.ryunen344.mutton/Transition.effect.<get-effect>|<get-effect>(){}[0]
     final val next // io.github.ryunen344.mutton/Transition.next|{}next[0]
         final fun <get-next>(): #A // io.github.ryunen344.mutton/Transition.next.<get-next>|<get-next>(){}[0]
 
-    final fun component1(): #A // io.github.ryunen344.mutton/Transition.component1|component1(){}[0]
-    final fun component2(): #B? // io.github.ryunen344.mutton/Transition.component2|component2(){}[0]
-    final fun copy(#A = ..., #B? = ...): io.github.ryunen344.mutton/Transition<#A, #B> // io.github.ryunen344.mutton/Transition.copy|copy(1:0;1:1?){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // io.github.ryunen344.mutton/Transition.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // io.github.ryunen344.mutton/Transition.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // io.github.ryunen344.mutton/Transition.toString|toString(){}[0]
@@ -130,3 +141,9 @@ final class <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutto
 
 final val io.github.ryunen344.mutton.log/NoopLogger // io.github.ryunen344.mutton.log/NoopLogger|{}NoopLogger[0]
     final fun <get-NoopLogger>(): io.github.ryunen344.mutton.log/Logger // io.github.ryunen344.mutton.log/NoopLogger.<get-NoopLogger>|<get-NoopLogger>(){}[0]
+
+final fun (io.github.ryunen344.mutton.log/Logger).io.github.ryunen344.mutton.log/debug(kotlin/String, kotlin/Throwable? = ..., kotlin/Function0<kotlin/String>? = ...) // io.github.ryunen344.mutton.log/debug|debug@io.github.ryunen344.mutton.log.Logger(kotlin.String;kotlin.Throwable?;kotlin.Function0<kotlin.String>?){}[0]
+final fun (io.github.ryunen344.mutton.log/Logger).io.github.ryunen344.mutton.log/error(kotlin/String, kotlin/Throwable? = ..., kotlin/Function0<kotlin/String>? = ...) // io.github.ryunen344.mutton.log/error|error@io.github.ryunen344.mutton.log.Logger(kotlin.String;kotlin.Throwable?;kotlin.Function0<kotlin.String>?){}[0]
+final fun (io.github.ryunen344.mutton.log/Logger).io.github.ryunen344.mutton.log/info(kotlin/String, kotlin/Throwable? = ..., kotlin/Function0<kotlin/String>? = ...) // io.github.ryunen344.mutton.log/info|info@io.github.ryunen344.mutton.log.Logger(kotlin.String;kotlin.Throwable?;kotlin.Function0<kotlin.String>?){}[0]
+final fun (io.github.ryunen344.mutton.log/Logger).io.github.ryunen344.mutton.log/verbose(kotlin/String, kotlin/Throwable? = ..., kotlin/Function0<kotlin/String>? = ...) // io.github.ryunen344.mutton.log/verbose|verbose@io.github.ryunen344.mutton.log.Logger(kotlin.String;kotlin.Throwable?;kotlin.Function0<kotlin.String>?){}[0]
+final fun (io.github.ryunen344.mutton.log/Logger).io.github.ryunen344.mutton.log/warn(kotlin/String, kotlin/Throwable? = ..., kotlin/Function0<kotlin/String>? = ...) // io.github.ryunen344.mutton.log/warn|warn@io.github.ryunen344.mutton.log.Logger(kotlin.String;kotlin.Throwable?;kotlin.Function0<kotlin.String>?){}[0]

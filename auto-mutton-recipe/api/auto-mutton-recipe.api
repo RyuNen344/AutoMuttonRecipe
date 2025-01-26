@@ -11,7 +11,7 @@ public abstract interface class io/github/ryunen344/mutton/EffectHandle {
 }
 
 public abstract interface class io/github/ryunen344/mutton/FallbackHandle {
-	public abstract fun invoke (Ljava/lang/Throwable;Lio/github/ryunen344/mutton/State;)Lio/github/ryunen344/mutton/Action;
+	public abstract fun invoke (Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Action;Lio/github/ryunen344/mutton/Effect;Ljava/lang/Throwable;)Lio/github/ryunen344/mutton/Action;
 }
 
 public final class io/github/ryunen344/mutton/Graph {
@@ -41,37 +41,6 @@ public final class io/github/ryunen344/mutton/GraphBuilder$ActionBuilder$Transit
 	public static synthetic fun transition$default (Lio/github/ryunen344/mutton/GraphBuilder$ActionBuilder$TransitionBuilder;Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Effect;ILjava/lang/Object;)Lio/github/ryunen344/mutton/Transition;
 }
 
-public final class io/github/ryunen344/mutton/GraphBuilder$TransitionBuilder {
-	public fun <init> (Lio/github/ryunen344/mutton/GraphBuilder;)V
-	public final fun build ()Lio/github/ryunen344/mutton/Transition;
-	public final fun transition (Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Effect;)Lio/github/ryunen344/mutton/Transition;
-	public static synthetic fun transition$default (Lio/github/ryunen344/mutton/GraphBuilder$TransitionBuilder;Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Effect;ILjava/lang/Object;)Lio/github/ryunen344/mutton/Transition;
-}
-
-public final class io/github/ryunen344/mutton/GraphKt {
-	public static final fun Graph (Lkotlin/jvm/functions/Function1;)Lio/github/ryunen344/mutton/Graph;
-	public static final fun httpPost (Lkotlin/jvm/functions/Function1;)V
-}
-
-public final class io/github/ryunen344/mutton/HttpRequestBodyContext {
-	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getContent ()Ljava/lang/String;
-	public final fun setContent (Ljava/lang/String;)V
-}
-
-public final class io/github/ryunen344/mutton/HttpRequestContext {
-	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun body (Lkotlin/jvm/functions/Function1;)V
-	public final fun getHost ()Ljava/lang/String;
-	public final fun getPath ()Ljava/lang/String;
-	public final fun setHost (Ljava/lang/String;)V
-	public final fun setPath (Ljava/lang/String;)V
-}
-
 public abstract class io/github/ryunen344/mutton/State {
 	public fun <init> ()V
 	public abstract fun equals (Ljava/lang/Object;)Z
@@ -79,31 +48,19 @@ public abstract class io/github/ryunen344/mutton/State {
 }
 
 public abstract class io/github/ryunen344/mutton/StateMachine {
-	public fun <init> (Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Graph;Lio/github/ryunen344/mutton/EffectHandle;Lkotlin/jvm/functions/Function2;Lio/github/ryunen344/mutton/log/Logger;Lkotlin/coroutines/CoroutineContext;)V
-	public synthetic fun <init> (Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Graph;Lio/github/ryunen344/mutton/EffectHandle;Lkotlin/jvm/functions/Function2;Lio/github/ryunen344/mutton/log/Logger;Lkotlin/coroutines/CoroutineContext;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun close (Ljava/lang/String;Ljava/lang/Throwable;)V
-	public final fun close (Ljava/util/concurrent/CancellationException;)V
-	public static synthetic fun close$default (Lio/github/ryunen344/mutton/StateMachine;Ljava/lang/String;Ljava/lang/Throwable;ILjava/lang/Object;)V
-	public static synthetic fun close$default (Lio/github/ryunen344/mutton/StateMachine;Ljava/util/concurrent/CancellationException;ILjava/lang/Object;)V
+	public fun <init> (Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Graph;Lio/github/ryunen344/mutton/EffectHandle;Lio/github/ryunen344/mutton/FallbackHandle;Lio/github/ryunen344/mutton/log/Logger;Lkotlin/coroutines/CoroutineContext;)V
+	public synthetic fun <init> (Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Graph;Lio/github/ryunen344/mutton/EffectHandle;Lio/github/ryunen344/mutton/FallbackHandle;Lio/github/ryunen344/mutton/log/Logger;Lkotlin/coroutines/CoroutineContext;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun dispatch (Lio/github/ryunen344/mutton/Action;)V
 	public final fun getContext ()Lkotlin/coroutines/CoroutineContext;
 	public final fun getEffectHandle ()Lio/github/ryunen344/mutton/EffectHandle;
-	public final fun getFallback ()Lkotlin/jvm/functions/Function2;
+	public final fun getFallbackHandle ()Lio/github/ryunen344/mutton/FallbackHandle;
 	public final fun getGraph ()Lio/github/ryunen344/mutton/Graph;
 	public final fun getLogger ()Lio/github/ryunen344/mutton/log/Logger;
 	public final fun getScope ()Lkotlinx/coroutines/CoroutineScope;
 	public final fun getState ()Lkotlinx/coroutines/flow/StateFlow;
 }
 
-public abstract interface annotation class io/github/ryunen344/mutton/StateMachineDslMarker : java/lang/annotation/Annotation {
-}
-
 public final class io/github/ryunen344/mutton/Transition {
-	public fun <init> (Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Effect;)V
-	public final fun component1 ()Lio/github/ryunen344/mutton/State;
-	public final fun component2 ()Lio/github/ryunen344/mutton/Effect;
-	public final fun copy (Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Effect;)Lio/github/ryunen344/mutton/Transition;
-	public static synthetic fun copy$default (Lio/github/ryunen344/mutton/Transition;Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Effect;ILjava/lang/Object;)Lio/github/ryunen344/mutton/Transition;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getEffect ()Lio/github/ryunen344/mutton/Effect;
 	public final fun getNext ()Lio/github/ryunen344/mutton/State;
@@ -116,11 +73,32 @@ public abstract interface annotation class io/github/ryunen344/mutton/annotation
 
 public abstract class io/github/ryunen344/mutton/log/Logger {
 	public fun <init> ()V
-	public abstract fun log (Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
-	public static synthetic fun log$default (Lio/github/ryunen344/mutton/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
+	public abstract fun log (Ljava/lang/String;Lio/github/ryunen344/mutton/log/Logger$Level;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public static synthetic fun log$default (Lio/github/ryunen344/mutton/log/Logger;Ljava/lang/String;Lio/github/ryunen344/mutton/log/Logger$Level;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
+}
+
+public final class io/github/ryunen344/mutton/log/Logger$Level : java/lang/Enum {
+	public static final field DEBUG Lio/github/ryunen344/mutton/log/Logger$Level;
+	public static final field ERROR Lio/github/ryunen344/mutton/log/Logger$Level;
+	public static final field INFO Lio/github/ryunen344/mutton/log/Logger$Level;
+	public static final field VERBOSE Lio/github/ryunen344/mutton/log/Logger$Level;
+	public static final field WARN Lio/github/ryunen344/mutton/log/Logger$Level;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/github/ryunen344/mutton/log/Logger$Level;
+	public static fun values ()[Lio/github/ryunen344/mutton/log/Logger$Level;
 }
 
 public final class io/github/ryunen344/mutton/log/LoggerKt {
+	public static final fun debug (Lio/github/ryunen344/mutton/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public static synthetic fun debug$default (Lio/github/ryunen344/mutton/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
+	public static final fun error (Lio/github/ryunen344/mutton/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public static synthetic fun error$default (Lio/github/ryunen344/mutton/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 	public static final fun getNoopLogger ()Lio/github/ryunen344/mutton/log/Logger;
+	public static final fun info (Lio/github/ryunen344/mutton/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public static synthetic fun info$default (Lio/github/ryunen344/mutton/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
+	public static final fun verbose (Lio/github/ryunen344/mutton/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public static synthetic fun verbose$default (Lio/github/ryunen344/mutton/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
+	public static final fun warn (Lio/github/ryunen344/mutton/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public static synthetic fun warn$default (Lio/github/ryunen344/mutton/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
 }
 
