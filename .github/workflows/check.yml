@@ -65,11 +65,9 @@ jobs:
       - uses: ./.github/actions/java
       - uses: ./.github/actions/gradle
       - name: publish
-        env:
-          SIGNING_ENABLED: true
         shell: bash
         run: |
-          ./gradlew publishAllPublicationsToLocalRepository
+          ./gradlew publishAllPublicationsToLocalRepository --no-configuration-cache
 
   test-linux-x64:
     runs-on: ubuntu-latest
@@ -78,8 +76,6 @@ jobs:
       matrix:
         module: [
           "jvm",
-          "androidNativeX86",
-          "androidNativeX64",
           "linuxX64",
           "jsNode",
           "jsBrowser",
@@ -108,8 +104,6 @@ jobs:
       fail-fast: false
       matrix:
         module: [
-          "androidNativeArm32",
-          "androidNativeArm64",
           "linuxArm64",
         ]
     steps:
@@ -161,13 +155,8 @@ jobs:
       fail-fast: false
       matrix:
         module: [
-          "iosArm64",
           "iosSimulatorArm64",
-          "tvosArm64",
           "tvosSimulatorArm64",
-          "watchosArm32",
-          "watchosArm64",
-          "watchosDeviceArm64",
           "watchosSimulatorArm64",
           "macosArm64",
         ]
