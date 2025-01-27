@@ -21,6 +21,23 @@ package io.github.ryunen344.mutton
 
 import kotlin.reflect.KClass
 
+/**
+ * A graph that represents the state machine.
+ *
+ * example:
+ * ```kotlin
+ * val graph = Graph<State, Action, Effect> {
+ *     state<InitialState> {
+ *         action<InitialAction> { prev, action ->
+ *            transition(NextState, NextEffect)
+ *         }
+ *         action<AnotherAction> { prev, action ->
+ *            transition(AnotherState)
+ *         }
+ *     }
+ * }
+ * ```
+ */
 public class Graph<S, A, E>(
     public val edges: Map<KClass<S>, Map<KClass<A>, (prev: S, action: A) -> Transition<S, E>>>,
 ) where S : State, A : Action, E : Effect {
