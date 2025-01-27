@@ -68,3 +68,163 @@ jobs:
         shell: bash
         run: |
           ./gradlew publishAllPublicationsToLocalRepository
+
+  test-linux-x64:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        module: [
+          "jvm",
+          "androidNativeX86",
+          "androidNativeX64",
+          "linuxX64",
+          "jsNode",
+          "jsBrowser",
+          "wasmJsNode",
+          "wasmWasi",
+        ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/java
+      - uses: ./.github/actions/gradle
+      - name: test
+        shell: bash
+        run: |
+          ./gradlew test
+      - name: unit test
+        shell: bash
+        run: |
+          ./gradlew ${{ matrix.module }}Test
+      - uses: dorny/test-reporter@v1
+        if: ${{ !cancelled() }}
+        with:
+          name: unit-test-result-linux-${{ matrix.module }}
+          path: '**/test-results/**/*.xml'
+          reporter: java-junit
+          fail-on-error: false
+
+  test-linux-arm64:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        module: [
+          "androidNativeArm32",
+          "androidNativeArm64",
+          "linuxArm64",
+        ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/java
+      - uses: ./.github/actions/gradle
+      - name: test
+        shell: bash
+        run: |
+          ./gradlew test
+      - name: unit test
+        shell: bash
+        run: |
+          ./gradlew ${{ matrix.module }}Test
+      - uses: dorny/test-reporter@v1
+        if: ${{ !cancelled() }}
+        with:
+          name: unit-test-result-linux-${{ matrix.module }}
+          path: '**/test-results/**/*.xml'
+          reporter: java-junit
+          fail-on-error: false
+
+  test-mac-x64:
+    runs-on: macos-13
+    strategy:
+      fail-fast: false
+      matrix:
+        module: [
+          "iosX64",
+          "tvosX64",
+          "watchosX64",
+          "macosX64",
+        ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/java
+      - uses: ./.github/actions/gradle
+      - name: test
+        shell: bash
+        run: |
+          ./gradlew test
+      - name: unit test
+        shell: bash
+        run: |
+          ./gradlew ${{ matrix.module }}Test
+      - uses: dorny/test-reporter@v1
+        if: ${{ !cancelled() }}
+        with:
+          name: unit-test-result-linux-${{ matrix.module }}
+          path: '**/test-results/**/*.xml'
+          reporter: java-junit
+          fail-on-error: false
+
+  test-mac-arm64:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        module: [
+          "iosArm64",
+          "iosSimulatorArm64",
+          "tvosArm64",
+          "tvosSimulatorArm64",
+          "watchosArm32",
+          "watchosArm64",
+          "watchosDeviceArm64",
+          "watchosSimulatorArm64",
+          "macosArm64",
+        ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/java
+      - uses: ./.github/actions/gradle
+      - name: test
+        shell: bash
+        run: |
+          ./gradlew test
+      - name: unit test
+        shell: bash
+        run: |
+          ./gradlew ${{ matrix.module }}Test
+      - uses: dorny/test-reporter@v1
+        if: ${{ !cancelled() }}
+        with:
+          name: unit-test-result-linux-${{ matrix.module }}
+          path: '**/test-results/**/*.xml'
+          reporter: java-junit
+          fail-on-error: false
+
+  test-win:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        module: [
+          "mingwX64",
+        ]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/java
+      - uses: ./.github/actions/gradle
+      - name: test
+        shell: bash
+        run: |
+          ./gradlew test
+      - name: unit test
+        shell: bash
+        run: |
+          ./gradlew ${{ matrix.module }}Test
+      - uses: dorny/test-reporter@v1
+        if: ${{ !cancelled() }}
+        with:
+          name: unit-test-result-linux-${{ matrix.module }}
+          path: '**/test-results/**/*.xml'
+          reporter: java-junit
+          fail-on-error: false
