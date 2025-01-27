@@ -19,4 +19,7 @@
 
 package io.github.ryunen344.mutton
 
+/**
+ * An effect that can be dispatched to the [StateMachine].
+ */
 public abstract class Effect

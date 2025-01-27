@@ -20,7 +20,8 @@
 package io.github.ryunen344.mutton
 
 /**
- * State must override equals and hashCode to be used as data objects.
+ * A state that can be stored in the [StateMachine].
+ * [State] must override equals and hashCode to be used as data objects.
  */
 public abstract class State {
     abstract override fun equals(other: Any?): Boolean
