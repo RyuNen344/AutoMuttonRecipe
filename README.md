@@ -1,20 +1,19 @@
 AutoMuttonRecipe
 ====
 
-AutoMuttonRecipe is A TypeSafe DSL & Pure Kotlin Finite State Machine (FSM) implementation, inspired by [Tinder/StateMachine](https://github.com/Tinder/StateMachine).
+**AutoMuttonRecipe** is a type-safe DSL and pure Kotlin Finite State Machine (FSM) implementation, inspired by [Tinder/StateMachine](https://github.com/Tinder/StateMachine).
 
 ## Features
 ### TypeSafe DSL
-TODO: write this section
 AutoMuttonRecipe provides a type-safe DSL for defining state transitions and effects.
+If you define an invalid state transition, the compiler will raise an error, ensuring robust state management.
 
-### Coroutine Friendly
-TODO: write this section
-AutoMuttonRecipe is designed to work with Kotlin Coroutines. You can handle side effects with `EffectHandle` and `CoroutineScope`.
+### Atomic State Transition
+AutoMuttonRecipe uses `kotlinx.coroutines.flow.StateFlow` to manage states, guaranteeing atomic state transitions.
+If actions are dispatched in unexpected states, they will be ignored, preventing unintended behavior.
 
 ### Lightweight and Supports Multiplatform
-TODO: write this section
-AutoMuttonRecipe is a lightweight library and supports multiplatform projects.
+AutoMuttonRecipe is a lightweight library designed for multiplatform projects.
 
 ## Installation
 ### Maven
@@ -83,7 +82,7 @@ val exampleEffectHandle = EffectHandle<ExampleState, ExampleAction, ExampleEffec
     when (effect) {
         ExampleEffect.FetchRemoteData -> {
             runCatching {
-                // fetch remote data
+                // simulate fetching remote data
             }.onSuccess {
                 dispatch(ExampleAction.Success("Remote data"))
             }.onFailure {
@@ -113,11 +112,11 @@ fun main() {
 
     coroutineScope.launch {
         stateMachine.state.collect {
-            // You can handle the state change here
+            // Handle state changes here
         }
     }
 
-    // You can dispatch actions like this
+    // Dispatch actions
     stateMachine.dispatch(ExampleAction.Load)
 }
 ```
