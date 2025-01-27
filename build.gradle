@@ -3,6 +3,7 @@ import io.gitlab.arturbosch.detekt.Detekt
 plugins {
     alias libs.plugins.org.jetbrains.kotlin.multiplatform apply false
     alias libs.plugins.com.vanniktech.maven.publish apply false
+    alias libs.plugins.org.jetbrains.dokka apply false
     alias libs.plugins.io.gitlab.arturbosch.detekt
     alias libs.plugins.nl.littlerobots.version.catalog.update
 }

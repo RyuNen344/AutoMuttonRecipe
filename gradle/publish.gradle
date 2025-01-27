@@ -1,4 +1,5 @@
 pluginManager.apply("com.vanniktech.maven.publish")
+pluginManager.apply("signing")
 
 def localProperty = new Properties()
 def localPropertyFile = rootProject.layout.projectDirectory.file("local.properties").asFile
@@ -9,7 +10,8 @@ if (localPropertyFile.exists()) {
 afterEvaluate {
     mavenPublishing {
         pom {
-            url.set("https://github.com/RyuNen344/AutoMuttonRecipe")
+            inceptionYear = "2025"
+            url = "https://github.com/RyuNen344/AutoMuttonRecipe"
             licenses {
                 license {
                     name = "Apache-2.0"
@@ -30,6 +32,8 @@ afterEvaluate {
                 developerConnection = "scm:git:ssh://github.com/RyuNen344/AutoMuttonRecipe.git"
             }
         }
+
+        publishToMavenCentral("CENTRAL_PORTAL")
     }
 
     publishing {
@@ -42,13 +46,13 @@ afterEvaluate {
     }
 }
 
-//signing {
-//    def enabled = localProperty.getProperty("signing.enabled")?.toBoolean() ?: System.getenv("SIGNING_ENABLED")?.toBoolean() ?: false
-//    if (enabled) {
-//        def keyId = localProperty.getProperty("pgp.key_id") ?: System.getenv("PGP_KEY_ID")
-//        def secretKey = localProperty.getProperty("pgp.signing_key") ?: System.getenv("PGP_SIGNING_KEY")
-//        def password = localProperty.getProperty("pgp.signing_password") ?: System.getenv("PGP_SIGNING_PASSWORD")
-//        useInMemoryPgpKeys(keyId, secretKey, password)
-//        sign(publishing.publications)
-//    }
-//}
+signing {
+    def enabled = localProperty.getProperty("signing.enabled")?.toBoolean() ?: System.getenv("SIGNING_ENABLED")?.toBoolean() ?: false
+    if (enabled) {
+        def keyId = localProperty.getProperty("pgp.key_id") ?: System.getenv("PGP_KEY_ID")
+        def secretKey = localProperty.getProperty("pgp.signing_key") ?: System.getenv("PGP_SIGNING_KEY")
+        def password = localProperty.getProperty("pgp.signing_password") ?: System.getenv("PGP_SIGNING_PASSWORD")
+        useInMemoryPgpKeys(keyId, secretKey, password)
+        sign(publishing.publications)
+    }
+}
