@@ -65,6 +65,8 @@ jobs:
       - uses: ./.github/actions/java
       - uses: ./.github/actions/gradle
       - name: publish
+        env:
+          SIGNING_ENABLED: true
         shell: bash
         run: |
           ./gradlew publishAllPublicationsToLocalRepository
@@ -89,10 +91,6 @@ jobs:
       - uses: ./.github/actions/java
       - uses: ./.github/actions/gradle
       - name: test
-        shell: bash
-        run: |
-          ./gradlew test
-      - name: unit test
         shell: bash
         run: |
           ./gradlew ${{ matrix.module }}Test
@@ -121,10 +119,6 @@ jobs:
       - name: test
         shell: bash
         run: |
-          ./gradlew test
-      - name: unit test
-        shell: bash
-        run: |
           ./gradlew ${{ matrix.module }}Test
       - uses: dorny/test-reporter@v1
         if: ${{ !cancelled() }}
@@ -150,10 +144,6 @@ jobs:
       - uses: ./.github/actions/java
       - uses: ./.github/actions/gradle
       - name: test
-        shell: bash
-        run: |
-          ./gradlew test
-      - name: unit test
         shell: bash
         run: |
           ./gradlew ${{ matrix.module }}Test
@@ -188,10 +178,6 @@ jobs:
       - name: test
         shell: bash
         run: |
-          ./gradlew test
-      - name: unit test
-        shell: bash
-        run: |
           ./gradlew ${{ matrix.module }}Test
       - uses: dorny/test-reporter@v1
         if: ${{ !cancelled() }}
@@ -214,10 +200,6 @@ jobs:
       - uses: ./.github/actions/java
       - uses: ./.github/actions/gradle
       - name: test
-        shell: bash
-        run: |
-          ./gradlew test
-      - name: unit test
         shell: bash
         run: |
           ./gradlew ${{ matrix.module }}Test
