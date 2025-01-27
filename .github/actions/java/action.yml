@@ -1,0 +1,11 @@
+# $schema: https://json.schemastore.org/github-action.json
+name: "setup JDK"
+description: "setup JDK"
+runs:
+  using: "composite"
+  steps:
+    - name: setup JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: "temurin"
+        java-version: "17"

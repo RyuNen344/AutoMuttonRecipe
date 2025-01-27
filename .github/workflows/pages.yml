@@ -1,0 +1,36 @@
+name: deploy dokka content to Pages
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ github.workflows }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/java
+      - uses: ./.github/actions/gradle
+      - uses: actions/configure-pages@v5
+      - name: build html
+        shell: bash
+        run: |
+          ./gradlew dokkaHtml
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: './auto-mutton-recipe/build/dokka/html'
+      - uses: actions/deploy-pages@v4
+        id: deployment
