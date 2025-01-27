@@ -19,6 +19,9 @@
 
 package io.github.ryunen344.mutton
 
+/**
+ * State must override equals and hashCode to be used as data objects.
+ */
 public abstract class State {
     abstract override fun equals(other: Any?): Boolean
     abstract override fun hashCode(): Int

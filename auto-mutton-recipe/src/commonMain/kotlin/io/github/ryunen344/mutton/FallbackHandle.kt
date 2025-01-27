@@ -19,6 +19,19 @@
 
 package io.github.ryunen344.mutton
 
+/**
+ * Handles **unhandled** exception that occur during a state transition or handling an effect.
+ */
 public fun interface FallbackHandle<S, A, E> where S : State, A : Action, E : Effect {
+    /**
+     * If [action] is null, it indicates the exception was thrown during effect handling.
+     * If [effect] is null, it indicates the exception was thrown during action handling.
+     *
+     * @param state The state before the transition.
+     * @param action The action that was dispatched.
+     * @param effect The effect that was triggered.
+     * @param exception The exception that was thrown.
+     * @return The action to dispatch.
+     */
     public operator fun invoke(state: S?, action: A?, effect: E?, exception: Throwable): A
 }

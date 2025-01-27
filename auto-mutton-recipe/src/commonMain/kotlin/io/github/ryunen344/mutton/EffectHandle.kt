@@ -19,6 +19,15 @@
 
 package io.github.ryunen344.mutton
 
+/**
+ * Handles the effect triggered after a state transition.
+ */
 public fun interface EffectHandle<S, A, E> where S : State, A : Action, E : Effect {
+    /**
+     * @param effect The effect that was triggered.
+     * @param prev The state before the transition.
+     * @param current The state after the transition.
+     * @param dispatch A function to dispatch actions during effect handling.
+     */
     public suspend operator fun invoke(effect: E, prev: S, current: S, dispatch: suspend (A) -> Unit)
 }
