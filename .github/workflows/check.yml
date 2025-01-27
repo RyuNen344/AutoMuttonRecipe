@@ -1,0 +1,59 @@
+# $schema: https://json.schemastore.org/github-workflow.json
+name: check
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+concurrency:
+  group: ${{ github.workflows }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  checks: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/java
+      - uses: ./.github/actions/gradle
+      - uses: reviewdog/action-setup@v1
+      - name: run detekt
+        shell: bash
+        run: |
+          ./gradlew detekt
+      - name: run reviewdog review
+        if: ${{ !cancelled() }}
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat build/reports/detekt/detekt.xml | reviewdog -f=checkstyle -name="detekt" -reporter=github-pr-review;
+      - name: run reviewdog suggest
+        if: ${{ !cancelled() }}
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ./gradlew detekt -PautoCorrect --quiet --continue || true;
+          TMPFILE=$(mktemp);
+          git diff >"${TMPFILE}";
+          git stash -u || git stash drop;
+          cat "${TMPFILE}" | reviewdog -f=diff -f.diff.strip=1 -reporter=github-pr-review;
+
+  api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/java
+      - uses: ./.github/actions/gradle
+      - name: check api file
+        shell: bash
+        run: |
+          ./gradlew apiCheck
