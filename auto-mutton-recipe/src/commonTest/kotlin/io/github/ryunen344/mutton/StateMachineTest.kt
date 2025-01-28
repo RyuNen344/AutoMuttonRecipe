@@ -20,13 +20,15 @@
 package io.github.ryunen344.mutton
 
 import app.cash.turbine.turbineScope
-import io.github.ryunen344.mutton.testing.TestLogger
+import io.github.ryunen344.mutton.testing.SampleAction
+import io.github.ryunen344.mutton.testing.SampleEffect
+import io.github.ryunen344.mutton.testing.SampleState
+import io.github.ryunen344.mutton.testing.SampleStateMachine
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import kotlin.coroutines.CoroutineContext
 import kotlin.test.Test
 
 class StateMachineTest {
@@ -45,7 +47,12 @@ class StateMachineTest {
     @Test
     fun testStateMachine() = runTest {
         turbineScope {
-            val stateMachine = SampleStateMachine(UnconfinedTestDispatcher(testScheduler))
+            val stateMachine = SampleStateMachine(
+                graph = graph,
+                effectHandle = effectHandle,
+                fallbackHandle = fallbackHandle,
+                context = UnconfinedTestDispatcher(testScheduler),
+            )
             val receiver = stateMachine.state.testIn(this)
             async { stateMachine.dispatch(SampleAction.Start) }
             async { stateMachine.dispatch(SampleAction.Start) }
@@ -57,46 +64,6 @@ class StateMachineTest {
             }
         }
     }
-}
-
-class SampleStateMachine(context: CoroutineContext) : StateMachine<SampleState, SampleAction, SampleEffect>(
-    initialState = SampleState.Idle(0),
-    graph = graph,
-    effectHandle = effectHandle,
-    fallbackHandle = fallbackHandle,
-    logger = TestLogger,
-    context = context,
-)
-
-sealed class SampleState : State() {
-    abstract val launchedCount: Int
-
-    data class Idle(override val launchedCount: Int) : SampleState()
-    data class Running(override val launchedCount: Int) : SampleState()
-    data class Stopped(override val launchedCount: Int) : SampleState()
-}
-
-sealed class SampleAction : Action() {
-    data object Start : SampleAction()
-    data object Stop : SampleAction()
-    data object Clean : SampleAction()
-}
-
-sealed class SampleEffect : Effect() {
-    data object Started : SampleEffect()
-    data object Stopped : SampleEffect()
-}
-
-sealed class NextState : State() {
-    data class Current(val hoge: Boolean) : NextState()
-}
-
-sealed class NextAction : Action() {
-    data class Next(val count: Int) : NextAction()
-}
-
-sealed class NextEffect : Effect() {
-    object Nexted : NextEffect()
 }
 
 val graph = Graph<SampleState, SampleAction, SampleEffect> {

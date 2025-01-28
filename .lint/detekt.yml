@@ -860,7 +860,7 @@ formatting:
     active: true
     autoCorrect: true
   IfElseBracing:
-    active: false
+    active: true
     autoCorrect: true
     indentSize: 4
   IfElseWrapping:
@@ -1025,11 +1025,11 @@ formatting:
     autoCorrect: true
     indentSize: 4
   TrailingCommaOnCallSite:
-    active: false
+    active: true
     autoCorrect: true
     useTrailingCommaOnCallSite: true
   TrailingCommaOnDeclarationSite:
-    active: false
+    active: true
     autoCorrect: true
     useTrailingCommaOnDeclarationSite: true
   TryCatchFinallySpacing:
