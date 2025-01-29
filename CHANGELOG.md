@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.0](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.0.0-alpha01...1.0.0) (2025-01-29)
+
+
+### Chores
+
+* add Dependabot configuration for Gradle and GitHub Actions updates ([#12](https://github.com/RyuNen344/AutoMuttonRecipe/issues/12)) ([d0b5890](https://github.com/RyuNen344/AutoMuttonRecipe/commit/d0b5890d2f5cb25431115974c8ea6f1b44c979e1))
+* add GitHub workflow for Gradle dependency report ([#11](https://github.com/RyuNen344/AutoMuttonRecipe/issues/11)) ([d674251](https://github.com/RyuNen344/AutoMuttonRecipe/commit/d6742516445ce679c8e72f56a1b2046594e2250b))
+* release 1.0.0 ([#9](https://github.com/RyuNen344/AutoMuttonRecipe/issues/9)) ([13458e2](https://github.com/RyuNen344/AutoMuttonRecipe/commit/13458e2a49d000f8862eadf2e184c12570d7c8d1))
+* setup konan cache ([#10](https://github.com/RyuNen344/AutoMuttonRecipe/issues/10)) ([48f0b6b](https://github.com/RyuNen344/AutoMuttonRecipe/commit/48f0b6bceef522046930ca72eff17cd469de458c))
+* update concurrency cancellation condition in workflow ([#13](https://github.com/RyuNen344/AutoMuttonRecipe/issues/13)) ([86be1f4](https://github.com/RyuNen344/AutoMuttonRecipe/commit/86be1f489833334646c0f0d963816070880abe9e))
+* update Gradle wrapper to version 8.12.1 ([#8](https://github.com/RyuNen344/AutoMuttonRecipe/issues/8)) ([4ae237e](https://github.com/RyuNen344/AutoMuttonRecipe/commit/4ae237e5dfeed52890d464ae2dbcb7413876f6d4))
+* update test reporter name format in workflow ([#6](https://github.com/RyuNen344/AutoMuttonRecipe/issues/6)) ([c893828](https://github.com/RyuNen344/AutoMuttonRecipe/commit/c893828a5cd67705ba2a0d0f97cae7e5cfb3be4c))
+
 ## [1.0.0-alpha01](https://github.com/RyuNen344/AutoMuttonRecipe/compare/v1.0.0-alpha01...1.0.0-alpha01) (2025-01-29)
 
 
