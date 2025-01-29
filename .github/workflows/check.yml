@@ -93,7 +93,7 @@ jobs:
       - uses: dorny/test-reporter@v1
         if: ${{ !cancelled() }}
         with:
-          name: unit-test-result-linux-${{ matrix.module }}
+          name: unit-test-result-${{ matrix.module }}
           path: '**/test-results/**/*.xml'
           reporter: java-junit
           fail-on-error: false
@@ -117,7 +117,7 @@ jobs:
       - uses: dorny/test-reporter@v1
         if: ${{ !cancelled() }}
         with:
-          name: unit-test-result-linux-${{ matrix.module }}
+          name: unit-test-result-${{ matrix.module }}
           path: '**/test-results/**/*.xml'
           reporter: java-junit
           fail-on-error: false
@@ -144,7 +144,7 @@ jobs:
       - uses: dorny/test-reporter@v1
         if: ${{ !cancelled() }}
         with:
-          name: unit-test-result-linux-${{ matrix.module }}
+          name: unit-test-result-${{ matrix.module }}
           path: '**/test-results/**/*.xml'
           reporter: java-junit
           fail-on-error: false
@@ -171,7 +171,7 @@ jobs:
       - uses: dorny/test-reporter@v1
         if: ${{ !cancelled() }}
         with:
-          name: unit-test-result-linux-${{ matrix.module }}
+          name: unit-test-result-${{ matrix.module }}
           path: '**/test-results/**/*.xml'
           reporter: java-junit
           fail-on-error: false
@@ -195,7 +195,7 @@ jobs:
       - uses: dorny/test-reporter@v1
         if: ${{ !cancelled() }}
         with:
-          name: unit-test-result-linux-${{ matrix.module }}
+          name: unit-test-result-${{ matrix.module }}
           path: '**/test-results/**/*.xml'
           reporter: java-junit
           fail-on-error: false
