@@ -1,0 +1,24 @@
+# $schema: https://json.schemastore.org/github-workflow.json
+name: submit gradle dependency report
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflows }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dependency-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/java
+      - uses: gradle/actions/dependency-submission@v4
+        with:
+          gradle-version: wrapper
+          dependency-resolution-task: 'resolveAllDependencies'
+          validate-wrappers: true
