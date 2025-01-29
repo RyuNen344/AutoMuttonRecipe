@@ -27,5 +27,6 @@ object TestLogger : Logger() {
             println("$tag ${level.name} : $it")
         }
         throwable?.printStackTrace()
+        throwable?.cause?.printStackTrace()
     }
 }
