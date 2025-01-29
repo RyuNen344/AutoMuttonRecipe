@@ -2,6 +2,9 @@
 name: check
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     types:
       - opened
@@ -93,31 +96,7 @@ jobs:
       - uses: dorny/test-reporter@v1
         if: ${{ !cancelled() }}
         with:
-          name: unit-test-result-linux-${{ matrix.module }}
-          path: '**/test-results/**/*.xml'
-          reporter: java-junit
-          fail-on-error: false
-
-  test-linux-arm64:
-    runs-on: ubuntu-24.04-arm
-    strategy:
-      fail-fast: false
-      matrix:
-        module: [
-          "linuxArm64",
-        ]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/java
-      - uses: ./.github/actions/gradle
-      - name: test
-        shell: bash
-        run: |
-          ./gradlew ${{ matrix.module }}Test
-      - uses: dorny/test-reporter@v1
-        if: ${{ !cancelled() }}
-        with:
-          name: unit-test-result-linux-${{ matrix.module }}
+          name: unit-test-result-${{ matrix.module }}
           path: '**/test-results/**/*.xml'
           reporter: java-junit
           fail-on-error: false
@@ -144,7 +123,7 @@ jobs:
       - uses: dorny/test-reporter@v1
         if: ${{ !cancelled() }}
         with:
-          name: unit-test-result-linux-${{ matrix.module }}
+          name: unit-test-result-${{ matrix.module }}
           path: '**/test-results/**/*.xml'
           reporter: java-junit
           fail-on-error: false
@@ -171,7 +150,7 @@ jobs:
       - uses: dorny/test-reporter@v1
         if: ${{ !cancelled() }}
         with:
-          name: unit-test-result-linux-${{ matrix.module }}
+          name: unit-test-result-${{ matrix.module }}
           path: '**/test-results/**/*.xml'
           reporter: java-junit
           fail-on-error: false
@@ -195,7 +174,7 @@ jobs:
       - uses: dorny/test-reporter@v1
         if: ${{ !cancelled() }}
         with:
-          name: unit-test-result-linux-${{ matrix.module }}
+          name: unit-test-result-${{ matrix.module }}
           path: '**/test-results/**/*.xml'
           reporter: java-junit
           fail-on-error: false
