@@ -27,6 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/java
+      - uses: ./.github/actions/konan
       - uses: ./.github/actions/gradle
       - uses: reviewdog/action-setup@v1
       - name: run detekt
@@ -55,6 +56,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/java
+      - uses: ./.github/actions/konan
       - uses: ./.github/actions/gradle
       - name: check api file
         shell: bash
@@ -66,6 +68,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/java
+      - uses: ./.github/actions/konan
       - uses: ./.github/actions/gradle
       - name: publish
         shell: bash
@@ -88,6 +91,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/java
+      - uses: ./.github/actions/konan
       - uses: ./.github/actions/gradle
       - name: test
         shell: bash
@@ -115,6 +119,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/java
+      - uses: ./.github/actions/konan
       - uses: ./.github/actions/gradle
       - name: test
         shell: bash
@@ -142,6 +147,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/java
+      - uses: ./.github/actions/konan
       - uses: ./.github/actions/gradle
       - name: test
         shell: bash
@@ -166,6 +172,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/java
+      - uses: ./.github/actions/konan
       - uses: ./.github/actions/gradle
       - name: test
         shell: bash
