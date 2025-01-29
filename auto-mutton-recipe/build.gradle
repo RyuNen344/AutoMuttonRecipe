@@ -105,6 +105,12 @@ kotlin {
     }
 }
 
+// disable stack trace recovery for exception's tests
+// ref: https://github.com/Kotlin/kotlinx.coroutines/blob/fed40ad1f9942d1b16be872cc555e08f965cf881/kotlinx-coroutines-core/jvm/src/Debug.kt#L34-L45C20
+tasks.withType(Test).configureEach {
+    systemProperty("kotlinx.coroutines.stacktrace.recovery", "false")
+}
+
 apiValidation {
     klib.enabled = true
 }
