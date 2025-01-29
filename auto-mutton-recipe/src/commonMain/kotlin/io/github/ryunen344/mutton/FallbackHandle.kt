@@ -24,8 +24,9 @@ package io.github.ryunen344.mutton
  */
 public fun interface FallbackHandle<S, A, E> where S : State, A : Action, E : Effect {
     /**
-     * If [action] is null, it indicates the exception was thrown during effect handling.
+     * If [action] and [effect] are null, it indicates the exception was thrown during state transition.
      * If [effect] is null, it indicates the exception was thrown during action handling.
+     * If [action] is null, it indicates the exception was thrown during effect handling.
      *
      * @param state The state before the transition.
      * @param action The action that was dispatched.

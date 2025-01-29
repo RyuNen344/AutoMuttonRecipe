@@ -42,6 +42,7 @@ import kotlinx.coroutines.handleCoroutineException
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.yield
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -105,6 +106,7 @@ public abstract class StateMachine<S, A, E>(
                         } else {
                             logger.warn(name) { "unhandled action:[$action], current state:[$current], transition:[null]" }
                         }
+                        yield()
                     } catch (e: CancellationException) {
                         throw e
                     } catch (@Suppress("TooGenericExceptionCaught") e: Throwable) {
