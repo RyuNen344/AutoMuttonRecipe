@@ -20,6 +20,8 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
       - uses: ./.github/actions/java
         if: ${{ steps.release.outputs.release_created }}
+      - uses: ./.github/actions/konan
+        if: ${{ steps.release.outputs.release_created }}
       - uses: ./.github/actions/gradle
         if: ${{ steps.release.outputs.release_created }}
       - name: generate artifacts

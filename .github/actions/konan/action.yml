@@ -1,0 +1,21 @@
+# $schema: https://json.schemastore.org/github-action.json
+name: "setup .konan(kotlin native) cache"
+description: "setup .konan"
+runs:
+  using: "composite"
+  steps:
+    - name: parse kotlin version
+      uses: SebRollen/toml-action@v1.2.0
+      id: kotlin_version
+      with:
+        file: 'gradle/libs.versions.toml'
+        field: 'versions.kotlin'
+    - name: print konan cache kotlin version
+      shell: bash
+      run: echo "${{ steps.kotlin_version.outputs.value }}"
+    - name: setup konan
+      uses: actions/cache@v4
+      with:
+        key: konan-v1-${{ runner.os }}-${{ runner.arch }}-${{ steps.kotlin_version.outputs.value }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+        path: '~/.konan'
+        restore-keys: konan-v1-${{ runner.os }}-${{ runner.arch }}-${{ steps.kotlin_version.outputs.value }}
