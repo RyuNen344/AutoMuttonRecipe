@@ -19,5 +19,4 @@
 
 package io.github.ryunen344.mutton.savedstate
 
-public class Sample {
-}
+public class Sample
