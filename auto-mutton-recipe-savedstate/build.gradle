@@ -1,0 +1,59 @@
+import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
+
+plugins {
+    alias libs.plugins.com.android.library
+    alias libs.plugins.org.jetbrains.kotlin.android
+    alias libs.plugins.org.jetbrains.kotlinx.atomicfu
+    alias libs.plugins.org.jetbrains.kotlinx.binary.compatibility.validator
+    alias libs.plugins.org.jetbrains.kotlinx.kover
+}
+
+apply from: rootProject.layout.projectDirectory.file("gradle/publish.gradle")
+
+android {
+    namespace = "io.github.ryunen344.mutton.savedstate"
+    compileSdk = 34
+    defaultConfig {
+        minSdk = 19
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
+        consumerProguardFile "consumer-rules.pro"
+    }
+    buildTypes {
+        release {
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions.jvmTarget = "1.8"
+    packaging.resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
+}
+
+kotlin.explicitApi()
+
+dependencies {
+    implementation project(":auto-mutton-recipe")
+}
+
+// configure dokka html-docs.jar as javadoc.jar
+mavenPublishing {
+    configure(new AndroidSingleVariantLibrary("release", true, false))
+}
+
+tasks.register('dokkaHtmlJar', Jar) {
+    dependsOn(dokkaHtml)
+    from(dokkaHtml)
+    archiveClassifier.set("javadoc")
+}
+
+publishing {
+    publications.configureEach {
+        it.artifact dokkaHtmlJar
+    }
+}

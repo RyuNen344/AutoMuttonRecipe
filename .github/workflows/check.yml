@@ -87,6 +87,7 @@ jobs:
           "jsBrowser",
           "wasmJsNode",
           "wasmWasi",
+          "testDebugUnit",
         ]
     steps:
       - uses: actions/checkout@v4

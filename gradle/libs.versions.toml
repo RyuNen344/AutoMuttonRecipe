@@ -1,4 +1,5 @@
 [versions]
+agp = "8.7.3"
 assertk = "0.28.1"
 atomicfu = "0.27.0"
 binary-compatibility-validator = "0.17.0"
@@ -26,10 +27,12 @@ org-jetbrains-kotlinx-coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx
 org-jetbrains-kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
 
 [plugins]
+com-android-library = { id = "com.android.library", version.ref = "agp" }
 com-vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
 io-gitlab-arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 nl-littlerobots-version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "version-catalog-update" }
 org-jetbrains-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 org-jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 org-jetbrains-kotlin-plugin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 org-jetbrains-kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
