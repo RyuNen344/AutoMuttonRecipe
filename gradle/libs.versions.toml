@@ -1,5 +1,10 @@
 [versions]
 agp = "8.7.3"
+androidx-lifecycle = "2.8.7"
+androidx-test-core = "1.6.1"
+androidx-test-ext-junit = "1.2.1"
+androidx-test-rules = "1.6.1"
+androidx-test-runner = "1.6.2"
 assertk = "0.28.1"
 atomicfu = "0.27.0"
 binary-compatibility-validator = "0.17.0"
@@ -10,11 +15,17 @@ jdk = "11"
 kotlin = "2.1.0"
 kover = "0.9.1"
 maven-publish = "0.30.0"
+robolectric = "4.14.1"
 serialization = "1.8.0"
 turbine = "1.2.0"
 version-catalog-update = "0.8.5"
 
 [libraries]
+androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "androidx-lifecycle" }
+androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test-core" }
+androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-test-ext-junit" }
+androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test-rules" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
 app-cash-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 com-willowtreeapps-assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
 io-gitlab-arturbosch-detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
@@ -25,6 +36,7 @@ org-jetbrains-kotlinx-coroutine-core = { module = "org.jetbrains.kotlinx:kotlinx
 org-jetbrains-kotlinx-coroutine-debug = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-debug", version.ref = "coroutines" }
 org-jetbrains-kotlinx-coroutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 org-jetbrains-kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
+org-robolectric-robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 
 [plugins]
 com-android-library = { id = "com.android.library", version.ref = "agp" }

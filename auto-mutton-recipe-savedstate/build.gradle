@@ -10,6 +10,18 @@ plugins {
 
 apply from: rootProject.layout.projectDirectory.file("gradle/publish.gradle")
 
+kotlin {
+    explicitApi()
+
+    sourceSets.matching { it.name.endsWith("Test") }.configureEach {
+        it.languageSettings {
+            optIn('kotlinx.coroutines.DelicateCoroutinesApi')
+            optIn('kotlinx.coroutines.InternalCoroutinesApi')
+            optIn('kotlinx.coroutines.ExperimentalCoroutinesApi')
+        }
+    }
+}
+
 android {
     namespace = "io.github.ryunen344.mutton.savedstate"
     compileSdk = 34
@@ -33,12 +45,43 @@ android {
     }
     kotlinOptions.jvmTarget = "1.8"
     packaging.resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
+    lint {
+        checkReleaseBuilds = false
+        sarifReport = true
+    }
+    testOptions {
+        unitTests.includeAndroidResources = true
+        unitTests.returnDefaultValues = true
+        unitTests.all { test ->
+            test.systemProperty("robolectric.logging", "stdout")
+            test.systemProperty("robolectric.logging.enabled", "true")
+            test.systemProperty("robolectric.graphicsMode", "NATIVE")
+            test.testLogging.showStandardStreams = true
+        }
+    }
 }
 
-kotlin.explicitApi()
+androidComponents {
+    beforeVariants(selector().withName("release")) { variantBuilder ->
+        variantBuilder.enableAndroidTest = false
+        variantBuilder.enableUnitTest = false
+        variantBuilder.enableTestFixtures = false
+    }
+}
 
 dependencies {
     implementation project(":auto-mutton-recipe")
+    implementation libs.androidx.lifecycle.viewmodel.savedstate
+    testImplementation libs.androidx.test.core
+    testImplementation libs.androidx.test.ext.junit
+    testImplementation libs.androidx.test.rules
+    testImplementation libs.androidx.test.runner
+    testImplementation libs.app.cash.turbine
+    testImplementation libs.com.willowtreeapps.assertk
+    testImplementation libs.org.jetbrains.kotlin.test
+    testImplementation libs.org.jetbrains.kotlin.reflect
+    testImplementation libs.org.jetbrains.kotlinx.coroutine.test
+    testImplementation libs.org.robolectric.robolectric
 }
 
 // configure dokka html-docs.jar as javadoc.jar
