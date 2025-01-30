@@ -1,0 +1,4 @@
+public final class io/github/ryunen344/mutton/savedstate/Sample {
+	public fun <init> ()V
+}
+

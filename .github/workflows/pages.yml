@@ -29,9 +29,9 @@ jobs:
       - name: build html
         shell: bash
         run: |
-          ./gradlew dokkaHtml
+          ./gradlew dokkaHtmlMultiModule
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: './auto-mutton-recipe/build/dokka/html'
+          path: './build/dokka/html'
       - uses: actions/deploy-pages@v4
         id: deployment
