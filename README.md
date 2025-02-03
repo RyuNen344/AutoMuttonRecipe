@@ -23,11 +23,17 @@ AutoMuttonRecipe is a lightweight library designed for multiplatform projects.
   <artifactId>auto-mutton-recipe</artifactId>
   <version>$version</version>
 </dependency>
+<dependency>
+  <groupId>io.github.ryunen344.mutton</groupId>
+  <artifactId>auto-mutton-recipe-savedstate</artifactId>
+  <version>$version</version>
+</dependency>
 ```
 
 ### Gradle
 ```gradle
 implementation 'io.github.ryunen344.mutton:auto-mutton-recipe:$version'
+implementation 'io.github.ryunen344.mutton:auto-mutton-recipe-savedstate:$version'
 ```
 
 ## How to use
@@ -120,6 +126,9 @@ fun main() {
     stateMachine.dispatch(ExampleAction.Load)
 }
 ```
+
+> [!TIP]
+> You can use `SavedStateMachine` with `auto-mutton-recipe-savedstate` module to save and restore the state machine's state.
 
 ## License
 ```text
