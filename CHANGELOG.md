@@ -8,6 +8,7 @@
 * create gradle module for android extension ([#17](https://github.com/RyuNen344/AutoMuttonRecipe/issues/17)) ([690731a](https://github.com/RyuNen344/AutoMuttonRecipe/commit/690731ac35ea0f9623e8d72602b9f2d8c419b0a1))
 * implement SavedStateMachine with SavedStateHandle support ([#23](https://github.com/RyuNen344/AutoMuttonRecipe/issues/23)) ([ecc5d02](https://github.com/RyuNen344/AutoMuttonRecipe/commit/ecc5d0202332df834b74e4f919cb65f320ec5cae))
 
+A new `auto-mutton-recipe-savedstate` artifact has been created that focuses on supporting apps that use `SavedStateHandle` for state management.
 
 ### Chores
 
