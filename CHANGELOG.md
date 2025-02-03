@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.0.1](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.0.0...1.0.1) (2025-02-03)
+
+
+### Features
+
+* create gradle module for android extension ([#17](https://github.com/RyuNen344/AutoMuttonRecipe/issues/17)) ([690731a](https://github.com/RyuNen344/AutoMuttonRecipe/commit/690731ac35ea0f9623e8d72602b9f2d8c419b0a1))
+* implement SavedStateMachine with SavedStateHandle support ([#23](https://github.com/RyuNen344/AutoMuttonRecipe/issues/23)) ([ecc5d02](https://github.com/RyuNen344/AutoMuttonRecipe/commit/ecc5d0202332df834b74e4f919cb65f320ec5cae))
+
+A new `auto-mutton-recipe-savedstate` artifact has been created that focuses on supporting apps that use `SavedStateHandle` for state management.
+
+### Chores
+
+* release 1.0.1 ([#22](https://github.com/RyuNen344/AutoMuttonRecipe/issues/22)) ([3aeec98](https://github.com/RyuNen344/AutoMuttonRecipe/commit/3aeec984801107d08438beca136d5534d72d67fb))
+* release 1.1.0 ([#18](https://github.com/RyuNen344/AutoMuttonRecipe/issues/18)) ([4434a94](https://github.com/RyuNen344/AutoMuttonRecipe/commit/4434a94ab507e3ae386ff2c914bebe971a1e3b77))
+* update concurrency group names in workflow files ([#15](https://github.com/RyuNen344/AutoMuttonRecipe/issues/15)) ([7eaa077](https://github.com/RyuNen344/AutoMuttonRecipe/commit/7eaa0770357433ba9abb2769b1805e15144befa9))
+* update path for Dokka HTML output in GitHub Actions workflow ([#20](https://github.com/RyuNen344/AutoMuttonRecipe/issues/20)) ([addf66e](https://github.com/RyuNen344/AutoMuttonRecipe/commit/addf66ef79d4fa6427cc9db42a9ea635c54c5cf0))
+
 ## [1.0.0](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.0.0-alpha01...1.0.0) (2025-01-29)
 
 
