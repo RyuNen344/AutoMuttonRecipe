@@ -1,4 +1,5 @@
-public final class io/github/ryunen344/mutton/savedstate/Sample {
-	public fun <init> ()V
+public abstract class io/github/ryunen344/mutton/savedstate/SavedStateMachine : io/github/ryunen344/mutton/StateMachine {
+	public fun <init> (Landroidx/lifecycle/SavedStateHandle;Ljava/lang/String;Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Graph;Lio/github/ryunen344/mutton/EffectHandle;Lio/github/ryunen344/mutton/FallbackHandle;Lio/github/ryunen344/mutton/log/Logger;Lkotlin/coroutines/CoroutineContext;)V
+	public synthetic fun <init> (Landroidx/lifecycle/SavedStateHandle;Ljava/lang/String;Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Graph;Lio/github/ryunen344/mutton/EffectHandle;Lio/github/ryunen344/mutton/FallbackHandle;Lio/github/ryunen344/mutton/log/Logger;Lkotlin/coroutines/CoroutineContext;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 }
 
