@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.2](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.0.1...1.0.2) (2025-02-14)
+
+
+### Dependency Updates
+
+* **gradle:** bump com.android.library from 8.7.3 to 8.8.0 ([#21](https://github.com/RyuNen344/AutoMuttonRecipe/issues/21)) ([86751a2](https://github.com/RyuNen344/AutoMuttonRecipe/commit/86751a230930b5fe6ac0e37c68f160f0ab2fdec3))
+* **gradle:** bump com.android.library from 8.8.0 to 8.8.1 ([#26](https://github.com/RyuNen344/AutoMuttonRecipe/issues/26)) ([edd7fec](https://github.com/RyuNen344/AutoMuttonRecipe/commit/edd7fec04686717cc2fa1cfd82998728ac2027dc))
+* **gradle:** bump kotlin from 2.1.0 to 2.1.10 ([#19](https://github.com/RyuNen344/AutoMuttonRecipe/issues/19)) ([ae2fb47](https://github.com/RyuNen344/AutoMuttonRecipe/commit/ae2fb47fc77cb52c3487d25b17fef1b6aee6ace6))
+
 ## [1.0.1](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.0.0...1.0.1) (2025-02-03)
 
 
