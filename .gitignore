@@ -9,6 +9,7 @@
 *.log
 *.iml
 .idea/artifacts
+.idea/AndroidProjectSystem.xml
 .idea/androidTestResultsUserPreferences.xml
 .idea/compiler.xml
 .idea/inspectionProfiles

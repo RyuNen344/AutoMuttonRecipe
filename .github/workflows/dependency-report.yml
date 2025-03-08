@@ -8,7 +8,7 @@ on:
       - main
 
 concurrency:
-  group: dependency-report-${{ github.workflows }}-${{ github.head_ref || github.ref }}
+  group: dependency-report-${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 
 jobs:
