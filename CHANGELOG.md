@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.0.2](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.0.1...1.0.2) (2025-03-21)
+
+
+### Dependency Updates
+
+* **github-actions:** bump dorny/test-reporter from 1 to 2 ([#32](https://github.com/RyuNen344/AutoMuttonRecipe/issues/32)) ([d052556](https://github.com/RyuNen344/AutoMuttonRecipe/commit/d052556c15f80fa172e00a4cbc2f40546a3d00f5))
+* **gradle:** bump com.android.library from 8.7.3 to 8.8.0 ([#21](https://github.com/RyuNen344/AutoMuttonRecipe/issues/21)) ([86751a2](https://github.com/RyuNen344/AutoMuttonRecipe/commit/86751a230930b5fe6ac0e37c68f160f0ab2fdec3))
+* **gradle:** bump com.android.library from 8.8.0 to 8.8.1 ([#26](https://github.com/RyuNen344/AutoMuttonRecipe/issues/26)) ([edd7fec](https://github.com/RyuNen344/AutoMuttonRecipe/commit/edd7fec04686717cc2fa1cfd82998728ac2027dc))
+* **gradle:** bump com.android.library from 8.8.1 to 8.8.2 ([#28](https://github.com/RyuNen344/AutoMuttonRecipe/issues/28)) ([03539fa](https://github.com/RyuNen344/AutoMuttonRecipe/commit/03539fa71fbfc7dfabad70fd2780b512c13866ad))
+* **gradle:** bump com.android.library from 8.8.2 to 8.9.0 ([#29](https://github.com/RyuNen344/AutoMuttonRecipe/issues/29)) ([b2826de](https://github.com/RyuNen344/AutoMuttonRecipe/commit/b2826de441bd35017a9085c809cb093ebdb43c52))
+* **gradle:** bump com.vanniktech.maven.publish from 0.30.0 to 0.31.0 ([#30](https://github.com/RyuNen344/AutoMuttonRecipe/issues/30)) ([03751cb](https://github.com/RyuNen344/AutoMuttonRecipe/commit/03751cbfd853839cdc833e8ebb198ad6bf52a28d))
+* **gradle:** bump detekt from 1.23.7 to 1.23.8 ([#27](https://github.com/RyuNen344/AutoMuttonRecipe/issues/27)) ([d65686f](https://github.com/RyuNen344/AutoMuttonRecipe/commit/d65686f8f8f89078f721909e881cbcfab037af75))
+* **gradle:** bump kotlin from 2.1.0 to 2.1.10 ([#19](https://github.com/RyuNen344/AutoMuttonRecipe/issues/19)) ([ae2fb47](https://github.com/RyuNen344/AutoMuttonRecipe/commit/ae2fb47fc77cb52c3487d25b17fef1b6aee6ace6))
+* **gradle:** bump kotlin from 2.1.10 to 2.1.20 ([#33](https://github.com/RyuNen344/AutoMuttonRecipe/issues/33)) ([1c6f567](https://github.com/RyuNen344/AutoMuttonRecipe/commit/1c6f567bf0f34bc53795f6cc72f5201ff4d71d4f))
+
+
+### Chores
+
+* typo ([#31](https://github.com/RyuNen344/AutoMuttonRecipe/issues/31)) ([bf84ad9](https://github.com/RyuNen344/AutoMuttonRecipe/commit/bf84ad9bcafaa06bf83df7c9338640e5e8a615f0))
+
 ## [1.0.1](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.0.0...1.0.1) (2025-02-03)
 
 
