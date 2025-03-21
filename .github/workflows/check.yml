@@ -109,7 +109,6 @@ jobs:
           name: unit-test-result-${{ matrix.module }}
           path: '**/test-results/**/*.xml'
           reporter: java-junit
-          use-actions-summary: false
           fail-on-error: false
 
   test-mac-x64:
@@ -138,7 +137,6 @@ jobs:
           name: unit-test-result-${{ matrix.module }}
           path: '**/test-results/**/*.xml'
           reporter: java-junit
-          use-actions-summary: false
           fail-on-error: false
 
   test-mac-arm64:
@@ -167,7 +165,6 @@ jobs:
           name: unit-test-result-${{ matrix.module }}
           path: '**/test-results/**/*.xml'
           reporter: java-junit
-          use-actions-summary: false
           fail-on-error: false
 
   test-win:
@@ -193,5 +190,4 @@ jobs:
           name: unit-test-result-${{ matrix.module }}
           path: '**/test-results/**/*.xml'
           reporter: java-junit
-          use-actions-summary: false
           fail-on-error: false
