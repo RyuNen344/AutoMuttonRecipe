@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.0.2...1.0.3) (2025-03-25)
+
+
+### Dependency Updates
+
+* **gradle:** bump com.android.library from 8.9.0 to 8.9.1 ([#34](https://github.com/RyuNen344/AutoMuttonRecipe/issues/34)) ([e6300af](https://github.com/RyuNen344/AutoMuttonRecipe/commit/e6300affed3546b6db632b4603718b4a2c0646be))
+
 ## [1.0.2](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.0.1...1.0.2) (2025-03-21)
 
 
