@@ -24,6 +24,11 @@ AutoMuttonRecipe is a lightweight library designed for multiplatform projects.
   <version>$version</version>
 </dependency>
 <dependency>
+<groupId>io.github.ryunen344.mutton</groupId>
+<artifactId>auto-mutton-recipe-compose</artifactId>
+<version>$version</version>
+</dependency>
+<dependency>
   <groupId>io.github.ryunen344.mutton</groupId>
   <artifactId>auto-mutton-recipe-savedstate</artifactId>
   <version>$version</version>
@@ -33,6 +38,7 @@ AutoMuttonRecipe is a lightweight library designed for multiplatform projects.
 ### Gradle
 ```gradle
 implementation 'io.github.ryunen344.mutton:auto-mutton-recipe:$version'
+implementation 'io.github.ryunen344.mutton:auto-mutton-recipe-compose:$version'
 implementation 'io.github.ryunen344.mutton:auto-mutton-recipe-savedstate:$version'
 ```
 
