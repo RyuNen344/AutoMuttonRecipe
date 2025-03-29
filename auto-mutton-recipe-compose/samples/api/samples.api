@@ -1,0 +1,4 @@
+public final class io/github/ryunen344/mutton/compose/sample/StateMachineSaverSampleKt {
+	public static final fun StateMachineSaverSample (Landroidx/compose/runtime/Composer;I)V
+}
+
