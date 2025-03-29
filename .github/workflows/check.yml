@@ -33,6 +33,8 @@ jobs:
       - name: run android lint
         shell: bash
         run: |
+          ./gradlew :auto-mutton-recipe-compose:lintDebug
+          ./gradlew :auto-mutton-recipe-compose:samples:lintDebug
           ./gradlew :auto-mutton-recipe-savedstate:lintDebug
       - name: run detekt
         shell: bash
@@ -43,14 +45,16 @@ jobs:
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cat auto-mutton-recipe-savedstate/build/reports/lint-results-debug.sarif | reviewdog -f=sarif -name="android lint" -reporter=github-pr-review;
+          cat auto-mutton-recipe-compose/build/reports/lint-results-debug.sarif | reviewdog -f=sarif -name="compose android lint" -reporter=github-pr-review;
+          cat auto-mutton-recipe-compose/samples/build/reports/lint-results-debug.sarif | reviewdog -f=sarif -name="compose samples android lint" -reporter=github-pr-review;
+          cat auto-mutton-recipe-savedstate/build/reports/lint-results-debug.sarif | reviewdog -f=sarif -name="savedstate android lint" -reporter=github-pr-review;
           cat build/reports/detekt/detekt.xml | reviewdog -f=checkstyle -name="detekt" -reporter=github-pr-review;
       - name: run reviewdog suggest
         if: ${{ !cancelled() }}
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./gradlew :auto-mutton-recipe-savedstate:lintFix detekt -PautoCorrect --quiet --continue || true;
+          ./gradlew :auto-mutton-recipe-compose:lintFix :auto-mutton-recipe-compose:samples:lintFix :auto-mutton-recipe-savedstate:lintFix detekt -PautoCorrect --quiet --continue || true;
           TMPFILE=$(mktemp);
           git diff >"${TMPFILE}";
           git stash -u || git stash drop;
