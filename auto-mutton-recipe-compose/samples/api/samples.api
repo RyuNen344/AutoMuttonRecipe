@@ -1,1 +1,65 @@
+public abstract class io/github/ryunen344/mutton/compose/sample/MatterAction : io/github/ryunen344/mutton/Action {
+	public static final field $stable I
+}
+
+public final class io/github/ryunen344/mutton/compose/sample/MatterAction$Condense : io/github/ryunen344/mutton/compose/sample/MatterAction {
+	public static final field $stable I
+	public static final field INSTANCE Lio/github/ryunen344/mutton/compose/sample/MatterAction$Condense;
+}
+
+public final class io/github/ryunen344/mutton/compose/sample/MatterAction$Freeze : io/github/ryunen344/mutton/compose/sample/MatterAction {
+	public static final field $stable I
+	public static final field INSTANCE Lio/github/ryunen344/mutton/compose/sample/MatterAction$Freeze;
+}
+
+public final class io/github/ryunen344/mutton/compose/sample/MatterAction$Melt : io/github/ryunen344/mutton/compose/sample/MatterAction {
+	public static final field $stable I
+	public static final field INSTANCE Lio/github/ryunen344/mutton/compose/sample/MatterAction$Melt;
+}
+
+public final class io/github/ryunen344/mutton/compose/sample/MatterAction$Vaporize : io/github/ryunen344/mutton/compose/sample/MatterAction {
+	public static final field $stable I
+	public static final field INSTANCE Lio/github/ryunen344/mutton/compose/sample/MatterAction$Vaporize;
+}
+
+public abstract class io/github/ryunen344/mutton/compose/sample/MatterEffect : io/github/ryunen344/mutton/Effect {
+	public static final field $stable I
+}
+
+public abstract class io/github/ryunen344/mutton/compose/sample/MatterState : io/github/ryunen344/mutton/State, java/io/Serializable {
+	public static final field $stable I
+}
+
+public final class io/github/ryunen344/mutton/compose/sample/MatterState$Gas : io/github/ryunen344/mutton/compose/sample/MatterState {
+	public static final field $stable I
+	public static final field INSTANCE Lio/github/ryunen344/mutton/compose/sample/MatterState$Gas;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/ryunen344/mutton/compose/sample/MatterState$Liquid : io/github/ryunen344/mutton/compose/sample/MatterState {
+	public static final field $stable I
+	public static final field INSTANCE Lio/github/ryunen344/mutton/compose/sample/MatterState$Liquid;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/ryunen344/mutton/compose/sample/MatterState$Solid : io/github/ryunen344/mutton/compose/sample/MatterState {
+	public static final field $stable I
+	public static final field INSTANCE Lio/github/ryunen344/mutton/compose/sample/MatterState$Solid;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/ryunen344/mutton/compose/sample/MatterStateMachine : io/github/ryunen344/mutton/StateMachine {
+	public static final field $stable I
+	public fun <init> (Lio/github/ryunen344/mutton/compose/sample/MatterState;Lkotlin/coroutines/CoroutineContext;)V
+}
+
+public final class io/github/ryunen344/mutton/compose/sample/StateMachineSaverSampleKt {
+	public static final fun StateMachineSaverSample (Landroidx/compose/runtime/Composer;I)V
+}
 
