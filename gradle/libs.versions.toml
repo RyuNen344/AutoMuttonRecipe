@@ -1,5 +1,6 @@
 [versions]
 agp = "8.9.1"
+androidx-compose-runtime = "1.7.8"
 androidx-lifecycle = "2.8.7"
 androidx-test-core = "1.6.1"
 androidx-test-ext-junit = "1.2.1"
@@ -21,6 +22,7 @@ turbine = "1.2.0"
 version-catalog-update = "0.8.5"
 
 [libraries]
+androidx-compose-runtime-saveable = { module = "androidx.compose.runtime:runtime-saveable", version.ref = "androidx-compose-runtime" }
 androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "androidx-lifecycle" }
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test-core" }
 androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-test-ext-junit" }
@@ -46,6 +48,7 @@ nl-littlerobots-version-catalog-update = { id = "nl.littlerobots.version-catalog
 org-jetbrains-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 org-jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+org-jetbrains-kotlin-plugin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 org-jetbrains-kotlin-plugin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 org-jetbrains-kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 org-jetbrains-kotlinx-atomicfu = { id = "org.jetbrains.kotlinx.atomicfu", version.ref = "atomicfu" }
