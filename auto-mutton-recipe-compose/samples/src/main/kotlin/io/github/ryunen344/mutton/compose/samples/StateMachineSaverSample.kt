@@ -31,4 +31,7 @@ public fun StateMachineSaverSample() {
     val stateMachine = rememberStateMachine<MatterStateMachine, MatterState>(initialState = MatterState.Solid) { state ->
         MatterStateMachine(initialState = state, context = coroutineScope.coroutineContext)
     }
+
+    @Suppress("UnusedPrivateProperty")
+    val state by stateMachine.state.collectAsStateWithLifecycle()
 }
