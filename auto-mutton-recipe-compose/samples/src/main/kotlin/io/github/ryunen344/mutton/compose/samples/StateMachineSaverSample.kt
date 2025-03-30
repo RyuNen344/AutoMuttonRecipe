@@ -20,6 +20,7 @@
 package io.github.ryunen344.mutton.compose.samples
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -32,6 +33,9 @@ public fun StateMachineSaverSample() {
         MatterStateMachine(initialState = state, context = coroutineScope.coroutineContext)
     }
 
-    @Suppress("UnusedPrivateProperty")
     val state by stateMachine.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(state) {
+        println("MatterStateMachine state: $state")
+    }
 }
