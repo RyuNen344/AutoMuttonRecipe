@@ -1,5 +1,49 @@
 # Changelog
 
+## [1.1.0](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.0.2...1.1.0) (2025-03-30)
+
+### **New: Jetpack Compose Support**
+
+#### How to Use
+To use the Jetpack Compose support, you need to add the following dependency to your `build.gradle` file:
+
+```groovy
+dependencies {
+    implementation "io.github.ryunen344.mutton:auto-mutton-recipe-compose:1.1.0"
+}
+```
+
+#### Example Usage
+```kotlin
+@Composable
+fun Example() {
+    val coroutineScope = rememberCoroutineScope()
+    val stateMachine = rememberStateMachine<ExampleStateMachine, ExampleState>(initialState = ExampleState.Idle) { state ->
+        ExampleStateMachine(initialState = state, context = coroutineScope.coroutineContext)
+    }
+    val state by stateMachine.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        stateMachine.dispatch(ExampleAction.Start)
+    }
+}
+```
+
+### Features
+
+* **compose:** compose support ([#36](https://github.com/RyuNen344/AutoMuttonRecipe/issues/36)) ([9bd696e](https://github.com/RyuNen344/AutoMuttonRecipe/commit/9bd696ed195548b78083ff2f8d78e6033a7c0261))
+
+
+### Dependency Updates
+
+* **gradle:** bump com.android.library from 8.9.0 to 8.9.1 ([#34](https://github.com/RyuNen344/AutoMuttonRecipe/issues/34)) ([e6300af](https://github.com/RyuNen344/AutoMuttonRecipe/commit/e6300affed3546b6db632b4603718b4a2c0646be))
+
+
+### Chores
+
+* **actions:** simplify actions ([#37](https://github.com/RyuNen344/AutoMuttonRecipe/issues/37)) ([ee22946](https://github.com/RyuNen344/AutoMuttonRecipe/commit/ee229462856a5c6e0787eb932fd6946f863c438d))
+* **agp:** bump compileSdk version from 34 to 35 ([#38](https://github.com/RyuNen344/AutoMuttonRecipe/issues/38)) ([efc76fb](https://github.com/RyuNen344/AutoMuttonRecipe/commit/efc76fb70ea122acb7d9d732dd2adab664665d6d))
+
 ## [1.0.2](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.0.1...1.0.2) (2025-03-21)
 
 
