@@ -1,0 +1,42 @@
+plugins {
+    alias libs.plugins.com.android.library
+    alias libs.plugins.org.jetbrains.kotlin.android
+    alias libs.plugins.org.jetbrains.kotlin.plugin.compose
+}
+
+kotlin {
+    explicitApi()
+}
+
+android {
+    namespace = "io.github.ryunen344.mutton.compose.samples"
+    compileSdk = 34
+    defaultConfig.minSdk = 21
+    buildFeatures {
+        compose = true
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions.jvmTarget = "1.8"
+    lint {
+        checkReleaseBuilds = false
+        sarifReport = true
+    }
+}
+
+androidComponents {
+    beforeVariants(selector().all()) { variantBuilder ->
+        variantBuilder.enableAndroidTest = false
+        variantBuilder.enableUnitTest = false
+        variantBuilder.enableTestFixtures = false
+    }
+}
+
+dependencies {
+    implementation project(":auto-mutton-recipe")
+    implementation project(":auto-mutton-recipe-compose")
+    implementation libs.androidx.compose.runtime.saveable
+    implementation libs.androidx.lifecycle.runtime.compose
+}

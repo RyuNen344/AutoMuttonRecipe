@@ -21,4 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "AutoMuttonRecipe"
 include ':auto-mutton-recipe'
+include ':auto-mutton-recipe-compose'
+include ':auto-mutton-recipe-compose:samples'
 include ':auto-mutton-recipe-savedstate'

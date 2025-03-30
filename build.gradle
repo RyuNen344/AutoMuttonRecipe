@@ -1,10 +1,13 @@
 import io.gitlab.arturbosch.detekt.Detekt
+import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.dokka.gradle.DokkaTaskPartial
+import org.jetbrains.dokka.gradle.GradleDokkaSourceSetBuilder
 
 plugins {
     alias libs.plugins.com.android.library apply false
     alias libs.plugins.org.jetbrains.kotlin.android apply false
     alias libs.plugins.org.jetbrains.kotlin.multiplatform apply false
+    alias libs.plugins.org.jetbrains.kotlin.plugin.compose apply false
     alias libs.plugins.com.vanniktech.maven.publish apply false
     alias libs.plugins.org.jetbrains.dokka
     alias libs.plugins.io.gitlab.arturbosch.detekt
@@ -12,6 +15,11 @@ plugins {
 }
 
 apply from: rootProject.layout.projectDirectory.file("gradle/resolve-all-dependencies.gradle")
+
+tasks.register('cleanLocalMaven', Delete) {
+    group = LifecycleBasePlugin.BUILD_GROUP
+    delete(rootProject.layout.projectDirectory.dir("releases"))
+}
 
 detekt {
     parallel = true
@@ -37,14 +45,34 @@ allprojects {
     version = providers.fileContents(rootProject.layout.projectDirectory.file("version.txt")).asText.getOrElse("snapshot").trim()
 }
 
-subprojects {
-    apply plugin: libs.plugins.org.jetbrains.dokka.get().pluginId
-    tasks.withType(DokkaTaskPartial).configureEach {
-        dokkaSourceSets.configureEach {
+subprojects { project ->
+    project.plugins.apply(libs.plugins.org.jetbrains.dokka.get().pluginId)
+    def action = new Action<GradleDokkaSourceSetBuilder>() {
+        @Override
+        void execute(GradleDokkaSourceSetBuilder builder) {
             // later, enable module markdown
             //includes.from("README.md")
+            builder.perPackageOption {
+                matchingRegex.set(".*\\.samples(|\\..*)")
+                suppress.set(true)
+            }
+
+            builder.samples.from(project.layout.projectDirectory.files("samples/src/main/kotlin").asFileTree)
         }
     }
+
+    project.tasks.withType(DokkaTask).configureEach {
+        dokkaSourceSets.configureEach(action)
+    }
+
+    project.tasks.withType(DokkaTaskPartial).configureEach {
+        dokkaSourceSets.configureEach(action)
+    }
+}
+
+tasks.named("dokkaHtmlMultiModule") {
+    // module that has samples
+    dependsOn(":auto-mutton-recipe-compose:dokkaHtmlMultiModule")
 }
 
 versionCatalogUpdate {
