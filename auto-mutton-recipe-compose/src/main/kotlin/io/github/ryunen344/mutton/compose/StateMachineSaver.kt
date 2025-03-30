@@ -38,7 +38,7 @@ public fun <T : StateMachine<S, *, *>, S : State> stateMachineSaver(restore: (va
 /**
  * Remember a [StateMachine] that is remembered across compositions and configuration changes.
  *
- * @sample io.github.ryunen344.mutton.compose.sample.StateMachineSaverSample
+ * @sample io.github.ryunen344.mutton.compose.samples.StateMachineSaverSample
  */
 @Composable
 public fun <T : StateMachine<S, *, *>, S : State> rememberStateMachine(

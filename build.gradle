@@ -1,5 +1,7 @@
 import io.gitlab.arturbosch.detekt.Detekt
+import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.dokka.gradle.DokkaTaskPartial
+import org.jetbrains.dokka.gradle.GradleDokkaSourceSetBuilder
 
 plugins {
     alias libs.plugins.com.android.library apply false
@@ -44,15 +46,33 @@ allprojects {
 }
 
 subprojects { project ->
-    apply plugin: libs.plugins.org.jetbrains.dokka.get().pluginId
-    tasks.withType(DokkaTaskPartial).configureEach {
-        dokkaSourceSets.configureEach {
+    project.plugins.apply(libs.plugins.org.jetbrains.dokka.get().pluginId)
+    def action = new Action<GradleDokkaSourceSetBuilder>() {
+        @Override
+        void execute(GradleDokkaSourceSetBuilder builder) {
             // later, enable module markdown
             //includes.from("README.md")
+            builder.perPackageOption {
+                matchingRegex.set(".*\\.samples(|\\..*)")
+                suppress.set(true)
+            }
 
-            samples.from(project.layout.projectDirectory.files("samples/src/main/kotlin").asFileTree)
+            builder.samples.from(project.layout.projectDirectory.files("samples/src/main/kotlin").asFileTree)
         }
     }
+
+    project.tasks.withType(DokkaTask).configureEach {
+        dokkaSourceSets.configureEach(action)
+    }
+
+    project.tasks.withType(DokkaTaskPartial).configureEach {
+        dokkaSourceSets.configureEach(action)
+    }
+}
+
+tasks.named("dokkaHtmlMultiModule") {
+    // module that has samples
+    dependsOn(":auto-mutton-recipe-compose:dokkaHtmlMultiModule")
 }
 
 versionCatalogUpdate {

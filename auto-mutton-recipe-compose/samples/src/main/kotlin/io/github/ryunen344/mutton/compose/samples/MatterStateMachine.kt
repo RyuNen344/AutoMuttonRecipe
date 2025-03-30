@@ -17,7 +17,7 @@
  * License-Filename: LICENSE.md
  */
 
-package io.github.ryunen344.mutton.compose.sample
+package io.github.ryunen344.mutton.compose.samples
 
 import io.github.ryunen344.mutton.Action
 import io.github.ryunen344.mutton.Effect

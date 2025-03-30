@@ -17,7 +17,7 @@
  * License-Filename: LICENSE.md
  */
 
-package io.github.ryunen344.mutton.compose.sample
+package io.github.ryunen344.mutton.compose.samples
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,5 +31,4 @@ public fun StateMachineSaverSample() {
     val stateMachine = rememberStateMachine<MatterStateMachine, MatterState>(initialState = MatterState.Solid) { state ->
         MatterStateMachine(initialState = state, context = coroutineScope.coroutineContext)
     }
-    val state by stateMachine.state.collectAsStateWithLifecycle()
 }
