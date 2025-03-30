@@ -82,48 +82,56 @@ jobs:
         run: |
           ./gradlew publishAllPublicationsToLocalRepository --no-configuration-cache
 
-  test-linux-x64:
+  pages:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        module: [
-          "jvm",
-          "linuxX64",
-          "jsNode",
-          "jsBrowser",
-          "wasmJsNode",
-          "wasmWasi",
-          "testDebugUnit",
-        ]
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/java
       - uses: ./.github/actions/konan
       - uses: ./.github/actions/gradle
-      - name: test
+      - name: dokka
         shell: bash
         run: |
-          ./gradlew ${{ matrix.module }}Test
-      - uses: dorny/test-reporter@v2
-        if: ${{ !cancelled() }}
-        with:
-          name: unit-test-result-${{ matrix.module }}
-          path: '**/test-results/**/*.xml'
-          reporter: java-junit
-          fail-on-error: false
+          ./gradlew dokkaHtmlMultiModule --no-build-cache --no-configuration-cache
 
-  test-mac-x64:
-    runs-on: macos-13
+  test:
     strategy:
       fail-fast: false
       matrix:
-        module: [
-          "iosX64",
-          "tvosX64",
-          "watchosX64",
-          "macosX64",
-        ]
+        include:
+          - task: testDebugUnitTest
+            os: ubuntu-latest
+          - task: jvmTest
+            os: ubuntu-latest
+          - task: linuxX64Test
+            os: ubuntu-latest
+          - task: jsNodeTest
+            os: ubuntu-latest
+          - task: jsBrowserTest
+            os: ubuntu-latest
+          - task: wasmJsNodeTest
+            os: ubuntu-latest
+          - task: wasmWasiTest
+            os: ubuntu-latest
+          - task: iosX64Test
+            os: macos-13
+          - task: tvosX64Test
+            os: macos-13
+          - task: watchosX64Test
+            os: macos-13
+          - task: macosX64Test
+            os: macos-13
+          - task: iosSimulatorArm64Test
+            os: macos-latest
+          - task: tvosSimulatorArm64Test
+            os: macos-latest
+          - task: watchosSimulatorArm64Test
+            os: macos-latest
+          - task: macosArm64Test
+            os: macos-latest
+          - task: mingwX64Test
+            os: windows-latest
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/java
@@ -132,64 +140,11 @@ jobs:
       - name: test
         shell: bash
         run: |
-          ./gradlew ${{ matrix.module }}Test
+          ./gradlew ${{ matrix.task }}
       - uses: dorny/test-reporter@v2
         if: ${{ !cancelled() }}
         with:
-          name: unit-test-result-${{ matrix.module }}
-          path: '**/test-results/**/*.xml'
-          reporter: java-junit
-          fail-on-error: false
-
-  test-mac-arm64:
-    runs-on: macos-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        module: [
-          "iosSimulatorArm64",
-          "tvosSimulatorArm64",
-          "watchosSimulatorArm64",
-          "macosArm64",
-        ]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/java
-      - uses: ./.github/actions/konan
-      - uses: ./.github/actions/gradle
-      - name: test
-        shell: bash
-        run: |
-          ./gradlew ${{ matrix.module }}Test
-      - uses: dorny/test-reporter@v2
-        if: ${{ !cancelled() }}
-        with:
-          name: unit-test-result-${{ matrix.module }}
-          path: '**/test-results/**/*.xml'
-          reporter: java-junit
-          fail-on-error: false
-
-  test-win:
-    runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        module: [
-          "mingwX64",
-        ]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/java
-      - uses: ./.github/actions/konan
-      - uses: ./.github/actions/gradle
-      - name: test
-        shell: bash
-        run: |
-          ./gradlew ${{ matrix.module }}Test
-      - uses: dorny/test-reporter@v2
-        if: ${{ !cancelled() }}
-        with:
-          name: unit-test-result-${{ matrix.module }}
+          name: unit-test-result-${{ matrix.task }}
           path: '**/test-results/**/*.xml'
           reporter: java-junit
           fail-on-error: false
