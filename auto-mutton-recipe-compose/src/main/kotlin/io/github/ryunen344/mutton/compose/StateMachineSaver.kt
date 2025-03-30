@@ -28,9 +28,10 @@ import io.github.ryunen344.mutton.StateMachine
 /**
  * A [Saver] for [StateMachine] that saves the current state.
  */
-public fun <T : StateMachine<S, *, *>, S : State> stateMachineSaver(restore: (value: S) -> T): Saver<T, S> = Saver<T, S>(
+public fun <T : StateMachine<*, *, *>, S : State> stateMachineSaver(restore: (value: S) -> T): Saver<T, S> = Saver<T, S>(
     save = {
-        it.state.value
+        @Suppress("UNCHECKED_CAST")
+        it.state.value as S
     },
     restore = restore,
 )
@@ -41,7 +42,7 @@ public fun <T : StateMachine<S, *, *>, S : State> stateMachineSaver(restore: (va
  * @sample io.github.ryunen344.mutton.compose.samples.StateMachineSaverSample
  */
 @Composable
-public fun <T : StateMachine<S, *, *>, S : State> rememberStateMachine(
+public fun <T : StateMachine<*, *, *>, S : State> rememberStateMachine(
     vararg inputs: Any?,
     initialState: S,
     key: String? = null,
