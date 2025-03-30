@@ -3,7 +3,8 @@ name: deploy dokka content to Pages
 
 on:
   push:
-    branches: [ "main" ]
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+*'
   workflow_dispatch:
 
 concurrency:
@@ -29,7 +30,7 @@ jobs:
       - name: build html
         shell: bash
         run: |
-          ./gradlew dokkaHtmlMultiModule
+          ./gradlew dokkaHtmlMultiModule --no-build-cache --no-configuration-cache
       - uses: actions/upload-pages-artifact@v3
         with:
           path: './build/dokka/htmlMultiModule'
