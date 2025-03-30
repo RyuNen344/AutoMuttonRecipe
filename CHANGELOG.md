@@ -2,6 +2,32 @@
 
 ## [1.1.0](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.0.2...1.1.0) (2025-03-30)
 
+### **New: Jetpack Compose Support**
+
+#### How to Use
+To use the Jetpack Compose support, you need to add the following dependency to your `build.gradle` file:
+
+```groovy
+dependencies {
+    implementation "io.github.ryunen344.mutton:auto-mutton-recipe-compose:1.1.0"
+}
+```
+
+#### Example Usage
+```kotlin
+@Composable
+fun Example() {
+    val coroutineScope = rememberCoroutineScope()
+    val stateMachine = rememberStateMachine<ExampleStateMachine, ExampleState>(initialState = ExampleState.Idle) { state ->
+        ExampleStateMachine(initialState = state, context = coroutineScope.coroutineContext)
+    }
+    val state by stateMachine.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        stateMachine.dispatch(ExampleAction.Start)
+    }
+}
+```
 
 ### Features
 
