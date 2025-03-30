@@ -24,7 +24,7 @@ kotlin {
 
 android {
     namespace = "io.github.ryunen344.mutton.savedstate"
-    compileSdk = 34
+    compileSdk = 35
     defaultConfig {
         minSdk = 19
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
