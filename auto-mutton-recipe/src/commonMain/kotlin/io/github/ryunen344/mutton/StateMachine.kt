@@ -97,6 +97,7 @@ public abstract class StateMachine<S, A, E>(
                         val transition = graph.edges[current::class]?.get(action::class)?.invoke(current, action)
                         if (transition != null) {
                             val updated = _state.compareAndSet(current, transition.next)
+                            yield()
                             if (updated) {
                                 logger.info(name) { "dispatch:[$action], current state:[$current], transition:[$transition]" }
                                 transition.effect?.let { effect(it, current, transition.next) }
@@ -106,7 +107,6 @@ public abstract class StateMachine<S, A, E>(
                         } else {
                             logger.warn(name) { "unhandled action:[$action], current state:[$current], transition:[null]" }
                         }
-                        yield()
                     } catch (e: CancellationException) {
                         throw e
                     } catch (@Suppress("TooGenericExceptionCaught") e: Throwable) {
