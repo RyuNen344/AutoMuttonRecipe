@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.1.1](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.1.0...1.1.1) (2025-04-09)
+
+
+### Bug Fixes
+
+* **state machine:** ensure state transition yields correctly ([#45](https://github.com/RyuNen344/AutoMuttonRecipe/issues/45)) ([7718519](https://github.com/RyuNen344/AutoMuttonRecipe/commit/7718519ef0ac18001ea251215cca6ce33469a04a))
+
+
+### Dependency Updates
+
+* **gradle:** bump coroutines from 1.10.1 to 1.10.2 ([#46](https://github.com/RyuNen344/AutoMuttonRecipe/issues/46)) ([35409a2](https://github.com/RyuNen344/AutoMuttonRecipe/commit/35409a2aa2d252a296326e847ece9a7231b6906d))
+* **gradle:** bump nl.littlerobots.version-catalog-update from 0.8.5 to 1.0.0 ([#43](https://github.com/RyuNen344/AutoMuttonRecipe/issues/43)) ([e9b3d8d](https://github.com/RyuNen344/AutoMuttonRecipe/commit/e9b3d8d52d3f6b7cb72f0d2eda7d698f3330dd62))
+* **gradle:** bump org.jetbrains.kotlinx:kotlinx-serialization-core from 1.8.0 to 1.8.1 ([#44](https://github.com/RyuNen344/AutoMuttonRecipe/issues/44)) ([43bc20c](https://github.com/RyuNen344/AutoMuttonRecipe/commit/43bc20c289d8f1c2b044f4bbc940c8ec83d37995))
+
+
+### Chores
+
+* **deps:** bump gradle wrapper to 8.13 ([#42](https://github.com/RyuNen344/AutoMuttonRecipe/issues/42)) ([c0f5c05](https://github.com/RyuNen344/AutoMuttonRecipe/commit/c0f5c05e6c5a4d2271ccfc16daa6f326234b991c))
+* update version tag patterns in pages.yml ([#40](https://github.com/RyuNen344/AutoMuttonRecipe/issues/40)) ([d40b319](https://github.com/RyuNen344/AutoMuttonRecipe/commit/d40b3198c428a5f6ebcb19e2f59fd7b95ab49c10))
+
 ## [1.1.0](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.0.2...1.1.0) (2025-03-30)
 
 ### **New: Jetpack Compose Support**
