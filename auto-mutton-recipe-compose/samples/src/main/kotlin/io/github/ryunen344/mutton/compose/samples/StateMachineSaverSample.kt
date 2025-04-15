@@ -29,7 +29,7 @@ import io.github.ryunen344.mutton.compose.rememberStateMachine
 @Composable
 public fun StateMachineSaverSample() {
     val coroutineScope = rememberCoroutineScope()
-    val stateMachine = rememberStateMachine<MatterStateMachine, MatterState>(initialState = MatterState.Solid) { state ->
+    val stateMachine = rememberStateMachine(initialState = MatterState.Solid) { state ->
         MatterStateMachine(initialState = state, context = coroutineScope.coroutineContext)
     }
 
