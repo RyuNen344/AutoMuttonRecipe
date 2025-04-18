@@ -14,22 +14,22 @@ plugins {
     alias libs.plugins.nl.littlerobots.version.catalog.update
 }
 
-apply from: rootProject.layout.projectDirectory.file("gradle/resolve-all-dependencies.gradle")
+apply from: layout.settingsDirectory.file("gradle/resolve-all-dependencies.gradle")
 
 tasks.register('cleanLocalMaven', Delete) {
     group = LifecycleBasePlugin.BUILD_GROUP
-    delete(rootProject.layout.projectDirectory.dir("releases"))
+    delete(layout.settingsDirectory.dir("releases"))
 }
 
 detekt {
     parallel = true
     autoCorrect = project.providers.gradleProperty("autoCorrect").present
-    config.from = rootProject.layout.projectDirectory.file(".lint/detekt.yml")
-    source.from = rootProject.layout.projectDirectory.asFileTree.matching {
+    config.from = layout.settingsDirectory.file(".lint/detekt.yml")
+    source.from = layout.settingsDirectory.asFileTree.matching {
         include("**/*.kt", "**/*.kts")
         exclude("**/build/")
     }
-    baseline = rootProject.layout.projectDirectory.file(".lint/baseline.xml").asFile
+    baseline = layout.settingsDirectory.file(".lint/baseline.xml").asFile
 }
 
 tasks.withType(Detekt).configureEach {
@@ -42,7 +42,7 @@ dependencies {
 
 allprojects {
     group = "io.github.ryunen344.mutton"
-    version = providers.fileContents(rootProject.layout.projectDirectory.file("version.txt")).asText.getOrElse("snapshot").trim()
+    version = providers.fileContents(layout.settingsDirectory.file("version.txt")).asText.getOrElse("snapshot").trim()
 }
 
 subprojects { project ->
