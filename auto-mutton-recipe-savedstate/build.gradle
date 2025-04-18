@@ -8,7 +8,7 @@ plugins {
     alias libs.plugins.org.jetbrains.kotlinx.kover
 }
 
-apply from: rootProject.layout.projectDirectory.file("gradle/publish.gradle")
+apply from: layout.settingsDirectory.file("gradle/publish.gradle")
 
 kotlin {
     explicitApi()
