@@ -24,9 +24,9 @@ AutoMuttonRecipe is a lightweight library designed for multiplatform projects.
   <version>$version</version>
 </dependency>
 <dependency>
-<groupId>io.github.ryunen344.mutton</groupId>
-<artifactId>auto-mutton-recipe-compose</artifactId>
-<version>$version</version>
+  <groupId>io.github.ryunen344.mutton</groupId>
+  <artifactId>auto-mutton-recipe-compose</artifactId>
+  <version>$version</version>
 </dependency>
 <dependency>
   <groupId>io.github.ryunen344.mutton</groupId>
