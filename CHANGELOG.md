@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.1.1](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.1.0...1.1.1) (2025-04-24)
+
+
+### Bug Fixes
+
+* **state machine:** ensure state transition yields correctly ([#45](https://github.com/RyuNen344/AutoMuttonRecipe/issues/45)) ([7718519](https://github.com/RyuNen344/AutoMuttonRecipe/commit/7718519ef0ac18001ea251215cca6ce33469a04a))
+
+
+### Dependency Updates
+
+* **gradle:** bump androidx-compose-ui from 1.7.8 to 1.8.0 ([#51](https://github.com/RyuNen344/AutoMuttonRecipe/issues/51)) ([3f022c9](https://github.com/RyuNen344/AutoMuttonRecipe/commit/3f022c9d531f0985ff35c0cfcec634a65998b50e))
+* **gradle:** bump androidx.compose.runtime:runtime-saveable from 1.7.8 to 1.8.0 ([#50](https://github.com/RyuNen344/AutoMuttonRecipe/issues/50)) ([3f1c6e2](https://github.com/RyuNen344/AutoMuttonRecipe/commit/3f1c6e2323b6fb8eafbfe23e6bc048835874734b))
+* **gradle:** bump com.android.library from 8.9.1 to 8.9.2 ([#49](https://github.com/RyuNen344/AutoMuttonRecipe/issues/49)) ([0dd4ec7](https://github.com/RyuNen344/AutoMuttonRecipe/commit/0dd4ec7ee666fbe6fd06cb3869a1f916a3f22f4f))
+* **gradle:** bump coroutines from 1.10.1 to 1.10.2 ([#46](https://github.com/RyuNen344/AutoMuttonRecipe/issues/46)) ([35409a2](https://github.com/RyuNen344/AutoMuttonRecipe/commit/35409a2aa2d252a296326e847ece9a7231b6906d))
+* **gradle:** bump nl.littlerobots.version-catalog-update from 0.8.5 to 1.0.0 ([#43](https://github.com/RyuNen344/AutoMuttonRecipe/issues/43)) ([e9b3d8d](https://github.com/RyuNen344/AutoMuttonRecipe/commit/e9b3d8d52d3f6b7cb72f0d2eda7d698f3330dd62))
+* **gradle:** bump org.jetbrains.kotlinx:kotlinx-serialization-core from 1.8.0 to 1.8.1 ([#44](https://github.com/RyuNen344/AutoMuttonRecipe/issues/44)) ([43bc20c](https://github.com/RyuNen344/AutoMuttonRecipe/commit/43bc20c289d8f1c2b044f4bbc940c8ec83d37995))
+
+
+### Chores
+
+* **deps:** bump gradle wrapper to 8.13 ([#42](https://github.com/RyuNen344/AutoMuttonRecipe/issues/42)) ([c0f5c05](https://github.com/RyuNen344/AutoMuttonRecipe/commit/c0f5c05e6c5a4d2271ccfc16daa6f326234b991c))
+* improve layout api ([#47](https://github.com/RyuNen344/AutoMuttonRecipe/issues/47)) ([39b230c](https://github.com/RyuNen344/AutoMuttonRecipe/commit/39b230c4da77ad54fad1f781fd319f4645576643))
+* indent ([#48](https://github.com/RyuNen344/AutoMuttonRecipe/issues/48)) ([713b808](https://github.com/RyuNen344/AutoMuttonRecipe/commit/713b8082c6c883f03dee1f2a34b8d2ed2438d10e))
+* update version tag patterns in pages.yml ([#40](https://github.com/RyuNen344/AutoMuttonRecipe/issues/40)) ([d40b319](https://github.com/RyuNen344/AutoMuttonRecipe/commit/d40b3198c428a5f6ebcb19e2f59fd7b95ab49c10))
+
 ## [1.1.0](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.0.2...1.1.0) (2025-03-30)
 
 ### **New: Jetpack Compose Support**
