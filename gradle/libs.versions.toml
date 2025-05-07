@@ -1,5 +1,5 @@
 [versions]
-agp = "8.9.2"
+agp = "8.10.0"
 androidx-compose-runtime = "1.8.0"
 androidx-compose-ui = "1.8.0"
 androidx-lifecycle = "2.8.7"
