@@ -2,6 +2,31 @@
 
 ## [1.2.0](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.1.1...1.2.0) (2025-05-08)
 
+### **New: SavedStateMachine supports updates via SavedStateHandle**
+
+- The `SavedStateMachine` now supports updating the state via `SavedStateHandle`. 
+- This allows you to use `StateMachine#dispatch` or `SavedStateHandle` to update the state.
+
+```kotlin
+class SavedStateViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
+    
+    val stateMachine = ExampleSavedStateMachine(
+        savedStateHandle = savedStateHandle,
+        key = "example_key",
+        initialState = ExampleState.Idle,
+    )
+    
+    fun dispatch(action: ExampleAction) {
+        // You can update state through StateMachine#dispatch
+        stateMachine.dispatch(action)
+
+        // **New**
+        // or update state via SavedStateHandle
+        savedStateHandle["example_key"] = action
+    }
+}
+```
+
 
 ### Dependency Updates
 
