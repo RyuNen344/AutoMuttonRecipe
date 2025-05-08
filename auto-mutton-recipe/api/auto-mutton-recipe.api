@@ -48,8 +48,8 @@ public abstract class io/github/ryunen344/mutton/State {
 }
 
 public abstract class io/github/ryunen344/mutton/StateMachine {
-	public fun <init> (Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Graph;Lio/github/ryunen344/mutton/EffectHandle;Lio/github/ryunen344/mutton/FallbackHandle;Lio/github/ryunen344/mutton/log/Logger;Lkotlin/coroutines/CoroutineContext;)V
-	public synthetic fun <init> (Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Graph;Lio/github/ryunen344/mutton/EffectHandle;Lio/github/ryunen344/mutton/FallbackHandle;Lio/github/ryunen344/mutton/log/Logger;Lkotlin/coroutines/CoroutineContext;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Graph;Lio/github/ryunen344/mutton/EffectHandle;Lio/github/ryunen344/mutton/FallbackHandle;Lio/github/ryunen344/mutton/log/Logger;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;)V
+	public synthetic fun <init> (Lio/github/ryunen344/mutton/State;Lio/github/ryunen344/mutton/Graph;Lio/github/ryunen344/mutton/EffectHandle;Lio/github/ryunen344/mutton/FallbackHandle;Lio/github/ryunen344/mutton/log/Logger;Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function1;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun dispatch (Lio/github/ryunen344/mutton/Action;)V
 	public final fun getContext ()Lkotlin/coroutines/CoroutineContext;
 	public final fun getEffectHandle ()Lio/github/ryunen344/mutton/EffectHandle;

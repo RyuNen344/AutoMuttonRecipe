@@ -26,7 +26,7 @@ android {
     namespace = "io.github.ryunen344.mutton.savedstate"
     compileSdk = 35
     defaultConfig {
-        minSdk = 19
+        minSdk = 21
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
         consumerProguardFile "consumer-rules.pro"
