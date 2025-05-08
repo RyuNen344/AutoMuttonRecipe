@@ -53,6 +53,7 @@ public abstract class StateMachine<S, A, E>(
     public val fallbackHandle: FallbackHandle<S, A, E>? = null,
     public val logger: Logger = NoopLogger,
     public val context: CoroutineContext = EmptyCoroutineContext,
+    initializer: (S) -> MutableStateFlow<S> = { s -> MutableStateFlow(s) },
 ) where S : State, A : Action, E : Effect {
 
     private val name: String by lazy { this::class.simpleName.orEmpty() }
@@ -85,7 +86,7 @@ public abstract class StateMachine<S, A, E>(
         }
     }
 
-    private val _state: MutableStateFlow<S> = MutableStateFlow(initialState)
+    private val _state: MutableStateFlow<S> = initializer(initialState)
     public val state: StateFlow<S> = _state.asStateFlow()
 
     public fun dispatch(action: A) {

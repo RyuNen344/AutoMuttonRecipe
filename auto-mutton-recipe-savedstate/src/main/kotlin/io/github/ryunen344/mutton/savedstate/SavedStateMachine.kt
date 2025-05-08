@@ -19,9 +19,7 @@
 
 package io.github.ryunen344.mutton.savedstate
 
-import android.os.Bundle
 import androidx.annotation.MainThread
-import androidx.core.os.bundleOf
 import androidx.lifecycle.SavedStateHandle
 import io.github.ryunen344.mutton.Action
 import io.github.ryunen344.mutton.Effect
@@ -32,14 +30,12 @@ import io.github.ryunen344.mutton.State
 import io.github.ryunen344.mutton.StateMachine
 import io.github.ryunen344.mutton.log.Logger
 import io.github.ryunen344.mutton.log.NoopLogger
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 /**
  * A [StateMachine] that saves its state to [SavedStateHandle]
- *
- * - **Can't update state via [SavedStateHandle] directly, use [StateMachine.dispatch]**
- * - Planned to be updated after androidx.lifecycle:lifecycle-viewmodel-savedstate:2.9.* was released
  */
 @Suppress("UNCHECKED_CAST", "DEPRECATION")
 public abstract class SavedStateMachine<S, A, E> @MainThread constructor(
@@ -51,17 +47,13 @@ public abstract class SavedStateMachine<S, A, E> @MainThread constructor(
     fallbackHandle: FallbackHandle<S, A, E>? = null,
     logger: Logger = NoopLogger,
     context: CoroutineContext = EmptyCoroutineContext,
+    initializer: (S) -> MutableStateFlow<S> = { s -> savedStateHandle.getMutableStateFlow(key, s) },
 ) : StateMachine<S, A, E>(
-    initialState = savedStateHandle.get<Bundle>(key)?.get(key) as? S ?: initialState,
+    initialState = savedStateHandle[key] as? S ?: initialState,
     graph = graph,
     effectHandle = effectHandle,
     fallbackHandle = fallbackHandle,
     logger = logger,
     context = context,
-) where S : State, A : Action, E : Effect {
-    init {
-        savedStateHandle.setSavedStateProvider(key) {
-            bundleOf(key to state.value)
-        }
-    }
-}
+    initializer = initializer,
+) where S : State, A : Action, E : Effect
