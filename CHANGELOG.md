@@ -1,5 +1,46 @@
 # Changelog
 
+## [1.2.0](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.1.1...1.2.0) (2025-05-08)
+
+### **New: SavedStateMachine supports updates via SavedStateHandle**
+
+- The `SavedStateMachine` now supports updating the state via `SavedStateHandle`. 
+- This allows you to use `StateMachine#dispatch` or `SavedStateHandle` to update the state.
+
+```kotlin
+class SavedStateViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
+    
+    val stateMachine = ExampleSavedStateMachine(
+        savedStateHandle = savedStateHandle,
+        key = "example_key",
+        initialState = ExampleState.Idle,
+    )
+    
+    fun dispatch(action: ExampleAction) {
+        // You can update state through StateMachine#dispatch
+        stateMachine.dispatch(action)
+
+        // **New**
+        // or update state via SavedStateHandle
+        savedStateHandle["example_key"] = action
+    }
+}
+```
+
+
+### Dependency Updates
+
+* **gradle:** bump androidx-compose-ui from 1.8.0 to 1.8.1 ([#53](https://github.com/RyuNen344/AutoMuttonRecipe/issues/53)) ([eca7228](https://github.com/RyuNen344/AutoMuttonRecipe/commit/eca72284ac899a4cc2f3c83e892751bd6a6411f1))
+* **gradle:** bump androidx-lifecycle from 2.8.7 to 2.9.0 ([#55](https://github.com/RyuNen344/AutoMuttonRecipe/issues/55)) ([5b1a50f](https://github.com/RyuNen344/AutoMuttonRecipe/commit/5b1a50f5cfd5041d655b3a12e259cdc76857dcd2))
+* **gradle:** bump androidx.compose.runtime:runtime-saveable from 1.8.0 to 1.8.1 ([#54](https://github.com/RyuNen344/AutoMuttonRecipe/issues/54)) ([2b85a38](https://github.com/RyuNen344/AutoMuttonRecipe/commit/2b85a38dc0df438d8c169b24c1061407c2e38582))
+* **gradle:** bump com.android.library from 8.9.2 to 8.10.0 ([#52](https://github.com/RyuNen344/AutoMuttonRecipe/issues/52)) ([0feebe6](https://github.com/RyuNen344/AutoMuttonRecipe/commit/0feebe69b292fba2139500df72110f01506f4c9d))
+
+
+### Chores
+
+* release 1.2.0 ([#57](https://github.com/RyuNen344/AutoMuttonRecipe/issues/57)) ([6d58a6f](https://github.com/RyuNen344/AutoMuttonRecipe/commit/6d58a6f52c17195f70f524b14ba0f8542712ce1c))
+* update Java code style settings and enable trailing commas ([#58](https://github.com/RyuNen344/AutoMuttonRecipe/issues/58)) ([60fecd9](https://github.com/RyuNen344/AutoMuttonRecipe/commit/60fecd98f8bc97feabd41bcb9df665a2a84c1630))
+
 ## [1.1.1](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.1.0...1.1.1) (2025-04-24)
 
 
