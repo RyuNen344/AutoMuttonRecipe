@@ -22,7 +22,6 @@ kotlin {
     }
 }
 
-
 android {
     namespace = "io.github.ryunen344.mutton.compose"
     compileSdk = 35
