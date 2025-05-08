@@ -1,7 +1,6 @@
 // Klib ABI Dump
 // Targets: [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, wasmWasi, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
 // Alias: native => [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
-// Alias: apple => [iosArm64, iosSimulatorArm64, iosX64, macosArm64, macosX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
 // Rendering settings:
 // - Signature version: 2
 // - Show manifest properties: true
@@ -21,7 +20,7 @@ abstract fun interface <#A: io.github.ryunen344.mutton/State, #B: io.github.ryun
 }
 
 abstract class <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutton/Action, #C: io.github.ryunen344.mutton/Effect> io.github.ryunen344.mutton/StateMachine { // io.github.ryunen344.mutton/StateMachine|null[0]
-    constructor <init>(#A, io.github.ryunen344.mutton/Graph<#A, #B, #C>, io.github.ryunen344.mutton/EffectHandle<#A, #B, #C>, io.github.ryunen344.mutton/FallbackHandle<#A, #B, #C>? = ..., io.github.ryunen344.mutton.log/Logger = ..., kotlin.coroutines/CoroutineContext = ...) // io.github.ryunen344.mutton/StateMachine.<init>|<init>(1:0;io.github.ryunen344.mutton.Graph<1:0,1:1,1:2>;io.github.ryunen344.mutton.EffectHandle<1:0,1:1,1:2>;io.github.ryunen344.mutton.FallbackHandle<1:0,1:1,1:2>?;io.github.ryunen344.mutton.log.Logger;kotlin.coroutines.CoroutineContext){}[0]
+    constructor <init>(#A, io.github.ryunen344.mutton/Graph<#A, #B, #C>, io.github.ryunen344.mutton/EffectHandle<#A, #B, #C>, io.github.ryunen344.mutton/FallbackHandle<#A, #B, #C>? = ..., io.github.ryunen344.mutton.log/Logger = ..., kotlin.coroutines/CoroutineContext = ..., kotlin/Function1<#A, kotlinx.coroutines.flow/MutableStateFlow<#A>> = ...) // io.github.ryunen344.mutton/StateMachine.<init>|<init>(1:0;io.github.ryunen344.mutton.Graph<1:0,1:1,1:2>;io.github.ryunen344.mutton.EffectHandle<1:0,1:1,1:2>;io.github.ryunen344.mutton.FallbackHandle<1:0,1:1,1:2>?;io.github.ryunen344.mutton.log.Logger;kotlin.coroutines.CoroutineContext;kotlin.Function1<1:0,kotlinx.coroutines.flow.MutableStateFlow<1:0>>){}[0]
 
     final val context // io.github.ryunen344.mutton/StateMachine.context|{}context[0]
         final fun <get-context>(): kotlin.coroutines/CoroutineContext // io.github.ryunen344.mutton/StateMachine.context.<get-context>|<get-context>(){}[0]
@@ -117,15 +116,7 @@ final class <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutto
 
             final fun transition(#A, #C? = ...): io.github.ryunen344.mutton/Transition<#A, #C> // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.TransitionBuilder.transition|transition(3:0;3:2?){}[0]
         }
-
-        // Targets: [apple]
-        final val transitions // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.transitions|{}transitions[0]
-            final fun <get-transitions>(): kotlin.collections/HashMap<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>?>> // io.github.ryunen344.mutton/GraphBuilder.ActionBuilder.transitions.<get-transitions>|<get-transitions>(){}[0]
     }
-
-    // Targets: [apple]
-    final val actions // io.github.ryunen344.mutton/GraphBuilder.actions|{}actions[0]
-        final fun <get-actions>(): kotlin.collections/HashMap<kotlin.reflect/KClass<#A>, kotlin.collections/HashMap<kotlin.reflect/KClass<#B>, kotlin/Function2<#A, #B, io.github.ryunen344.mutton/Transition<#A, #C>?>>> // io.github.ryunen344.mutton/GraphBuilder.actions.<get-actions>|<get-actions>(){}[0]
 }
 
 final class <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutton/Effect> io.github.ryunen344.mutton/Transition { // io.github.ryunen344.mutton/Transition|null[0]
