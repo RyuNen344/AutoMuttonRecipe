@@ -45,7 +45,7 @@ class StateMachineSaverTest {
         var stateMachine: SampleStateMachine? = null
         restorationTester.setContent {
             val coroutineScope = rememberCoroutineScope()
-            stateMachine = rememberStateMachine<SampleStateMachine, SampleState>(initialState = SampleState.Idle(0)) { state ->
+            stateMachine = rememberStateMachine(initialState = SampleState.Idle(0)) { state ->
                 SampleStateMachine(
                     initialState = state,
                     context = coroutineScope.coroutineContext,
