@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.1](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.2.0...1.2.1) (2025-05-14)
+
+
+### Dependency Updates
+
+* **gradle:** bump com.vanniktech.maven.publish from 0.31.0 to 0.32.0 ([#60](https://github.com/RyuNen344/AutoMuttonRecipe/issues/60)) ([1e3cfcc](https://github.com/RyuNen344/AutoMuttonRecipe/commit/1e3cfcc9ce5ffd57fbdfa7ef612f9161fe1dfcb7))
+* **gradle:** bump kotlin from 2.1.20 to 2.1.21 ([#59](https://github.com/RyuNen344/AutoMuttonRecipe/issues/59)) ([aceb4b2](https://github.com/RyuNen344/AutoMuttonRecipe/commit/aceb4b20b25a49f7e2efcb6be857d42ee2d125c1))
+
+
+### Chores
+
+* update tag filter ([#61](https://github.com/RyuNen344/AutoMuttonRecipe/issues/61)) ([09ae2cc](https://github.com/RyuNen344/AutoMuttonRecipe/commit/09ae2cc3e3b974cedea23f730a4f86fc7db6b0f0))
+
 ## [1.2.0](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.1.1...1.2.0) (2025-05-08)
 
 ### **New: SavedStateMachine supports updates via SavedStateHandle**
