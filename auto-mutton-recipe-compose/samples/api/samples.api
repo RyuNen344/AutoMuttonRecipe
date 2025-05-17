@@ -59,6 +59,10 @@ public final class io/github/ryunen344/mutton/compose/samples/MatterStateMachine
 	public fun <init> (Lio/github/ryunen344/mutton/compose/samples/MatterState;Lkotlin/coroutines/CoroutineContext;)V
 }
 
+public final class io/github/ryunen344/mutton/compose/samples/SerializableStateMachineSaverSampleKt {
+	public static final fun SerializableStateMachineSaverSample (Landroidx/compose/runtime/Composer;I)V
+}
+
 public final class io/github/ryunen344/mutton/compose/samples/StateMachineSaverSampleKt {
 	public static final fun StateMachineSaverSample (Landroidx/compose/runtime/Composer;I)V
 }
