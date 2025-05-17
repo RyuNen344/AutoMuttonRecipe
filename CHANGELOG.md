@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.2.1...1.3.0) (2025-05-17)
+
+
+### Features
+
+* **savedstate:** saved state supports multiple platforms ([#63](https://github.com/RyuNen344/AutoMuttonRecipe/issues/63)) ([6819309](https://github.com/RyuNen344/AutoMuttonRecipe/commit/68193095322e4037c6f62ad6cc72bb593f82f66d))
+
 ## [1.2.1](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.2.0...1.2.1) (2025-05-14)
 
 
