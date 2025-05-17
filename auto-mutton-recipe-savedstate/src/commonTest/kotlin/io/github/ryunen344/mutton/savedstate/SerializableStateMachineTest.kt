@@ -43,7 +43,7 @@ abstract class SerializableStateMachineTest {
 
     @Test
     open fun testSaveState_givenUnsupportedState_thenSaveState() {
-        val expect = SerializableState.Error("error massage")
+        val expect = SerializableState.Error("error message")
         val handle = SavedStateHandle()
         val stateMachine = SerializableStateMachine(handle, "key", expect)
 
