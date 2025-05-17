@@ -19,15 +19,4 @@
 
 package io.github.ryunen344.mutton.savedstate
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import io.github.ryunen344.mutton.savedstate.testing.MainDispatcherRule
-import org.junit.Rule
-import org.junit.runner.RunWith
-
-@RunWith(AndroidJUnit4::class)
-class AndroidSerializableStateMachineTest : SerializableStateMachineTest() {
-
-    @get:Rule
-    val mainDispatcherRule = MainDispatcherRule()
-
-}
+class NonJvmSerializableStateMachineTest : SerializableStateMachineTest()

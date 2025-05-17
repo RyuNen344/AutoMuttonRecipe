@@ -22,34 +22,35 @@ package io.github.ryunen344.mutton.savedstate
 import androidx.lifecycle.SavedStateHandle
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import io.github.ryunen344.mutton.savedstate.testing.SerializableState
-import io.github.ryunen344.mutton.savedstate.testing.SerializableStateMachine
+import io.github.ryunen344.mutton.savedstate.testing.PlatformSerializableState
+import io.github.ryunen344.mutton.savedstate.testing.PlatformSerializableStateMachine
 import kotlin.test.Test
 
-abstract class SerializableStateMachineTest {
+class PlatformSerializableSavedStateMachineTest {
+
     @Test
     fun testSaveState_givenSupportedState_thenSaveState() {
-        val expect = SerializableState.OK("ok value")
+        val expect = PlatformSerializableState.OK("ok value")
         val handle = SavedStateHandle()
-        val stateMachine = SerializableStateMachine(handle, "key", expect)
+        val stateMachine = PlatformSerializableStateMachine(handle, "key", expect)
 
         val savedState = handle.savedStateProvider().saveState()
         val newHandle = SavedStateHandle.createHandle(savedState, null)
-        val newStateMachine = SerializableStateMachine(newHandle, "key", SerializableState.Error("error massage"))
+        val newStateMachine = PlatformSerializableStateMachine(newHandle, "key", PlatformSerializableState.Error("error massage"))
 
         assertThat(newStateMachine.state.value).isEqualTo(expect)
         assertThat(newStateMachine.state.value).isEqualTo(stateMachine.state.value)
     }
 
     @Test
-    open fun testSaveState_givenUnsupportedState_thenSaveState() {
-        val expect = SerializableState.Error("error massage")
+    fun testSaveState_givenUnsupportedState_thenSaveState() {
+        val expect = PlatformSerializableState.Error("error massage")
         val handle = SavedStateHandle()
-        val stateMachine = SerializableStateMachine(handle, "key", expect)
+        val stateMachine = PlatformSerializableStateMachine(handle, "key", expect)
 
         val savedState = handle.savedStateProvider().saveState()
         val newHandle = SavedStateHandle.createHandle(savedState, null)
-        val newStateMachine = SerializableStateMachine(newHandle, "key", SerializableState.OK("ok value"))
+        val newStateMachine = PlatformSerializableStateMachine(newHandle, "key", PlatformSerializableState.OK("ok value"))
 
         assertThat(newStateMachine.state.value).isEqualTo(expect)
         assertThat(newStateMachine.state.value).isEqualTo(stateMachine.state.value)

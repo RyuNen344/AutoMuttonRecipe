@@ -17,7 +17,7 @@ kotlin {
 
     // desktop
     jvm("desktop") {
-        compilerOptions.jvmTarget = JvmTarget.JVM_1_8
+        compilerOptions.jvmTarget = JvmTarget.JVM_11
     }
 
     // android
@@ -50,8 +50,6 @@ kotlin {
             implementation libs.org.jetbrains.kotlin.test
             implementation libs.org.jetbrains.kotlin.reflect
             implementation libs.org.jetbrains.kotlinx.coroutine.test
-            implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.1"
-            implementation "androidx.savedstate:savedstate-ktx:1.3.0"
         }
 
         androidUnitTest.dependencies {

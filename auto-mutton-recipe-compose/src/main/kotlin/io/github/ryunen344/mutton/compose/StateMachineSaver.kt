@@ -55,4 +55,3 @@ public fun <T : StateMachine<S, *, *>, S : State> rememberStateMachine(
         init(initialState)
     }
 }
-
