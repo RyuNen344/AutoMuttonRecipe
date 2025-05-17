@@ -2,6 +2,7 @@
 
 ## [1.3.0](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.2.1...1.3.0) (2025-05-17)
 
+- **Breaking Change:** JVM compatibility has been changed from 1.8 to 11
 
 ### Features
 
