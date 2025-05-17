@@ -15,11 +15,7 @@ kotlin {
 
     // jvm
     jvm {
-        compilations.configureEach {
-            it.compileTaskProvider.configure {
-                it.compilerOptions.jvmTarget = JvmTarget.JVM_1_8
-            }
-        }
+        compilerOptions.jvmTarget = JvmTarget.JVM_1_8
     }
 
     // native
@@ -89,11 +85,11 @@ kotlin {
     }
 
     sourceSets.matching { it.name.endsWith("Test") }.configureEach {
-        it.languageSettings {
-            optIn('kotlinx.coroutines.DelicateCoroutinesApi')
-            optIn('kotlinx.coroutines.InternalCoroutinesApi')
-            optIn('kotlinx.coroutines.ExperimentalCoroutinesApi')
-        }
+        compilerOptions.optIn = [
+            'kotlinx.coroutines.DelicateCoroutinesApi',
+            'kotlinx.coroutines.InternalCoroutinesApi',
+            'kotlinx.coroutines.ExperimentalCoroutinesApi'
+        ]
     }
 
     targets.each { target ->

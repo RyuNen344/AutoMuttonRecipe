@@ -1,8 +1,10 @@
-import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 
 plugins {
     alias libs.plugins.com.android.library
-    alias libs.plugins.org.jetbrains.kotlin.android
+    alias libs.plugins.org.jetbrains.kotlin.multiplatform
+    alias libs.plugins.org.jetbrains.kotlin.plugin.serialization
     alias libs.plugins.org.jetbrains.kotlinx.atomicfu
     alias libs.plugins.org.jetbrains.kotlinx.binary.compatibility.validator
     alias libs.plugins.org.jetbrains.kotlinx.kover
@@ -13,11 +15,73 @@ apply from: layout.settingsDirectory.file("gradle/publish.gradle")
 kotlin {
     explicitApi()
 
+    // desktop
+    jvm("desktop") {
+        compilerOptions.jvmTarget = JvmTarget.JVM_1_8
+    }
+
+    // android
+    androidTarget {
+        publishLibraryVariants("release")
+        compilerOptions.jvmTarget = JvmTarget.JVM_1_8
+    }
+
+    // ios
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    // linux
+    linuxX64()
+    linuxArm64()
+
+    // macos
+    macosX64()
+    macosArm64()
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation project(":auto-mutton-recipe")
+            implementation libs.androidx.lifecycle.viewmodel.savedstate
+        }
+        commonTest.dependencies {
+            implementation libs.app.cash.turbine
+            implementation libs.com.willowtreeapps.assertk
+            implementation libs.org.jetbrains.kotlin.test
+            implementation libs.org.jetbrains.kotlin.reflect
+            implementation libs.org.jetbrains.kotlinx.coroutine.test
+            implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.1"
+            implementation "androidx.savedstate:savedstate-ktx:1.3.0"
+        }
+
+        androidUnitTest.dependencies {
+            implementation libs.androidx.test.core
+            implementation libs.androidx.test.ext.junit
+            implementation libs.androidx.test.rules
+            implementation libs.androidx.test.runner
+            implementation libs.org.robolectric.robolectric
+        }
+
+        nonJvmTest {
+            dependsOn(commonTest)
+        }
+    }
+
     sourceSets.matching { it.name.endsWith("Test") }.configureEach {
-        it.languageSettings {
-            optIn('kotlinx.coroutines.DelicateCoroutinesApi')
-            optIn('kotlinx.coroutines.InternalCoroutinesApi')
-            optIn('kotlinx.coroutines.ExperimentalCoroutinesApi')
+        compilerOptions.optIn = [
+            'kotlinx.coroutines.DelicateCoroutinesApi',
+            'kotlinx.coroutines.InternalCoroutinesApi',
+            'kotlinx.coroutines.ExperimentalCoroutinesApi'
+        ]
+    }
+
+    targets.each { target ->
+        if (target.platformType == KotlinPlatformType.common) return
+        if (target.platformType == KotlinPlatformType.androidJvm) return
+        if (target.platformType == KotlinPlatformType.js) return
+        if (target.platformType == KotlinPlatformType.wasm) return
+        if (target.platformType != KotlinPlatformType.jvm) {
+            target.compilations.test.defaultSourceSet.dependsOn(sourceSets.nonJvmTest)
         }
     }
 }
@@ -43,7 +107,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions.jvmTarget = "1.8"
     packaging.resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
     lint {
         checkReleaseBuilds = false
@@ -69,34 +132,6 @@ androidComponents {
     }
 }
 
-dependencies {
-    implementation project(":auto-mutton-recipe")
-    implementation libs.androidx.lifecycle.viewmodel.savedstate
-    testImplementation libs.androidx.test.core
-    testImplementation libs.androidx.test.ext.junit
-    testImplementation libs.androidx.test.rules
-    testImplementation libs.androidx.test.runner
-    testImplementation libs.app.cash.turbine
-    testImplementation libs.com.willowtreeapps.assertk
-    testImplementation libs.org.jetbrains.kotlin.test
-    testImplementation libs.org.jetbrains.kotlin.reflect
-    testImplementation libs.org.jetbrains.kotlinx.coroutine.test
-    testImplementation libs.org.robolectric.robolectric
-}
-
-// configure dokka html-docs.jar as javadoc.jar
-mavenPublishing {
-    configure(new AndroidSingleVariantLibrary("release", true, false))
-}
-
-tasks.register('dokkaHtmlJar', Jar) {
-    dependsOn(dokkaHtml)
-    from(dokkaHtml)
-    archiveClassifier.set("javadoc")
-}
-
-publishing {
-    publications.configureEach {
-        it.artifact dokkaHtmlJar
-    }
+apiValidation {
+    klib.enabled = true
 }
