@@ -103,6 +103,8 @@ jobs:
             os: ubuntu-latest
           - task: jvmTest
             os: ubuntu-latest
+          - task: desktopTest
+            os: ubuntu-latest
           - task: linuxX64Test
             os: ubuntu-latest
           - task: jsNodeTest

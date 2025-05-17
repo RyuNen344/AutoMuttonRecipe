@@ -1,0 +1,11 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, linuxArm64, linuxX64, macosArm64, macosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.github.ryunen344.mutton:auto-mutton-recipe-savedstate>
+abstract class <#A: io.github.ryunen344.mutton/State, #B: io.github.ryunen344.mutton/Action, #C: io.github.ryunen344.mutton/Effect> io.github.ryunen344.mutton.savedstate/SavedStateMachine : io.github.ryunen344.mutton/StateMachine<#A, #B, #C> { // io.github.ryunen344.mutton.savedstate/SavedStateMachine|null[0]
+    constructor <init>(androidx.lifecycle/SavedStateHandle, kotlin/String, #A, io.github.ryunen344.mutton/Graph<#A, #B, #C>, io.github.ryunen344.mutton/EffectHandle<#A, #B, #C>, io.github.ryunen344.mutton/FallbackHandle<#A, #B, #C>? = ..., io.github.ryunen344.mutton.log/Logger = ..., kotlin.coroutines/CoroutineContext = ..., kotlin/Function1<#A, kotlinx.coroutines.flow/MutableStateFlow<#A>> = ...) // io.github.ryunen344.mutton.savedstate/SavedStateMachine.<init>|<init>(androidx.lifecycle.SavedStateHandle;kotlin.String;1:0;io.github.ryunen344.mutton.Graph<1:0,1:1,1:2>;io.github.ryunen344.mutton.EffectHandle<1:0,1:1,1:2>;io.github.ryunen344.mutton.FallbackHandle<1:0,1:1,1:2>?;io.github.ryunen344.mutton.log.Logger;kotlin.coroutines.CoroutineContext;kotlin.Function1<1:0,kotlinx.coroutines.flow.MutableStateFlow<1:0>>){}[0]
+}

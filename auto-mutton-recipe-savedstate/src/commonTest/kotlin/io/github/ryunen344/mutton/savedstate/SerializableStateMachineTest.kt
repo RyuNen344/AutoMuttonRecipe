@@ -20,25 +20,13 @@
 package io.github.ryunen344.mutton.savedstate
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import assertk.assertFailure
 import assertk.assertThat
-import assertk.assertions.hasMessage
 import assertk.assertions.isEqualTo
-import assertk.assertions.isInstanceOf
-import io.github.ryunen344.mutton.savedstate.testing.MainDispatcherRule
 import io.github.ryunen344.mutton.savedstate.testing.SerializableState
 import io.github.ryunen344.mutton.savedstate.testing.SerializableStateMachine
-import org.junit.Rule
-import org.junit.Test
-import org.junit.runner.RunWith
+import kotlin.test.Test
 
-@RunWith(AndroidJUnit4::class)
-class SavedStateMachineTest {
-
-    @get:Rule
-    val mainDispatcherRule = MainDispatcherRule()
-
+abstract class SerializableStateMachineTest {
     @Test
     fun testSaveState_givenSupportedState_thenSaveState() {
         val expect = SerializableState.OK("ok value")
@@ -54,13 +42,16 @@ class SavedStateMachineTest {
     }
 
     @Test
-    fun testSaveState_givenUnsupportedState_thenThrowsException() {
-        val expect = SerializableState.Error("error massage")
+    open fun testSaveState_givenUnsupportedState_thenSaveState() {
+        val expect = SerializableState.Error("error message")
         val handle = SavedStateHandle()
-        SerializableStateMachine(handle, "key", expect)
+        val stateMachine = SerializableStateMachine(handle, "key", expect)
 
-        assertFailure { handle.savedStateProvider().saveState() }
-            .isInstanceOf(IllegalArgumentException::class)
-            .hasMessage("Illegal value type io.github.ryunen344.mutton.savedstate.testing.SerializableState.Error for key \"key\"")
+        val savedState = handle.savedStateProvider().saveState()
+        val newHandle = SavedStateHandle.createHandle(savedState, null)
+        val newStateMachine = SerializableStateMachine(newHandle, "key", SerializableState.OK("ok value"))
+
+        assertThat(newStateMachine.state.value).isEqualTo(expect)
+        assertThat(newStateMachine.state.value).isEqualTo(stateMachine.state.value)
     }
 }

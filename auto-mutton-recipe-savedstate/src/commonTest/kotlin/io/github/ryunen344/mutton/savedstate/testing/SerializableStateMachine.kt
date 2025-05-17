@@ -20,30 +20,28 @@
 package io.github.ryunen344.mutton.savedstate.testing
 
 import androidx.lifecycle.SavedStateHandle
-import io.github.ryunen344.mutton.Action
-import io.github.ryunen344.mutton.Effect
 import io.github.ryunen344.mutton.EffectHandle
 import io.github.ryunen344.mutton.Graph
 import io.github.ryunen344.mutton.State
 import io.github.ryunen344.mutton.savedstate.SavedStateMachine
+import kotlinx.serialization.Serializable
 
 sealed class SerializableState : State() {
-    data class OK(val value: String) : SerializableState(), java.io.Serializable
+
+    @Serializable
+    data class OK(val value: String) : SerializableState()
+
     data class Error(val message: String) : SerializableState()
 }
-
-sealed class SerializableAction : Action()
-
-sealed class SerializableEffect : Effect()
 
 class SerializableStateMachine(
     savedStateHandle: SavedStateHandle,
     key: String,
     initialState: SerializableState,
-) : SavedStateMachine<SerializableState, SerializableAction, SerializableEffect>(
+) : SavedStateMachine<SerializableState, SavedAction, SavedEffect>(
     savedStateHandle = savedStateHandle,
     key = key,
     initialState = initialState,
-    graph = Graph<SerializableState, SerializableAction, SerializableEffect> { },
-    effectHandle = EffectHandle<SerializableState, SerializableAction, SerializableEffect> { _, _, _, _ -> },
+    graph = Graph<SerializableState, SavedAction, SavedEffect> { },
+    effectHandle = EffectHandle<SerializableState, SavedAction, SavedEffect> { _, _, _, _ -> },
 )
