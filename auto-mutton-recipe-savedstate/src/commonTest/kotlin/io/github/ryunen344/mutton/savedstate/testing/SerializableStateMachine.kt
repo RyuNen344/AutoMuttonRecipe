@@ -20,8 +20,6 @@
 package io.github.ryunen344.mutton.savedstate.testing
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.serialization.saved
-import androidx.savedstate.serialization.encodeToSavedState
 import io.github.ryunen344.mutton.EffectHandle
 import io.github.ryunen344.mutton.Graph
 import io.github.ryunen344.mutton.State
@@ -46,9 +44,4 @@ class SerializableStateMachine(
     initialState = initialState,
     graph = Graph<SerializableState, SavedAction, SavedEffect> { },
     effectHandle = EffectHandle<SerializableState, SavedAction, SavedEffect> { _, _, _, _ -> },
-) {
-    init {
-        savedStateHandle.savedStateProvider()
-        savedStateHandle.saved { encodeToSavedState(initialState) }
-    }
-}
+)
