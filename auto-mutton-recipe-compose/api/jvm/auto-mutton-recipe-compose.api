@@ -1,0 +1,5 @@
+public final class io/github/ryunen344/mutton/compose/StateMachineSaverKt {
+	public static final fun rememberStateMachine ([Ljava/lang/Object;Lio/github/ryunen344/mutton/State;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Landroidx/compose/runtime/Composer;II)Lio/github/ryunen344/mutton/StateMachine;
+	public static final fun stateMachineSaver (Lkotlin/jvm/functions/Function1;)Landroidx/compose/runtime/saveable/Saver;
+}
+

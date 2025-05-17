@@ -19,15 +19,20 @@
 
 package io.github.ryunen344.mutton.compose.samples
 
+import androidx.savedstate.serialization.serializers.JavaSerializableSerializer
 import io.github.ryunen344.mutton.Action
 import io.github.ryunen344.mutton.Effect
 import io.github.ryunen344.mutton.EffectHandle
 import io.github.ryunen344.mutton.Graph
 import io.github.ryunen344.mutton.State
 import io.github.ryunen344.mutton.StateMachine
+import kotlinx.serialization.Serializable
 import kotlin.coroutines.CoroutineContext
 
+private class MatterStateJavaSerializableSerializer : JavaSerializableSerializer<MatterState>()
+
 @Suppress("JavaIoSerializableObjectMustHaveReadResolve")
+@Serializable(with = MatterStateJavaSerializableSerializer::class)
 public sealed class MatterState : State(), java.io.Serializable {
     public data object Solid : MatterState()
     public data object Liquid : MatterState()
