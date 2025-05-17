@@ -24,10 +24,9 @@ import io.github.ryunen344.mutton.EffectHandle
 import io.github.ryunen344.mutton.Graph
 import io.github.ryunen344.mutton.State
 import io.github.ryunen344.mutton.savedstate.SavedStateMachine
-import java.io.Serializable
 
 sealed class PlatformSerializableState : State() {
-    data class OK(val value: String) : PlatformSerializableState(), Serializable
+    data class OK(val value: String) : PlatformSerializableState(), java.io.Serializable
     data class Error(val message: String) : PlatformSerializableState()
 }
 

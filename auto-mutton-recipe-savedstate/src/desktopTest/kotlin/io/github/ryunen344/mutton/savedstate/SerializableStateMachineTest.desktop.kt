@@ -1,3 +1,5 @@
+@file:Suppress("Filename", "AbsentOrWrongFileLicense", "MatchingDeclarationName")
+
 /*
  * Copyright (C) 2025 RyuNen344
  *
