@@ -23,7 +23,7 @@ kotlin {
     // android
     androidTarget {
         publishLibraryVariants("release")
-        compilerOptions.jvmTarget = JvmTarget.JVM_1_8
+        compilerOptions.jvmTarget = JvmTarget.JVM_11
     }
 
     // ios
@@ -102,8 +102,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     packaging.resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
     lint {
