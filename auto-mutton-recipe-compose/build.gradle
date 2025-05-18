@@ -146,8 +146,5 @@ tasks.register("sampleSourcesJar", Jar) {
 }
 
 afterEvaluate {
-    artifacts.metadataSourcesElements(sampleSourcesJar)
-    artifacts.releaseSourcesElements(sampleSourcesJar)
-    artifacts.jvmSourcesElements(sampleSourcesJar)
-    artifacts.linuxX64SourcesElements(sampleSourcesJar)
+    artifacts.add("metadataSourcesElements", sampleSourcesJar)
 }
