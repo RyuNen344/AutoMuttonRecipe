@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.2.1...1.3.0) (2025-05-18)
+
+
+### Features
+
+* **compose:** implement compose support for multiple platforms ([#65](https://github.com/RyuNen344/AutoMuttonRecipe/issues/65)) ([a7c41a7](https://github.com/RyuNen344/AutoMuttonRecipe/commit/a7c41a74c31692b88f0b632128c116add11deab5))
+* **savedstate:** saved state supports multiple platforms ([#63](https://github.com/RyuNen344/AutoMuttonRecipe/issues/63)) ([6819309](https://github.com/RyuNen344/AutoMuttonRecipe/commit/68193095322e4037c6f62ad6cc72bb593f82f66d))
+
+
+### Bug Fixes
+
+* update artifact source elements configuration ([#66](https://github.com/RyuNen344/AutoMuttonRecipe/issues/66)) ([54396d9](https://github.com/RyuNen344/AutoMuttonRecipe/commit/54396d9382f782f6ece207fc951f6db6d09e3b8c))
+
 ## [1.2.1](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.2.0...1.2.1) (2025-05-14)
 
 
