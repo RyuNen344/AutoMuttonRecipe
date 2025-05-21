@@ -7,6 +7,11 @@ updates:
       interval: "daily"
       time: "09:00"
       timezone: "Asia/Tokyo"
+    groups:
+      compose:
+        patterns:
+          - "androidx.compose*"
+          - "androidx.constraintlayout:constraintlayout-compose*"
     commit-message:
       prefix: "deps(gradle)"
 
