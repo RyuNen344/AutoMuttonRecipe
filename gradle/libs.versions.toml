@@ -1,7 +1,7 @@
 [versions]
 agp = "8.10.0"
 androidx-compose-runtime = "1.8.1"
-androidx-compose-ui = "1.8.1"
+androidx-compose-ui = "1.8.2"
 androidx-lifecycle = "2.9.0"
 androidx-savedstate = "1.3.0"
 androidx-test-core = "1.6.1"
