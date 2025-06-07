@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.3.1](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.3.0...1.3.1) (2025-06-07)
+
+
+### Dependency Updates
+
+* **gradle:** bump androidx-compose-ui from 1.8.1 to 1.8.2 ([#68](https://github.com/RyuNen344/AutoMuttonRecipe/issues/68)) ([5ae8d4f](https://github.com/RyuNen344/AutoMuttonRecipe/commit/5ae8d4f6b901a1bebdeab2b49af3077eda5b4540))
+* **gradle:** bump androidx-lifecycle from 2.9.0 to 2.9.1 ([#74](https://github.com/RyuNen344/AutoMuttonRecipe/issues/74)) ([a8a0683](https://github.com/RyuNen344/AutoMuttonRecipe/commit/a8a06830d77b8637894d5b7e519af4a04ddd6b47))
+* **gradle:** bump androidx.compose.runtime:runtime-saveable from 1.8.1 to 1.8.2 ([#69](https://github.com/RyuNen344/AutoMuttonRecipe/issues/69)) ([4f3ca1f](https://github.com/RyuNen344/AutoMuttonRecipe/commit/4f3ca1ff00b9a97031660db51659875837ab790d))
+* **gradle:** bump com.android.library from 8.10.0 to 8.10.1 ([#73](https://github.com/RyuNen344/AutoMuttonRecipe/issues/73)) ([c22dbb5](https://github.com/RyuNen344/AutoMuttonRecipe/commit/c22dbb57ea7bc4249ad0d8d67ffaf29bd716f135))
+
+
+### Chores
+
+* group dependabot ([#72](https://github.com/RyuNen344/AutoMuttonRecipe/issues/72)) ([aed6648](https://github.com/RyuNen344/AutoMuttonRecipe/commit/aed66488c639cc90a37108a08bf4a00783ee7bff))
+
 ## [1.3.0](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.2.1...1.3.0) (2025-05-18)
 
 - **Breaking Change:** JVM compatibility has been changed from 1.8 to 11
