@@ -20,7 +20,7 @@ kover = "0.9.1"
 maven-publish = "0.32.0"
 robolectric = "4.14.1"
 serialization = "1.8.1"
-turbine = "1.2.0"
+turbine = "1.2.1"
 version-catalog-update = "1.0.0"
 
 [libraries]
