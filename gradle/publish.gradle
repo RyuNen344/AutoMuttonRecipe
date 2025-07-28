@@ -33,7 +33,7 @@ afterEvaluate {
             }
         }
 
-        publishToMavenCentral("CENTRAL_PORTAL")
+        publishToMavenCentral()
     }
 
     publishing {
