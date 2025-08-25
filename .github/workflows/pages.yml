@@ -32,7 +32,7 @@ jobs:
         shell: bash
         run: |
           ./gradlew dokkaHtmlMultiModule --no-build-cache --no-configuration-cache
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: './build/dokka/htmlMultiModule'
       - uses: actions/deploy-pages@v4
