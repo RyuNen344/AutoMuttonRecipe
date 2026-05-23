@@ -1,0 +1,39 @@
+import org.gradle.buildconfiguration.tasks.UpdateDaemonJvm
+import org.gradle.internal.buildconfiguration.DaemonJvmPropertiesConfigurator
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+abstract class SdkmanValueSource implements ValueSource<JavaLanguageVersion, Parameters> {
+
+    interface Parameters extends ValueSourceParameters {
+        @InputFile
+        RegularFileProperty getFile()
+    }
+
+    static final String FILE_NAME = ".sdkmanrc"
+
+    @Override
+    JavaLanguageVersion obtain() {
+        Properties prop = new Properties()
+        def file = parameters.getFile().asFile.getOrNull()
+        if (file == null || !file.exists()) {
+            throw new GradleException("Could not find .sdkmanrc file at ${parameters.file.get().asFile}.")
+        }
+        file.withInputStream { prop.load(it) }
+        Matcher matcher = Pattern.compile("^(\\d+)\\.(\\d+)\\.(\\d+)-([A-Za-z0-9._-]+)\$").matcher(prop.getProperty("java"))
+        String major = matcher.matches() ? matcher.group(1) : null
+        if (major == null) {
+            throw new GradleException("Could not parse Java version from .sdkmanrc file: ${prop.getProperty("java")}")
+        }
+        return JavaLanguageVersion.of(major)
+    }
+}
+
+tasks.named(DaemonJvmPropertiesConfigurator.TASK_NAME, UpdateDaemonJvm) {
+    languageVersion = providers.of(SdkmanValueSource) { parameters.file.set(layout.settingsDirectory.file(SdkmanValueSource.FILE_NAME)) }
+    vendor = JvmVendorSpec.ADOPTIUM
+    // https://github.com/gradle/gradle/issues/32564
+    def foojay = toolchainDownloadUrls.get()
+    toolchainDownloadUrls = foojay
+}
