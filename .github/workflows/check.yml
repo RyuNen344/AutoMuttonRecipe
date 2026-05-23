@@ -116,13 +116,13 @@ jobs:
           - task: wasmWasiTest
             os: ubuntu-latest
           - task: iosX64Test
-            os: macos-13
+            os: macos-15-intel
           - task: tvosX64Test
-            os: macos-13
+            os: macos-15-intel
           - task: watchosX64Test
-            os: macos-13
+            os: macos-15-intel
           - task: macosX64Test
-            os: macos-13
+            os: macos-15-intel
           - task: iosSimulatorArm64Test
             os: macos-latest
           - task: tvosSimulatorArm64Test
