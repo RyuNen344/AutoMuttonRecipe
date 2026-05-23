@@ -35,6 +35,7 @@
 .idea/caches
 .idea/modules.xml
 .idea/navEditor.xml
+.idea/copilot*
 
 bin/
 gen/
