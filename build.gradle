@@ -1,7 +1,4 @@
 import io.gitlab.arturbosch.detekt.Detekt
-import org.jetbrains.dokka.gradle.DokkaTask
-import org.jetbrains.dokka.gradle.DokkaTaskPartial
-import org.jetbrains.dokka.gradle.GradleDokkaSourceSetBuilder
 
 plugins {
     alias libs.plugins.com.android.library apply false
@@ -16,6 +13,11 @@ plugins {
 
 apply from: layout.settingsDirectory.dir("gradle").file("gradle-daemon-criteria.gradle")
 apply from: layout.settingsDirectory.dir("gradle").file("resolve-all-dependencies.gradle")
+
+allprojects {
+    group = "io.github.ryunen344.mutton"
+    version = providers.fileContents(layout.settingsDirectory.file("version.txt")).asText.getOrElse("snapshot").trim()
+}
 
 tasks.register('cleanLocalMaven', Delete) {
     group = LifecycleBasePlugin.BUILD_GROUP
@@ -39,41 +41,10 @@ tasks.withType(Detekt).configureEach {
 
 dependencies {
     detektPlugins(libs.io.gitlab.arturbosch.detekt.formatting)
-}
-
-allprojects {
-    group = "io.github.ryunen344.mutton"
-    version = providers.fileContents(layout.settingsDirectory.file("version.txt")).asText.getOrElse("snapshot").trim()
-}
-
-subprojects { project ->
-    project.plugins.apply(libs.plugins.org.jetbrains.dokka.get().pluginId)
-    def action = new Action<GradleDokkaSourceSetBuilder>() {
-        @Override
-        void execute(GradleDokkaSourceSetBuilder builder) {
-            // later, enable module markdown
-            //includes.from("README.md")
-            builder.perPackageOption {
-                matchingRegex.set(".*\\.samples(|\\..*)")
-                suppress.set(true)
-            }
-
-            builder.samples.from(project.layout.projectDirectory.files("samples/src/main/kotlin").asFileTree)
-        }
-    }
-
-    project.tasks.withType(DokkaTask).configureEach {
-        dokkaSourceSets.configureEach(action)
-    }
-
-    project.tasks.withType(DokkaTaskPartial).configureEach {
-        dokkaSourceSets.configureEach(action)
-    }
-}
-
-tasks.named("dokkaHtmlMultiModule") {
-    // module that has samples
-    dependsOn(":auto-mutton-recipe-compose:dokkaHtmlMultiModule")
+    dokkaPlugin(libs.org.jetbrains.dokka.android.documentation.plugin)
+    dokka(projects.autoMuttonRecipe)
+    dokka(projects.autoMuttonRecipeCompose)
+    dokka(projects.autoMuttonRecipeSavedstate)
 }
 
 versionCatalogUpdate {

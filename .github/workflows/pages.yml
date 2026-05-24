@@ -31,9 +31,9 @@ jobs:
       - name: build html
         shell: bash
         run: |
-          ./gradlew dokkaHtmlMultiModule --no-build-cache --no-configuration-cache
+          ./gradlew dokkaGenerateHtml
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: './build/dokka/htmlMultiModule'
+          path: './build/dokka/html'
       - uses: actions/deploy-pages@v5
         id: deployment
