@@ -19,7 +19,7 @@ kotlin = "2.3.21"
 kover = "0.9.8"
 maven-publish = "0.36.0"
 robolectric = "4.16.1"
-serialization = "1.9.0"
+serialization = "1.11.0"
 turbine = "1.2.1"
 version-catalog-update = "1.0.0"
 
