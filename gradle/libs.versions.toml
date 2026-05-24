@@ -13,7 +13,7 @@ atomicfu = "0.32.1"
 binary-compatibility-validator = "0.18.1"
 coroutines = "1.11.0"
 detekt = "1.23.8"
-dokka = "2.0.0"
+dokka = "2.2.0"
 jdk = "11"
 kotlin = "2.3.21"
 kover = "0.9.8"
@@ -38,6 +38,7 @@ androidx-test-runner = { module = "androidx.test:runner", version.ref = "android
 app-cash-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 com-willowtreeapps-assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
 io-gitlab-arturbosch-detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+org-jetbrains-dokka-android-documentation-plugin = { module = "org.jetbrains.dokka:android-documentation-plugin", version.ref = "dokka" }
 org-jetbrains-kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 org-jetbrains-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 org-jetbrains-kotlinx-atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu" }

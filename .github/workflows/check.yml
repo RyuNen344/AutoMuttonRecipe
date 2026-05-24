@@ -92,7 +92,7 @@ jobs:
       - name: dokka
         shell: bash
         run: |
-          ./gradlew dokkaHtmlMultiModule --no-build-cache --no-configuration-cache
+          ./gradlew dokkaGenerateHtml
 
   test:
     strategy:

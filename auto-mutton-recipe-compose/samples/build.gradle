@@ -35,8 +35,8 @@ androidComponents {
 }
 
 dependencies {
-    implementation project(":auto-mutton-recipe")
-    implementation project(":auto-mutton-recipe-compose")
+    implementation projects.autoMuttonRecipe
+    implementation projects.autoMuttonRecipeCompose
     implementation libs.androidx.compose.runtime.saveable
     implementation libs.androidx.lifecycle.runtime.compose
     implementation libs.androidx.savedstate.compose

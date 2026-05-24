@@ -8,6 +8,7 @@ plugins {
     alias libs.plugins.org.jetbrains.kotlinx.atomicfu
     alias libs.plugins.org.jetbrains.kotlinx.binary.compatibility.validator
     alias libs.plugins.org.jetbrains.kotlinx.kover
+    alias libs.plugins.org.jetbrains.dokka
 }
 
 apply from: layout.settingsDirectory.file("gradle/publish.gradle")
