@@ -99,7 +99,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - task: testDebugUnitTest
+          - task: testAndroidHostTest
             os: ubuntu-latest
           - task: jvmTest
             os: ubuntu-latest

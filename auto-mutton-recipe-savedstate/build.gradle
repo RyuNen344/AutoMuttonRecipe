@@ -75,7 +75,7 @@ kotlin {
             implementation libs.org.jetbrains.kotlinx.coroutine.test
         }
 
-        androidUnitTest.dependencies {
+        androidHostTest.dependencies {
             implementation libs.androidx.test.core
             implementation libs.androidx.test.ext.junit
             implementation libs.androidx.test.rules
