@@ -68,7 +68,7 @@ jobs:
       - name: check api file
         shell: bash
         run: |
-          ./gradlew apiCheck
+          ./gradlew checkKotlinAbi
 
   publish:
     runs-on: ubuntu-latest

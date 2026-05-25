@@ -8,7 +8,6 @@ plugins {
     alias libs.plugins.com.android.kotlin.multiplatform.library
     alias libs.plugins.org.jetbrains.kotlin.multiplatform
     alias libs.plugins.org.jetbrains.kotlin.plugin.serialization
-    alias libs.plugins.org.jetbrains.kotlinx.binary.compatibility.validator
     alias libs.plugins.org.jetbrains.kotlinx.kover
     alias libs.plugins.org.jetbrains.dokka
 }
@@ -17,6 +16,10 @@ apply from: layout.settingsDirectory.file("gradle/publish.gradle")
 
 kotlin {
     explicitApi()
+    abiValidation {
+        enabled = true
+        klib.enabled = true
+    }
 
     // desktop
     jvm("desktop") {
@@ -120,8 +123,4 @@ tasks.withType(Test).configureEach {
     systemProperty("robolectric.logging.enabled", "true")
     systemProperty("robolectric.graphicsMode", "NATIVE")
     testLogging.showStandardStreams = true
-}
-
-apiValidation {
-    klib.enabled = true
 }
