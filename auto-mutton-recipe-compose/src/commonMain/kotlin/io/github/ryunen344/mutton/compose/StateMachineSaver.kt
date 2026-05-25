@@ -41,12 +41,11 @@ public fun <T : StateMachine<S, *, *>, S : State> stateMachineSaver(restore: (va
  * @sample io.github.ryunen344.mutton.compose.samples.StateMachineSaverSample
  */
 @Deprecated(
-    message =
-        " 'rememberStateMachine' with a custom 'key' is no longer supported. It bypasses " +
-            "positional scoping, leading to state bugs and inconsistent behavior (e.g., " +
-            "unintentional state sharing or loss, issues in nested LazyLayouts). Please remove the " +
-            "'key' parameter to use positional scoping for consistent, locally-scoped state. " +
-            "See https://r.android.com/3610053 for details.",
+    message = " 'rememberStateMachine' with a custom 'key' is no longer supported. It bypasses " +
+        "positional scoping, leading to state bugs and inconsistent behavior (e.g., " +
+        "unintentional state sharing or loss, issues in nested LazyLayouts). Please remove the " +
+        "'key' parameter to use positional scoping for consistent, locally-scoped state. " +
+        "See https://r.android.com/3610053 for details.",
 )
 @Composable
 public fun <T : StateMachine<S, *, *>, S : State> rememberStateMachine(

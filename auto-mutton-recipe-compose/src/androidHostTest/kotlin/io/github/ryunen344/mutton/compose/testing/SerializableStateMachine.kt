@@ -40,12 +40,14 @@ sealed class SerializableState : State() {
 
     @Serializable(with = IdleJavaSerializableSerializer::class)
     data class Idle(override val launchedCount: Int) : SerializableState(), java.io.Serializable {
+        @Suppress("UnusedPrivateMember")
         @Throws(java.io.ObjectStreamException::class)
         private fun writeReplace(): Any {
             return Proxy(launchedCount)
         }
 
         class Proxy(val launchedCount: Int) : java.io.Serializable {
+            @Suppress("UnusedPrivateMember")
             @Throws(java.io.ObjectStreamException::class)
             private fun readResolve(): Any {
                 return Idle(launchedCount)
