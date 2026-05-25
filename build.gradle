@@ -1,8 +1,17 @@
 import io.gitlab.arturbosch.detekt.Detekt
 
+// Use latest KGP and KSP
+// https://developer.android.com/build/releases/agp-9-0-0-release-notes#runtime-dependency-on-kotlin-gradle-plugin-upgrade
+buildscript {
+    dependencies {
+        classpath(libs.org.jetbrains.kotlin.gradle.plugin)
+    }
+}
+
 plugins {
     alias libs.plugins.com.android.library apply false
-    alias libs.plugins.org.jetbrains.kotlin.android apply false
+    alias libs.plugins.com.android.lint apply false
+    alias libs.plugins.com.android.kotlin.multiplatform.library apply false
     alias libs.plugins.org.jetbrains.kotlin.multiplatform apply false
     alias libs.plugins.org.jetbrains.kotlin.plugin.compose apply false
     alias libs.plugins.com.vanniktech.maven.publish apply false

@@ -33,7 +33,7 @@ jobs:
       - name: run android lint
         shell: bash
         run: |
-          ./gradlew lintDebug
+          ./gradlew lintAndroidMain lintDebug
       - name: run detekt
         shell: bash
         run: |
@@ -43,9 +43,9 @@ jobs:
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cat auto-mutton-recipe-compose/build/reports/lint-results-debug.sarif | reviewdog -f=sarif -name="compose android lint" -reporter=github-pr-review;
+          cat auto-mutton-recipe-compose/build/reports/lint-results-androidMain.sarif | reviewdog -f=sarif -name="compose android lint" -reporter=github-pr-review;
           cat auto-mutton-recipe-compose/samples/build/reports/lint-results-debug.sarif | reviewdog -f=sarif -name="compose samples android lint" -reporter=github-pr-review;
-          cat auto-mutton-recipe-savedstate/build/reports/lint-results-debug.sarif | reviewdog -f=sarif -name="savedstate android lint" -reporter=github-pr-review;
+          cat auto-mutton-recipe-savedstate/build/reports/lint-results-androidMain.sarif | reviewdog -f=sarif -name="savedstate android lint" -reporter=github-pr-review;
           cat build/reports/detekt/detekt.xml | reviewdog -f=checkstyle -name="detekt" -reporter=github-pr-review;
       - name: run reviewdog suggest
         if: ${{ !cancelled() }}
@@ -99,7 +99,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - task: testDebugUnitTest
+          - task: testAndroidHostTest
             os: ubuntu-latest
           - task: jvmTest
             os: ubuntu-latest
