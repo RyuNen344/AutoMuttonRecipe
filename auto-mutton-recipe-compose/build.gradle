@@ -2,7 +2,10 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 
 plugins {
-    alias libs.plugins.com.android.library
+    // workaround: AGP 9.X multiplatform plugin does not support lint
+    // https://issuetracker.google.com/issues/385271861
+    alias libs.plugins.com.android.lint
+    alias libs.plugins.com.android.kotlin.multiplatform.library
     alias libs.plugins.org.jetbrains.kotlin.multiplatform
     alias libs.plugins.org.jetbrains.kotlin.plugin.compose
     alias libs.plugins.org.jetbrains.kotlin.plugin.serialization
@@ -22,8 +25,28 @@ kotlin {
     }
 
     // android
-    androidTarget {
-        publishLibraryVariants("release")
+    android {
+        namespace = "io.github.ryunen344.mutton.compose"
+        compileSdk {
+            version = release(36)
+        }
+        minSdk {
+            version = release(23)
+        }
+        optimization {
+            consumerKeepRules.publish = true
+            consumerKeepRules.file("consumer-rules.pro")
+        }
+        withDeviceTest {
+            instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        }
+        withHostTest {
+            includeAndroidResources = true
+        }
+        lint {
+            checkReleaseBuilds = false
+            sarifReport = true
+        }
         compilerOptions.jvmTarget = JvmTarget.JVM_11
     }
 
@@ -86,53 +109,19 @@ kotlin {
     }
 }
 
-android {
-    namespace = "io.github.ryunen344.mutton.compose"
-    compileSdk = 36
-    defaultConfig {
-        minSdk = 23
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled = true
-        consumerProguardFile "consumer-rules.pro"
-    }
-    buildTypes {
-        release {
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    buildFeatures {
-        compose = true
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    packaging.resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
-    lint {
-        checkReleaseBuilds = false
-        sarifReport = true
-    }
-    testOptions {
-        unitTests.includeAndroidResources = true
-        unitTests.returnDefaultValues = true
-        unitTests.all { test ->
-            test.systemProperty("robolectric.logging", "stdout")
-            test.systemProperty("robolectric.logging.enabled", "true")
-            test.systemProperty("robolectric.graphicsMode", "NATIVE")
-            test.testLogging.showStandardStreams = true
-        }
-    }
-}
-
 androidComponents {
     beforeVariants(selector().withName("release")) { variantBuilder ->
         variantBuilder.enableAndroidTest = false
         variantBuilder.enableUnitTest = false
         variantBuilder.enableTestFixtures = false
     }
+}
+
+tasks.withType(Test).configureEach {
+    systemProperty("robolectric.logging", "stdout")
+    systemProperty("robolectric.logging.enabled", "true")
+    systemProperty("robolectric.graphicsMode", "NATIVE")
+    testLogging.showStandardStreams = true
 }
 
 apiValidation {

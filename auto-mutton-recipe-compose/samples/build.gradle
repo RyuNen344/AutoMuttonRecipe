@@ -1,17 +1,27 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias libs.plugins.com.android.library
-    alias libs.plugins.org.jetbrains.kotlin.android
     alias libs.plugins.org.jetbrains.kotlin.plugin.compose
 }
 
 kotlin {
     explicitApi()
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_11
+    }
 }
 
 android {
     namespace = "io.github.ryunen344.mutton.compose.samples"
-    compileSdk = 36
-    defaultConfig.minSdk = 23
+    compileSdk {
+        version = release(36)
+    }
+    defaultConfig {
+        minSdk {
+            version = release(23)
+        }
+    }
     buildFeatures {
         compose = true
     }
@@ -19,7 +29,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions.jvmTarget = "11"
     lint {
         checkReleaseBuilds = false
         sarifReport = true
