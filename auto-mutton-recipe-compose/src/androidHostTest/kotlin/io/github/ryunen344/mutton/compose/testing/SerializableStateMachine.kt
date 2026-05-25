@@ -31,15 +31,29 @@ import io.github.ryunen344.mutton.StateMachine
 import kotlinx.serialization.Serializable
 import kotlin.coroutines.CoroutineContext
 
-private class IdleJavaSerializableSerializer : JavaSerializableSerializer<SerializableState.Idle>()
-private class RunningParcelableSerializer : ParcelableSerializer<SerializableState.Running>()
+internal object IdleJavaSerializableSerializer : JavaSerializableSerializer<SerializableState.Idle>()
+internal object RunningParcelableSerializer : ParcelableSerializer<SerializableState.Running>()
 
 @Serializable
 sealed class SerializableState : State() {
     abstract val launchedCount: Int
 
     @Serializable(with = IdleJavaSerializableSerializer::class)
-    data class Idle(override val launchedCount: Int) : SerializableState(), java.io.Serializable
+    data class Idle(override val launchedCount: Int) : SerializableState(), java.io.Serializable {
+        @Suppress("UnusedPrivateMember")
+        @Throws(java.io.ObjectStreamException::class)
+        private fun writeReplace(): Any {
+            return Proxy(launchedCount)
+        }
+
+        class Proxy(val launchedCount: Int) : java.io.Serializable {
+            @Suppress("UnusedPrivateMember")
+            @Throws(java.io.ObjectStreamException::class)
+            private fun readResolve(): Any {
+                return Idle(launchedCount)
+            }
+        }
+    }
 
     @Serializable(with = RunningParcelableSerializer::class)
     data class Running(override val launchedCount: Int) : SerializableState(), Parcelable {
@@ -76,7 +90,7 @@ class SerializableStateMachine(
     context: CoroutineContext,
 ) : StateMachine<SerializableState, SerializableAction, ComposeEffect>(
     initialState = initialState,
-    graph = Graph<SerializableState, SerializableAction, ComposeEffect> {
+    graph = Graph {
         state<SerializableState.Idle> {
             action<SerializableAction.Start> { prev, _ ->
                 transition(SerializableState.Running(launchedCount = prev.launchedCount + 1))
@@ -93,7 +107,7 @@ class SerializableStateMachine(
             }
         }
     },
-    effectHandle = EffectHandle<SerializableState, SerializableAction, ComposeEffect> { _, _, _, _ ->
+    effectHandle = EffectHandle { _, _, _, _ ->
         // noop
     },
     context = context,
