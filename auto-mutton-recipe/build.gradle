@@ -4,7 +4,6 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 plugins {
     alias libs.plugins.org.jetbrains.kotlin.multiplatform
     alias libs.plugins.org.jetbrains.kotlinx.atomicfu
-    alias libs.plugins.org.jetbrains.kotlinx.binary.compatibility.validator
     alias libs.plugins.org.jetbrains.kotlinx.kover
     alias libs.plugins.org.jetbrains.dokka
 }
@@ -13,6 +12,10 @@ apply from: layout.settingsDirectory.file("gradle/publish.gradle")
 
 kotlin {
     explicitApi()
+    abiValidation {
+        enabled = true
+        klib.enabled = true
+    }
 
     // jvm
     jvm {
@@ -105,8 +108,4 @@ kotlin {
 // ref: https://github.com/Kotlin/kotlinx.coroutines/blob/fed40ad1f9942d1b16be872cc555e08f965cf881/kotlinx-coroutines-core/jvm/src/Debug.kt#L34-L45C20
 tasks.withType(Test).configureEach {
     systemProperty("kotlinx.coroutines.stacktrace.recovery", "false")
-}
-
-apiValidation {
-    klib.enabled = true
 }
