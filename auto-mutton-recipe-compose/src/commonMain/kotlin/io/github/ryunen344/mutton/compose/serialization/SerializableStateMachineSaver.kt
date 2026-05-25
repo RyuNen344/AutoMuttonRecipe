@@ -40,7 +40,7 @@ public inline fun <T : StateMachine<S, *, *>, reified S : State> serializableSta
         encodeToSavedState(it.state.value, configuration)
     },
     restore = {
-        restore(decodeFromSavedState<S>(it, configuration))
+        restore(decodeFromSavedState(it, configuration))
     },
 )
 
@@ -49,6 +49,14 @@ public inline fun <T : StateMachine<S, *, *>, reified S : State> serializableSta
  *
  * @sample io.github.ryunen344.mutton.compose.samples.SerializableStateMachineSaverSample
  */
+@Deprecated(
+    message =
+        " 'rememberSerializableStateMachine' with a custom 'key' is no longer supported. It bypasses " +
+            "positional scoping, leading to state bugs and inconsistent behavior (e.g., " +
+            "unintentional state sharing or loss, issues in nested LazyLayouts). Please remove the " +
+            "'key' parameter to use positional scoping for consistent, locally-scoped state. " +
+            "See https://r.android.com/3610053 for details.",
+)
 @Composable
 public inline fun <T : StateMachine<S, *, *>, reified S : State> rememberSerializableStateMachine(
     vararg inputs: Any?,
@@ -61,6 +69,26 @@ public inline fun <T : StateMachine<S, *, *>, reified S : State> rememberSeriali
         inputs = inputs,
         saver = serializableStateMachineSaver<T, S>(configuration, init),
         key = key,
+    ) {
+        init(initialState)
+    }
+}
+
+/**
+ * Remember a [StateMachine] that is remembered across compositions and configuration changes.
+ *
+ * @sample io.github.ryunen344.mutton.compose.samples.SerializableStateMachineSaverSample
+ */
+@Composable
+public inline fun <T : StateMachine<S, *, *>, reified S : State> rememberSerializableStateMachine(
+    vararg inputs: Any?,
+    initialState: S,
+    configuration: SavedStateConfiguration = SavedStateConfiguration.DEFAULT,
+    crossinline init: (state: S) -> T,
+): T {
+    return rememberSaveable(
+        inputs = inputs,
+        saver = serializableStateMachineSaver(configuration, init),
     ) {
         init(initialState)
     }

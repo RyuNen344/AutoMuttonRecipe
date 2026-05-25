@@ -53,10 +53,10 @@ class FallbackHandleTest {
         }
         val stateMachine = SampleStateMachine(
             graph = graph,
-            effectHandle = EffectHandle<SampleState, SampleAction, SampleEffect> { _, _, _, _ ->
+            effectHandle = EffectHandle { _, _, _, _ ->
                 // noop
             },
-            fallbackHandle = FallbackHandle<SampleState, SampleAction, SampleEffect> { state, action, effect, exception ->
+            fallbackHandle = FallbackHandle { state, action, effect, exception ->
                 actualState = state
                 actualAction = action
                 actualEffect = effect
@@ -99,7 +99,7 @@ class FallbackHandleTest {
         }
         val stateMachine = SampleStateMachine(
             graph = graph,
-            effectHandle = EffectHandle<SampleState, SampleAction, SampleEffect> { effect, _, _, _ ->
+            effectHandle = EffectHandle { effect, _, _, _ ->
                 when (effect) {
                     SampleEffect.Started -> throw expectException
                     SampleEffect.Stopped -> {
@@ -107,7 +107,7 @@ class FallbackHandleTest {
                     }
                 }
             },
-            fallbackHandle = FallbackHandle<SampleState, SampleAction, SampleEffect> { state, action, effect, exception ->
+            fallbackHandle = FallbackHandle { state, action, effect, exception ->
                 actualState = state
                 actualAction = action
                 actualEffect = effect

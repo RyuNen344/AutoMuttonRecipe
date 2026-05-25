@@ -28,7 +28,7 @@ import io.github.ryunen344.mutton.StateMachine
 /**
  * A [Saver] for [StateMachine] that saves the current state.
  */
-public fun <T : StateMachine<S, *, *>, S : State> stateMachineSaver(restore: (value: S) -> T): Saver<T, S> = Saver<T, S>(
+public fun <T : StateMachine<S, *, *>, S : State> stateMachineSaver(restore: (value: S) -> T): Saver<T, S> = Saver(
     save = {
         it.state.value
     },
@@ -40,6 +40,14 @@ public fun <T : StateMachine<S, *, *>, S : State> stateMachineSaver(restore: (va
  *
  * @sample io.github.ryunen344.mutton.compose.samples.StateMachineSaverSample
  */
+@Deprecated(
+    message =
+        " 'rememberStateMachine' with a custom 'key' is no longer supported. It bypasses " +
+            "positional scoping, leading to state bugs and inconsistent behavior (e.g., " +
+            "unintentional state sharing or loss, issues in nested LazyLayouts). Please remove the " +
+            "'key' parameter to use positional scoping for consistent, locally-scoped state. " +
+            "See https://r.android.com/3610053 for details.",
+)
 @Composable
 public fun <T : StateMachine<S, *, *>, S : State> rememberStateMachine(
     vararg inputs: Any?,
@@ -49,8 +57,27 @@ public fun <T : StateMachine<S, *, *>, S : State> rememberStateMachine(
 ): T {
     return rememberSaveable(
         inputs = inputs,
-        saver = stateMachineSaver<T, S>(init),
+        saver = stateMachineSaver(init),
         key = key,
+    ) {
+        init(initialState)
+    }
+}
+
+/**
+ * Remember a [StateMachine] that is remembered across compositions and configuration changes.
+ *
+ * @sample io.github.ryunen344.mutton.compose.samples.StateMachineSaverSample
+ */
+@Composable
+public fun <T : StateMachine<S, *, *>, S : State> rememberStateMachine(
+    vararg inputs: Any?,
+    initialState: S,
+    init: (state: S) -> T,
+): T {
+    return rememberSaveable(
+        inputs = inputs,
+        saver = stateMachineSaver(init),
     ) {
         init(initialState)
     }
