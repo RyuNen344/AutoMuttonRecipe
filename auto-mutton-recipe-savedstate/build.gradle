@@ -18,7 +18,6 @@ kotlin {
     explicitApi()
     abiValidation {
         enabled = true
-        klib.enabled = true
     }
 
     // desktop
