@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/java
-      - uses: gradle/actions/dependency-submission@v6.2.0
+      - uses: gradle/actions/dependency-submission@v6.3.0
         with:
           gradle-version: wrapper
           dependency-resolution-task: 'resolveAllDependencies'
