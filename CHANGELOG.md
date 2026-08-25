@@ -1,5 +1,36 @@
 # Changelog
 
+## [1.5.1](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.5.0...1.5.1) (2026-08-25)
+
+
+### Dependency Updates
+
+* **github-actions:** bump actions/cache from 5 to 6 in /.github/actions/konan ([#158](https://github.com/RyuNen344/AutoMuttonRecipe/issues/158)) ([e0a7ff4](https://github.com/RyuNen344/AutoMuttonRecipe/commit/e0a7ff4d23738507bb450197bee1952763260502))
+* **github-actions:** bump actions/checkout from 6 to 7 ([#155](https://github.com/RyuNen344/AutoMuttonRecipe/issues/155)) ([c6367f0](https://github.com/RyuNen344/AutoMuttonRecipe/commit/c6367f003257f0ab05955f6e53bc06c4e62428e2))
+* **github-actions:** bump gradle/actions from 6 to 6.2.0 ([#166](https://github.com/RyuNen344/AutoMuttonRecipe/issues/166)) ([2438e48](https://github.com/RyuNen344/AutoMuttonRecipe/commit/2438e4887f4f732661245b05fdb4312097a70e43))
+* **github-actions:** bump gradle/actions from 6 to 6.2.0 in /.github/actions/gradle ([#165](https://github.com/RyuNen344/AutoMuttonRecipe/issues/165)) ([e523f1a](https://github.com/RyuNen344/AutoMuttonRecipe/commit/e523f1a16f68d8e2665e53d007c595ff01209014))
+* **github-actions:** bump gradle/actions in / ([#169](https://github.com/RyuNen344/AutoMuttonRecipe/issues/169)) ([ec3360f](https://github.com/RyuNen344/AutoMuttonRecipe/commit/ec3360f5f252770e67d485073ad2c3db28b53f46))
+* **gradle:** bump agp from 9.2.1 to 9.3.0 ([#162](https://github.com/RyuNen344/AutoMuttonRecipe/issues/162)) ([ac84351](https://github.com/RyuNen344/AutoMuttonRecipe/commit/ac8435173c925460e0063ff01c2da8894f83976f))
+* **gradle:** bump agp from 9.3.0 to 9.3.1 ([#164](https://github.com/RyuNen344/AutoMuttonRecipe/issues/164)) ([444c3ad](https://github.com/RyuNen344/AutoMuttonRecipe/commit/444c3ad955bd3676496f095f89f54a3496cddc1d))
+* **gradle:** bump agp from 9.3.1 to 9.3.2 ([#172](https://github.com/RyuNen344/AutoMuttonRecipe/issues/172)) ([8acb55a](https://github.com/RyuNen344/AutoMuttonRecipe/commit/8acb55ae5296d0f780233ffb6f1fea745a3ca0f0))
+* **gradle:** bump atomicfu from 0.32.1 to 0.33.0 ([#150](https://github.com/RyuNen344/AutoMuttonRecipe/issues/150)) ([d945557](https://github.com/RyuNen344/AutoMuttonRecipe/commit/d945557fb7a8f3fc7030fefdfa9106ec1e058739))
+* **gradle:** bump com.vanniktech.maven.publish from 0.36.0 to 0.37.0 ([#157](https://github.com/RyuNen344/AutoMuttonRecipe/issues/157)) ([aab5341](https://github.com/RyuNen344/AutoMuttonRecipe/commit/aab5341ecd8b895579a781e60d76299006d26eae))
+* **gradle:** bump gradle-wrapper from 9.5.1 to 9.6.0 ([#156](https://github.com/RyuNen344/AutoMuttonRecipe/issues/156)) ([9b89f5a](https://github.com/RyuNen344/AutoMuttonRecipe/commit/9b89f5ab1fad65a3d849c8b06bfaa76e34162a81))
+* **gradle:** bump gradle-wrapper from 9.6.0 to 9.6.1 ([#159](https://github.com/RyuNen344/AutoMuttonRecipe/issues/159)) ([8ee8071](https://github.com/RyuNen344/AutoMuttonRecipe/commit/8ee807122dd8fb668231d2e7a3634c63cf42aecb))
+* **gradle:** bump gradle-wrapper from 9.6.1 to 9.7.0 ([#170](https://github.com/RyuNen344/AutoMuttonRecipe/issues/170)) ([847dc87](https://github.com/RyuNen344/AutoMuttonRecipe/commit/847dc879d3c1e95aa7a41e6398652ab46ad24160))
+* **gradle:** bump gradle-wrapper from 9.7.0 to 9.7.1 ([#171](https://github.com/RyuNen344/AutoMuttonRecipe/issues/171)) ([6fe2983](https://github.com/RyuNen344/AutoMuttonRecipe/commit/6fe29834700e6c06b74f9099f65447a1481ab398))
+* **gradle:** bump kotlin from 2.3.21 to 2.4.0 ([#152](https://github.com/RyuNen344/AutoMuttonRecipe/issues/152)) ([e99d2e1](https://github.com/RyuNen344/AutoMuttonRecipe/commit/e99d2e1fbcee9e87d4a527d7bce597dfdd24cd5a))
+* **gradle:** bump kotlin from 2.4.0 to 2.4.10 ([#161](https://github.com/RyuNen344/AutoMuttonRecipe/issues/161)) ([d9af484](https://github.com/RyuNen344/AutoMuttonRecipe/commit/d9af4844e09f88ee43d9d129c3e1d8fca7a651f3))
+* **gradle:** bump nl.littlerobots.version-catalog-update from 1.1.0 to 1.1.1 ([#167](https://github.com/RyuNen344/AutoMuttonRecipe/issues/167)) ([d1d3244](https://github.com/RyuNen344/AutoMuttonRecipe/commit/d1d3244c4a74ef2393d97cd1f16573b81fa93b98))
+* **gradle:** bump org.jetbrains.kotlinx.kover from 0.9.8 to 0.9.9 ([#163](https://github.com/RyuNen344/AutoMuttonRecipe/issues/163)) ([4320cdc](https://github.com/RyuNen344/AutoMuttonRecipe/commit/4320cdc7101ac12c6dfa252829bac33ac120264f))
+* **gradle:** bump the compose group across 1 directory with 4 updates ([#153](https://github.com/RyuNen344/AutoMuttonRecipe/issues/153)) ([679ea37](https://github.com/RyuNen344/AutoMuttonRecipe/commit/679ea377845e3b19c40e541bb207a201f238d84a))
+* **gradle:** bump the compose group across 1 directory with 4 updates ([#160](https://github.com/RyuNen344/AutoMuttonRecipe/issues/160)) ([8956150](https://github.com/RyuNen344/AutoMuttonRecipe/commit/89561504e155ec7109ac776f65753ab7d7f30f90))
+
+
+### Chores
+
+* update gradlew ([#173](https://github.com/RyuNen344/AutoMuttonRecipe/issues/173)) ([9af13f2](https://github.com/RyuNen344/AutoMuttonRecipe/commit/9af13f254c429adea88c2b94e1df370f0e35f6f7))
+
 ## [1.5.0](https://github.com/RyuNen344/AutoMuttonRecipe/compare/1.4.0...1.5.0) (2026-05-25)
 
 
